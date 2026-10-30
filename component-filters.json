@@ -15,7 +15,9 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "promo-stack",
+      "video-testimonials"
     ]
   },
   {
@@ -37,6 +39,18 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "promo-stack",
+    "components": [
+      "promo-stack-card"
+    ]
+  },
+  {
+    "id": "video-testimonials",
+    "components": [
+      "video-testimonials-item"
     ]
   }
 ]

@@ -1,0 +1,109 @@
+{
+  "definitions": [
+    {
+      "title": "Promo Stack",
+      "id": "promo-stack",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Promo Stack",
+              "model": "promo-stack",
+              "filter": "promo-stack"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Promo Card",
+      "id": "promo-stack-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Promo Card",
+              "model": "promo-stack-card",
+              "tag": "Term plan",
+              "theme": "red"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "promo-stack",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Heading and description",
+          "description": "Heading (bold words are shown heavier) followed by a description",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "Button link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "linkText",
+          "label": "Button label",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "promo-stack-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tag",
+          "label": "Tag",
+          "description": "Small label in the top right corner, e.g. Term plan",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Offer",
+          "description": "Heading (bold words are shown heavier) and a short line below it",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "theme",
+          "label": "Colour",
+          "value": "red",
+          "options": [
+            { "name": "Red", "value": "red" },
+            { "name": "Navy", "value": "navy" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "Card link (optional)"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "promo-stack",
+      "components": ["promo-stack-card"]
+    }
+  ]
+}

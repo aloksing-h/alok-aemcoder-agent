@@ -1,0 +1,321 @@
+.promo-stack {
+  /* colors */
+  --promo-color-heading: #181d27;
+  --promo-color-body: #535862;
+  --promo-color-muted: #717680;
+  --promo-color-line: #d5d7da;
+  --promo-color-white: #fff;
+  --promo-color-red: #e1122d;
+  --promo-color-focus: #2e90fa;
+  --promo-gradient-red: linear-gradient(-36deg, #fb2c47 0%, #fa1432 36%, #7f2224 100%);
+  --promo-gradient-navy: linear-gradient(-36deg, #1e4679 0%, #1e4679 36%, #0c1c30 100%);
+  --promo-border-red: #feb9c2;
+  --promo-border-navy: #bcc8d7;
+
+  /* typography */
+  --promo-font-weight-light: 300;
+  --promo-font-weight-medium: 500;
+  --promo-font-weight-semibold: 600;
+  --promo-font-weight-bold: 700;
+  --promo-font-weight-extrabold: 800;
+  --promo-heading-size: 28px;
+  --promo-heading-line: 28px;
+  --promo-body-size: 14px;
+  --promo-body-line: 18px;
+  --promo-cta-size: 14px;
+  --promo-cta-line: 16px;
+  --promo-offer-size: 32px;
+  --promo-offer-line: 36px;
+  --promo-offer-sub-size: 24px;
+  --promo-offer-sub-line: 28px;
+  --promo-tag-size: 12px;
+  --promo-tag-line: 14px;
+  --promo-tag-tracking: 0.15em;
+  --promo-page-size: 14px;
+  --promo-page-line: 18px;
+
+  /* spacing and sizes */
+  --promo-space-2xs: 4px;
+  --promo-space-xs: 8px;
+  --promo-space-tag: 10px;
+  --promo-space-s: 12px;
+  --promo-space-m: 20px;
+  --promo-space-l: 24px;
+  --promo-space-xl: 32px;
+  --promo-space-2xl: 48px;
+  --promo-radius: 8px;
+  --promo-radius-tag: 4px;
+  --promo-radius-pill: 999px;
+  --promo-cta-height: 38px;
+  --promo-cta-icon: 30px;
+  --promo-card-width: 280px;
+  --promo-card-height: 260px;
+  --promo-peek: 10px;
+  --promo-scale-1: 0.871;
+  --promo-scale-2: 0.775;
+  --promo-line-width: 131px;
+  --promo-content-width: 447px;
+  --promo-transition: 0.4s ease;
+  --promo-container: 1100px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--promo-space-xl);
+  max-width: var(--promo-container);
+  margin-inline: auto;
+}
+
+/* left content */
+.promo-stack .promo-stack-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: var(--promo-content-width);
+}
+
+.promo-stack .promo-stack-content :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: var(--promo-color-heading);
+  font-size: var(--promo-heading-size);
+  font-weight: var(--promo-font-weight-light);
+  line-height: var(--promo-heading-line);
+}
+
+.promo-stack .promo-stack-content :is(h1, h2, h3, h4, h5, h6) strong {
+  font-weight: var(--promo-font-weight-bold);
+}
+
+.promo-stack .promo-stack-content p {
+  margin: var(--promo-space-xs) 0 0;
+  color: var(--promo-color-body);
+  font-size: var(--promo-body-size);
+  font-weight: var(--promo-font-weight-medium);
+  line-height: var(--promo-body-line);
+}
+
+.promo-stack .promo-stack-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--promo-space-s);
+  min-height: var(--promo-cta-height);
+  margin-top: var(--promo-space-m);
+  padding: var(--promo-space-2xs) var(--promo-space-2xs) var(--promo-space-2xs) var(--promo-space-m);
+  box-sizing: border-box;
+  border-radius: var(--promo-radius-pill);
+  background-color: var(--promo-color-red);
+  color: var(--promo-color-white);
+  font-size: var(--promo-cta-size);
+  font-weight: var(--promo-font-weight-extrabold);
+  line-height: var(--promo-cta-line);
+  text-decoration: none;
+}
+
+.promo-stack .promo-stack-cta:hover {
+  color: var(--promo-color-white);
+  text-decoration: none;
+}
+
+.promo-stack .promo-stack-cta-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--promo-cta-icon);
+  height: var(--promo-cta-icon);
+  border-radius: var(--promo-radius-pill);
+  background: var(--promo-color-white);
+}
+
+.promo-stack .promo-stack-cta-icon::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--promo-color-heading);
+  mask: url('../../icons/arrow-right.svg') center / 60% no-repeat;
+}
+
+.promo-stack :focus-visible {
+  outline: 2px solid var(--promo-color-focus);
+  outline-offset: 2px;
+}
+
+/* card stack */
+.promo-stack .promo-stack-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--promo-space-l);
+}
+
+.promo-stack .promo-stack-deck {
+  position: relative;
+  width: calc(var(--promo-card-width) + 2 * var(--promo-peek));
+  height: var(--promo-card-height);
+  touch-action: pan-y;
+}
+
+.promo-stack .promo-stack-card {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: var(--promo-card-width);
+  height: var(--promo-card-height);
+  padding: 0 var(--promo-space-l) var(--promo-space-2xl);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid var(--promo-border-red);
+  border-radius: var(--promo-radius);
+  background: var(--promo-gradient-red);
+  color: var(--promo-color-white);
+  transform-origin: right center;
+  transition: transform var(--promo-transition), opacity var(--promo-transition);
+}
+
+.promo-stack .promo-stack-card-navy {
+  border-color: var(--promo-border-navy);
+  background: var(--promo-gradient-navy);
+}
+
+.promo-stack .promo-stack-card[data-position='0'] {
+  z-index: 3;
+}
+
+.promo-stack .promo-stack-card[data-position='1'] {
+  z-index: 2;
+  transform: translateX(var(--promo-peek)) scale(var(--promo-scale-1));
+  cursor: pointer;
+}
+
+.promo-stack .promo-stack-card[data-position='2'] {
+  z-index: 1;
+  transform: translateX(calc(2 * var(--promo-peek))) scale(var(--promo-scale-2));
+  cursor: pointer;
+}
+
+.promo-stack .promo-stack-card[data-position='hidden'] {
+  z-index: 0;
+  opacity: 0;
+  transform: translateX(calc(2 * var(--promo-peek))) scale(var(--promo-scale-2));
+}
+
+.promo-stack .promo-stack-tag {
+  position: absolute;
+  inset-block-start: var(--promo-space-l);
+  inset-inline-end: var(--promo-space-l);
+  margin: 0;
+  padding: var(--promo-space-2xs) var(--promo-space-tag);
+  border: 1px solid var(--promo-color-white);
+  border-radius: var(--promo-radius-tag);
+  font-size: var(--promo-tag-size);
+  font-weight: var(--promo-font-weight-medium);
+  line-height: var(--promo-tag-line);
+  letter-spacing: var(--promo-tag-tracking);
+  text-transform: uppercase;
+}
+
+.promo-stack .promo-stack-offer :is(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+  color: inherit;
+}
+
+.promo-stack .promo-stack-offer > :first-child {
+  font-size: var(--promo-offer-size);
+  font-weight: var(--promo-font-weight-light);
+  line-height: var(--promo-offer-line);
+}
+
+.promo-stack .promo-stack-offer > :first-child strong {
+  font-weight: var(--promo-font-weight-bold);
+}
+
+.promo-stack .promo-stack-offer > :not(:first-child) {
+  margin-top: var(--promo-space-xs);
+  font-size: var(--promo-offer-sub-size);
+  font-weight: var(--promo-font-weight-semibold);
+  line-height: var(--promo-offer-sub-line);
+}
+
+/* the whole card is clickable when it has a link */
+.promo-stack .promo-stack-card-link {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.promo-stack .promo-stack-card-link:focus-visible {
+  outline-color: var(--promo-color-white);
+  outline-offset: -4px;
+}
+
+/* a card behind the front one comes forward on click instead of following its link */
+.promo-stack .promo-stack-card:not([data-position='0']) .promo-stack-card-link {
+  pointer-events: none;
+}
+
+/* numbered pagination with a line after the active number */
+.promo-stack .promo-stack-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--promo-space-xs);
+}
+
+.promo-stack .promo-stack-page {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--promo-color-muted);
+  font-size: var(--promo-page-size);
+  font-weight: var(--promo-font-weight-semibold);
+  line-height: var(--promo-page-line);
+  cursor: pointer;
+}
+
+.promo-stack .promo-stack-page:not([aria-current]) {
+  opacity: 0.5;
+}
+
+.promo-stack .promo-stack-page[aria-current] {
+  color: var(--promo-color-red);
+}
+
+.promo-stack .promo-stack-line {
+  width: var(--promo-line-width);
+  border-top: 1px solid var(--promo-color-line);
+}
+
+@media (width >= 900px) {
+  .promo-stack {
+    --promo-heading-size: 48px;
+    --promo-heading-line: 48px;
+    --promo-body-size: 16px;
+    --promo-body-line: 20px;
+    --promo-cta-size: 16px;
+    --promo-cta-line: 18px;
+    --promo-cta-height: 40px;
+    --promo-cta-icon: 32px;
+    --promo-offer-size: 40px;
+    --promo-offer-line: 48px;
+    --promo-card-width: 360px;
+    --promo-card-height: 332px;
+    --promo-peek: 16px;
+    --promo-scale-1: 0.889;
+    --promo-scale-2: 0.839;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .promo-stack .promo-stack-carousel {
+    gap: var(--promo-space-xl);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-stack .promo-stack-card {
+    transition: none;
+  }
+}

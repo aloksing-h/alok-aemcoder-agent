@@ -214,5 +214,130 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "promo-stack",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Heading and description",
+        "description": "Heading (bold words are shown heavier) followed by a description",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Button link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Button label",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "promo-stack-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "description": "Small label in the top right corner, e.g. Term plan",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Offer",
+        "description": "Heading (bold words are shown heavier) and a short line below it",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "theme",
+        "label": "Colour",
+        "value": "red",
+        "options": [
+          {
+            "name": "Red",
+            "value": "red"
+          },
+          {
+            "name": "Navy",
+            "value": "navy"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Card link (optional)"
+      }
+    ]
+  },
+  {
+    "id": "video-testimonials",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Heading and description",
+        "description": "Heading (bold words are shown heavier) followed by a description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "video-testimonials-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Thumbnail",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Thumbnail alt text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageMimeType",
+        "label": "Thumbnail MIME type",
+        "description": "Dynamic Media asset MIME type, e.g. image/jpeg",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "video",
+        "label": "Video",
+        "description": "Video from AEM Assets, or a YouTube / Vimeo URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "videoTitle",
+        "label": "Video title",
+        "description": "Accessible name of the video, e.g. Rahul on choosing a term plan",
+        "value": ""
+      }
+    ]
   }
 ]
