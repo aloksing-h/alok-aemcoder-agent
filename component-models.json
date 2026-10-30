@@ -136,8 +136,172 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Blog content",
+            "value": "blog-content"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "summary",
+        "value": "",
+        "label": "Summary"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "author-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Photo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Photo alt text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageMimeType",
+        "label": "Photo MIME type",
+        "description": "Dynamic Media asset MIME type, e.g. image/jpeg",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author_role",
+        "label": "Role",
+        "description": "e.g. Written by, Reviewed by",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author_name",
+        "label": "Name",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Profile link (e.g. LinkedIn)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkTitle",
+        "label": "Profile link accessible name",
+        "description": "e.g. Amit Raje on LinkedIn",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "bio",
+        "label": "Bio",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "blog-media",
+    "fields": [
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "classes",
+        "label": "Media type",
+        "value": "video",
+        "options": [
+          {
+            "name": "Image only",
+            "value": "image"
+          },
+          {
+            "name": "Video (AEM Assets)",
+            "value": "video"
+          },
+          {
+            "name": "Audio / podcast (AEM Assets)",
+            "value": "audio"
+          },
+          {
+            "name": "YouTube",
+            "value": "youtube"
+          },
+          {
+            "name": "Vimeo",
+            "value": "vimeo"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Thumbnail / poster image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Thumbnail alt text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageMimeType",
+        "label": "Thumbnail MIME type",
+        "description": "Dynamic Media asset MIME type, e.g. image/jpeg",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "media",
+        "label": "Media source",
+        "description": "Video or audio asset from AEM Assets, or a YouTube / Vimeo URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "mediaTitle",
+        "label": "Media title",
+        "description": "Accessible name of the player, e.g. Insurance vs reinsurance explained",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "captions",
+        "label": "Captions (WebVTT, AEM video only)",
+        "multi": false
       }
     ]
   },
@@ -157,6 +321,26 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "category-links",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "links",
+        "label": "Links",
+        "description": "A bulleted list of links",
+        "value": ""
       }
     ]
   },
@@ -212,6 +396,335 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "lead-form",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "submit_label",
+        "label": "Submit button label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "submit_action",
+        "label": "Submit endpoint URL",
+        "description": "The form data is sent as JSON (POST) to this URL",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "success",
+        "label": "Success message",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "failure",
+        "label": "Error message",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "lead-form-field",
+    "fields": [
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "type",
+        "label": "Field type",
+        "value": "text",
+        "options": [
+          {
+            "name": "Text",
+            "value": "text"
+          },
+          {
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "Phone number",
+            "value": "tel"
+          },
+          {
+            "name": "Date",
+            "value": "date"
+          },
+          {
+            "name": "Dropdown",
+            "value": "select"
+          },
+          {
+            "name": "Radio buttons",
+            "value": "radio"
+          },
+          {
+            "name": "Yes / No toggle",
+            "value": "toggle"
+          },
+          {
+            "name": "Checkbox (consent)",
+            "value": "checkbox"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "description": "Shown as placeholder for text fields, and as visible label for choices",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "options",
+        "label": "Options",
+        "description": "Comma separated, for dropdowns, radio buttons and the toggle (e.g. Yes, No)",
+        "value": ""
+      },
+      {
+        "component": "multiselect",
+        "valueType": "string",
+        "name": "settings",
+        "label": "Settings",
+        "options": [
+          {
+            "name": "Required",
+            "value": "required"
+          },
+          {
+            "name": "Half width (desktop)",
+            "value": "half"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prev-next",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prev_label",
+        "label": "Previous label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "prev_link",
+        "label": "Previous article"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "prev_linkText",
+        "label": "Previous article title",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "next_label",
+        "label": "Next label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "next_link",
+        "label": "Next article"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "next_linkText",
+        "label": "Next article title",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "table-of-contents",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "items",
+        "value": "",
+        "label": "Entries",
+        "description": "Optional list of links to headings on this page (e.g. #a-simple-analogy). Leave empty to list every heading 2 of this section automatically."
+      }
+    ]
+  },
+  {
+    "id": "table",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Border",
+            "children": [
+              {
+                "name": "Striped",
+                "value": "striped"
+              },
+              {
+                "name": "Bordered",
+                "value": "bordered"
+              }
+            ]
+          },
+          {
+            "name": "Header",
+            "children": [
+              {
+                "name": "No Header",
+                "value": "no-header"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "filter",
+        "label": "Columns",
+        "valueType": "string",
+        "value": "table-2-columns",
+        "options": [
+          {
+            "name": "1 Column",
+            "value": "table"
+          },
+          {
+            "name": "2 Columns",
+            "value": "table-2-columns"
+          },
+          {
+            "name": "3 Columns",
+            "value": "table-3-columns"
+          },
+          {
+            "name": "4 Columns",
+            "value": "table-4-columns"
+          },
+          {
+            "name": "5 Columns",
+            "value": "table-5-columns"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      }
+    ]
+  },
+  {
+    "id": "table-col-2",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      }
+    ]
+  },
+  {
+    "id": "table-col-3",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      }
+    ]
+  },
+  {
+    "id": "table-col-4",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4text",
+        "label": "Column4"
       }
     ]
   },

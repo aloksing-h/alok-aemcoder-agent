@@ -33,6 +33,10 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Blog content",
+              "value": "blog-content"
             }
           ]
         }
@@ -52,7 +56,15 @@
         "columns",
         "fragment",
         "promo-stack",
-        "video-testimonials"
+        "video-testimonials",
+        "blog-media",
+        "table-of-contents",
+        "table",
+        "accordion",
+        "author-card",
+        "prev-next",
+        "lead-form",
+        "category-links"
       ]
     }
   ]

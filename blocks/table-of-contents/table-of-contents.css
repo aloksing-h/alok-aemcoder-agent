@@ -1,0 +1,116 @@
+main > .section.blog-content .table-of-contents {
+  overflow: hidden;
+  border-radius: var(--blog-radius-s);
+  background-color: var(--blog-color-surface);
+  box-shadow: var(--blog-shadow-card);
+}
+
+main > .section.blog-content .table-of-contents .toc-icon {
+  --blog-icon: url('../../icons/notepad.svg');
+}
+
+/* mobile: the heading is a disclosure button */
+main > .section.blog-content .table-of-contents .toc-heading > .toc-heading-text {
+  display: none;
+}
+
+main > .section.blog-content .table-of-contents .toc-toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--blog-space-m);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+main > .section.blog-content .table-of-contents .toc-chevron {
+  --blog-icon: url('../../icons/chevron-down.svg');
+
+  width: var(--blog-size-icon-l);
+  height: var(--blog-size-icon-l);
+}
+
+main > .section.blog-content .table-of-contents.toc-open .toc-chevron {
+  transform: rotate(180deg);
+}
+
+main > .section.blog-content .table-of-contents .toc-list {
+  display: none;
+  margin: 0;
+  padding: 0 var(--blog-space-m);
+  list-style: none;
+}
+
+main > .section.blog-content .table-of-contents.toc-open .toc-list {
+  display: block;
+}
+
+main > .section.blog-content .table-of-contents .toc-list li + li {
+  border-top: 1px solid var(--blog-color-border-subtle);
+}
+
+main > .section.blog-content .table-of-contents .toc-list a {
+  display: flex;
+  align-items: center;
+  gap: var(--blog-space-m);
+  min-height: var(--blog-size-badge);
+  padding: var(--blog-space-l) var(--blog-space-m);
+  border-radius: var(--blog-radius-s);
+  color: var(--blog-color-text-strong);
+  font-size: var(--blog-font-size-ui);
+  font-weight: var(--blog-font-weight-medium);
+  line-height: var(--blog-line-height-ui);
+  text-decoration: none;
+}
+
+main > .section.blog-content .table-of-contents .toc-list a:hover .toc-text {
+  text-decoration: underline;
+}
+
+main > .section.blog-content .table-of-contents .toc-number {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--blog-size-badge);
+  height: var(--blog-size-badge);
+  border-radius: var(--blog-radius-pill);
+  background-color: var(--blog-color-chip);
+  color: var(--blog-color-navy);
+  font-size: var(--blog-font-size-xs);
+  font-weight: var(--blog-font-weight-semibold);
+  line-height: var(--blog-line-height-xs);
+}
+
+main > .section.blog-content .table-of-contents .toc-list a[aria-current] {
+  background-color: var(--blog-color-surface-blue);
+  box-shadow: 0 0 0 1px var(--blog-color-border-subtle);
+}
+
+main > .section.blog-content .table-of-contents .toc-list a[aria-current] .toc-number {
+  background-color: var(--blog-color-active);
+  color: var(--blog-color-surface);
+}
+
+/* desktop: the list is always visible */
+@media (width >= 900px) {
+  main > .section.blog-content .table-of-contents .toc-heading > .toc-heading-text {
+    display: inline;
+  }
+
+  main > .section.blog-content .table-of-contents .toc-toggle {
+    display: none;
+  }
+
+  main > .section.blog-content .table-of-contents .toc-list {
+    display: block;
+  }
+}
