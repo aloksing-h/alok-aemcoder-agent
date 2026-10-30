@@ -1,0 +1,73 @@
+main > .section.blog-content .prev-next .prev-next-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--blog-space-s);
+  padding-top: var(--blog-space-m);
+  border-top: 1px solid var(--blog-color-border-subtle);
+}
+
+main > .section.blog-content .prev-next .prev-next-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--blog-space-s);
+  max-width: 50%;
+  padding-block: var(--blog-space-s);
+  color: var(--blog-color-body);
+  text-decoration: none;
+}
+
+main > .section.blog-content .prev-next .prev-next-next {
+  align-items: flex-end;
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+main > .section.blog-content .prev-next .prev-next-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--blog-space-s);
+  color: var(--blog-color-heading);
+  font-size: var(--blog-font-size-ui);
+  font-weight: var(--blog-font-weight-semibold);
+  line-height: var(--blog-line-height-ui);
+}
+
+main > .section.blog-content .prev-next .prev-next-arrow {
+  --blog-icon: url('../../icons/arrow-left.svg');
+
+  color: var(--blog-color-placeholder);
+}
+
+main > .section.blog-content .prev-next .prev-next-next .prev-next-label {
+  flex-direction: row-reverse;
+}
+
+main > .section.blog-content .prev-next .prev-next-next .prev-next-arrow {
+  --blog-icon: url('../../icons/arrow-right.svg');
+}
+
+main > .section.blog-content .prev-next .prev-next-title {
+  padding-inline: calc(var(--blog-size-icon) + var(--blog-space-s));
+  font-size: var(--blog-font-size-body);
+  line-height: var(--blog-line-height-body);
+}
+
+main > .section.blog-content .prev-next .prev-next-link:hover .prev-next-title {
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  main > .section.blog-content .prev-next .prev-next-link {
+    max-width: var(--blog-prev-next-width);
+  }
+
+  main > .section.blog-content .prev-next .prev-next-label {
+    font-size: var(--blog-font-size-panel-title);
+    line-height: var(--blog-line-height-panel-title);
+  }
+
+  main > .section.blog-content .prev-next .prev-next-title {
+    font-size: var(--blog-font-size-ui);
+    line-height: var(--blog-line-height-ui);
+  }
+}

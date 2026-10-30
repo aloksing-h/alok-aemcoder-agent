@@ -1,0 +1,43 @@
+{
+  "definitions": [
+    {
+      "title": "Table Of Contents",
+      "id": "table-of-contents",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Table Of Contents",
+              "model": "table-of-contents",
+              "title": "Table of contents"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "table-of-contents",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "value": "",
+          "label": "Title"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "items",
+          "value": "",
+          "label": "Entries",
+          "description": "Optional list of links to headings on this page (e.g. #a-simple-analogy). Leave empty to list every heading 2 of this section automatically."
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

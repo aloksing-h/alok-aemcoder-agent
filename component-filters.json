@@ -15,7 +15,21 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "blog-media",
+      "table-of-contents",
+      "table",
+      "accordion",
+      "author-card",
+      "prev-next",
+      "lead-form",
+      "category-links"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
     ]
   },
   {
@@ -37,6 +51,36 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "lead-form",
+    "components": [
+      "lead-form-field"
+    ]
+  },
+  {
+    "id": "table",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-2-columns",
+    "components": [
+      "table-col-2"
+    ]
+  },
+  {
+    "id": "table-3-columns",
+    "components": [
+      "table-col-3"
+    ]
+  },
+  {
+    "id": "table-4-columns",
+    "components": [
+      "table-col-4"
     ]
   }
 ]

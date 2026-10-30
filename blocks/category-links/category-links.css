@@ -1,0 +1,43 @@
+main > .section.blog-content .category-links {
+  overflow: hidden;
+  border-radius: var(--blog-radius-s);
+  background-color: var(--blog-color-surface);
+  box-shadow: var(--blog-shadow-card);
+}
+
+main > .section.blog-content .category-links .category-links-icon {
+  --blog-icon: url('../../icons/compass.svg');
+}
+
+main > .section.blog-content .category-links .category-links-list {
+  margin: 0;
+  padding: 0 var(--blog-space-m);
+  list-style: none;
+}
+
+main > .section.blog-content .category-links .category-links-list li + li {
+  border-top: 1px solid var(--blog-color-border-subtle);
+}
+
+main > .section.blog-content .category-links .category-links-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--blog-space-m);
+  padding: var(--blog-space-l) var(--blog-space-s);
+  color: var(--blog-color-text-strong);
+  font-size: var(--blog-font-size-ui);
+  font-weight: var(--blog-font-weight-medium);
+  line-height: var(--blog-line-height-ui);
+  text-decoration: none;
+}
+
+main > .section.blog-content .category-links .category-links-link:hover span:first-child {
+  text-decoration: underline;
+}
+
+main > .section.blog-content .category-links .category-links-chevron {
+  --blog-icon: url('../../icons/chevron-right.svg');
+
+  color: var(--blog-color-placeholder);
+}

@@ -1,0 +1,190 @@
+main > .section.blog-content .blog-media {
+  --blog-wave-bar: 3px;
+  --blog-wave-gap: 2px;
+  --blog-wave-played: var(--blog-color-red-bright);
+  --blog-wave-pending: var(--blog-color-placeholder);
+}
+
+/* the frame keeps the same size for thumbnail, player and error state */
+main > .section.blog-content .blog-media .blog-media-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: var(--blog-ratio-media);
+  overflow: hidden;
+  border-radius: var(--blog-radius-s);
+  background-color: var(--blog-color-surface-media);
+}
+
+main > .section.blog-content .blog-media .blog-media-frame picture {
+  position: absolute;
+  inset: 0;
+}
+
+main > .section.blog-content .blog-media .blog-media-frame picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+main > .section.blog-content .blog-media:not([data-media-type='image']) .blog-media-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--blog-color-overlay);
+  pointer-events: none;
+}
+
+main > .section.blog-content .blog-media .blog-media-frame.is-playing::after {
+  content: none;
+}
+
+main > .section.blog-content .blog-media .blog-media-play,
+main > .section.blog-content .blog-media .blog-media-toggle {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--blog-size-play);
+  height: var(--blog-size-play);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--blog-radius-pill);
+  background: var(--blog-gradient-play);
+  color: var(--blog-color-surface);
+  cursor: pointer;
+}
+
+main > .section.blog-content .blog-media .blog-media-play:focus-visible,
+main > .section.blog-content .blog-media .blog-media-toggle:focus-visible {
+  outline-color: var(--blog-color-surface);
+  box-shadow: 0 0 0 4px var(--blog-color-focus);
+}
+
+main > .section.blog-content .blog-media .blog-media-play-icon,
+main > .section.blog-content .blog-media .blog-media-toggle-icon {
+  --blog-icon: url('../../icons/play.svg');
+
+  width: 50%;
+  height: 50%;
+}
+
+main > .section.blog-content .blog-media .is-playing .blog-media-toggle-icon {
+  --blog-icon: url('../../icons/pause.svg');
+}
+
+main > .section.blog-content .blog-media .blog-media-player {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: var(--blog-color-heading);
+}
+
+/* audio player with waveform */
+main > .section.blog-content .blog-media .blog-media-audio {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--blog-space-m);
+  padding: var(--blog-space-l);
+  background-color: var(--blog-color-surface-media);
+  color: var(--blog-color-heading);
+}
+
+main > .section.blog-content .blog-media .blog-media-wave {
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  margin-block: var(--blog-space-3xl);
+  border-radius: var(--blog-radius-s);
+  cursor: pointer;
+  touch-action: none;
+}
+
+main > .section.blog-content .blog-media .blog-media-wave canvas {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+main > .section.blog-content .blog-media .has-waveform .blog-media-wave canvas {
+  display: block;
+}
+
+/* plain progress bar until (or if) the waveform is not available */
+main > .section.blog-content .blog-media .blog-media-progress {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  height: var(--blog-space-2xs);
+  border-radius: var(--blog-radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--blog-wave-played) calc(var(--blog-wave-progress, 0) * 100%),
+    var(--blog-wave-pending) 0
+  );
+  transform: translateY(-50%);
+}
+
+main > .section.blog-content .blog-media .has-waveform .blog-media-progress {
+  display: none;
+}
+
+main > .section.blog-content .blog-media .blog-media-time {
+  flex-shrink: 0;
+  font-size: var(--blog-font-size-xs);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--blog-font-weight-semibold);
+  line-height: var(--blog-line-height-xs);
+}
+
+main > .section.blog-content .blog-media .blog-media-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+main > .section.blog-content .blog-media .blog-media-error {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: var(--blog-space-l);
+  color: var(--blog-color-heading);
+  text-align: center;
+}
+
+main > .section.blog-content .blog-media .blog-media-error a {
+  color: var(--blog-color-navy);
+  text-decoration: underline;
+}
+
+@media (width >= 900px) {
+  main > .section.blog-content .blog-media .blog-media-audio {
+    gap: var(--blog-space-2xl);
+    padding: var(--blog-space-3xl);
+  }
+
+  main > .section.blog-content .blog-media .blog-media-time {
+    font-size: var(--blog-font-size-ui);
+    line-height: var(--blog-line-height-ui);
+  }
+}
+
+@media (width >= 900px) {
+  main > .section.blog-content .blog-media-wrapper + .default-content-wrapper {
+    margin-top: var(--blog-space-2xl);
+  }
+}
