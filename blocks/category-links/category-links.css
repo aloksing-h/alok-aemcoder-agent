@@ -9,6 +9,24 @@ main > .section.blog-content .category-links .category-links-icon {
   --blog-icon: url('../../icons/compass.svg');
 }
 
+/* authored icons are shown as uploaded, in the size of the default icon */
+main > .section.blog-content .category-links .category-links-custom-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--blog-size-icon);
+  height: var(--blog-size-icon);
+}
+
+main > .section.blog-content .category-links .category-links-custom-icon picture {
+  display: contents;
+}
+
+main > .section.blog-content .category-links .category-links-custom-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 main > .section.blog-content .category-links .category-links-list {
   margin: 0;
   padding: 0 var(--blog-space-m);
@@ -32,7 +50,7 @@ main > .section.blog-content .category-links .category-links-link {
   text-decoration: none;
 }
 
-main > .section.blog-content .category-links .category-links-link:hover span:first-child {
+main > .section.blog-content .category-links .category-links-link:hover .category-links-text {
   text-decoration: underline;
 }
 
@@ -40,4 +58,97 @@ main > .section.blog-content .category-links .category-links-chevron {
   --blog-icon: url('../../icons/chevron-right.svg');
 
   color: var(--blog-color-placeholder);
+}
+
+/* table of contents variation */
+main > .section.blog-content .category-links.table-content .category-links-icon {
+  --blog-icon: url('../../icons/notepad.svg');
+}
+
+/* mobile: the heading is a disclosure button */
+main > .section.blog-content .category-links.table-content .category-links-heading > .category-links-heading-text {
+  display: none;
+}
+
+main > .section.blog-content .category-links.table-content .category-links-toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--blog-space-m);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+main > .section.blog-content .category-links.table-content .category-links-toggle-icon {
+  --blog-icon: url('../../icons/chevron-down.svg');
+
+  width: var(--blog-size-icon-l);
+  height: var(--blog-size-icon-l);
+}
+
+main > .section.blog-content .category-links.table-content.category-links-open .category-links-toggle-icon {
+  transform: rotate(180deg);
+}
+
+main > .section.blog-content .category-links.table-content .category-links-list {
+  display: none;
+}
+
+main > .section.blog-content .category-links.table-content.category-links-open .category-links-list {
+  display: block;
+}
+
+main > .section.blog-content .category-links.table-content .category-links-link {
+  justify-content: flex-start;
+  min-height: var(--blog-size-badge);
+  padding: var(--blog-space-l) var(--blog-space-m);
+  border-radius: var(--blog-radius-s);
+}
+
+main > .section.blog-content .category-links.table-content .category-links-number {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--blog-size-badge);
+  height: var(--blog-size-badge);
+  border-radius: var(--blog-radius-pill);
+  background-color: var(--blog-color-chip);
+  color: var(--blog-color-navy);
+  font-size: var(--blog-font-size-xs);
+  font-weight: var(--blog-font-weight-semibold);
+  line-height: var(--blog-line-height-xs);
+}
+
+main > .section.blog-content .category-links.table-content .category-links-link[aria-current] {
+  background-color: var(--blog-color-surface-blue);
+  box-shadow: 0 0 0 1px var(--blog-color-border-subtle);
+}
+
+main > .section.blog-content .category-links.table-content .category-links-link[aria-current] .category-links-number {
+  background-color: var(--blog-color-active);
+  color: var(--blog-color-surface);
+}
+
+/* desktop: the list is always visible */
+@media (width >= 900px) {
+  main > .section.blog-content .category-links.table-content .category-links-heading > .category-links-heading-text {
+    display: inline;
+  }
+
+  main > .section.blog-content .category-links.table-content .category-links-toggle {
+    display: none;
+  }
+
+  main > .section.blog-content .category-links.table-content .category-links-list {
+    display: block;
+  }
 }

@@ -328,6 +328,23 @@
     "id": "category-links",
     "fields": [
       {
+        "component": "select",
+        "name": "classes",
+        "label": "Layout",
+        "valueType": "string",
+        "value": "",
+        "options": [
+          {
+            "name": "Category links",
+            "value": ""
+          },
+          {
+            "name": "Table of contents",
+            "value": "table-content"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "title",
@@ -335,12 +352,28 @@
         "value": ""
       },
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "title_icon",
+        "label": "Heading icon",
+        "description": "Optional. Shown before the title; leave empty for the default icon",
+        "multi": false
+      },
+      {
         "component": "richtext",
         "valueType": "string",
         "name": "links",
         "label": "Links",
-        "description": "A bulleted list of links",
+        "description": "A bulleted list of links. Table of contents: links to headings on this page (#heading-id); leave empty to list the H2 headings of the section automatically",
         "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "links_icon",
+        "label": "Link icon",
+        "description": "Optional. Category links: the arrow after each link. Table of contents: the expand arrow on mobile. Leave empty for the default icon",
+        "multi": false
       }
     ]
   },
@@ -564,6 +597,76 @@
     ]
   },
   {
+    "id": "promo-stack",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Heading and description",
+        "description": "Heading (bold words are shown heavier) followed by a description",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Button link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Button label",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "promo-stack-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tag",
+        "label": "Tag",
+        "description": "Small label in the top right corner, e.g. Term plan",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Offer",
+        "description": "Heading (bold words are shown heavier) and a short line below it",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "theme",
+        "label": "Colour",
+        "value": "red",
+        "options": [
+          {
+            "name": "Red",
+            "value": "red"
+          },
+          {
+            "name": "Navy",
+            "value": "navy"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Card link (optional)"
+      }
+    ]
+  },
+  {
     "id": "table-of-contents",
     "fields": [
       {
@@ -725,76 +828,6 @@
         "valueType": "string",
         "name": "column4text",
         "label": "Column4"
-      }
-    ]
-  },
-  {
-    "id": "promo-stack",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "text",
-        "label": "Heading and description",
-        "description": "Heading (bold words are shown heavier) followed by a description",
-        "value": ""
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "link",
-        "label": "Button link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "linkText",
-        "label": "Button label",
-        "value": ""
-      }
-    ]
-  },
-  {
-    "id": "promo-stack-card",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "tag",
-        "label": "Tag",
-        "description": "Small label in the top right corner, e.g. Term plan",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "text",
-        "label": "Offer",
-        "description": "Heading (bold words are shown heavier) and a short line below it",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "valueType": "string",
-        "name": "theme",
-        "label": "Colour",
-        "value": "red",
-        "options": [
-          {
-            "name": "Red",
-            "value": "red"
-          },
-          {
-            "name": "Navy",
-            "value": "navy"
-          }
-        ]
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "link",
-        "label": "Card link (optional)"
       }
     ]
   },

@@ -22,6 +22,17 @@
       "id": "category-links",
       "fields": [
         {
+          "component": "select",
+          "name": "classes",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            { "name": "Category links", "value": "" },
+            { "name": "Table of contents", "value": "table-content" }
+          ]
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "title",
@@ -29,12 +40,28 @@
           "value": ""
         },
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "title_icon",
+          "label": "Heading icon",
+          "description": "Optional. Shown before the title; leave empty for the default icon",
+          "multi": false
+        },
+        {
           "component": "richtext",
           "valueType": "string",
           "name": "links",
           "label": "Links",
-          "description": "A bulleted list of links",
+          "description": "A bulleted list of links. Table of contents: links to headings on this page (#heading-id); leave empty to list the H2 headings of the section automatically",
           "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "links_icon",
+          "label": "Link icon",
+          "description": "Optional. Category links: the arrow after each link. Table of contents: the expand arrow on mobile. Leave empty for the default icon",
+          "multi": false
         }
       ]
     }

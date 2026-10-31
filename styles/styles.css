@@ -590,6 +590,10 @@ main > .section.blog-content > .category-links-wrapper {
   order: 1;
 }
 
+main > .section.blog-content > .category-links-wrapper:has(> .table-content) {
+  order: -1;
+}
+
 main > .section.blog-content :focus-visible {
   outline: 2px solid var(--blog-color-focus);
   outline-offset: 2px;
