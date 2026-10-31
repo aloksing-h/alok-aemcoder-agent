@@ -1,39 +1,39 @@
 .video-testimonials {
-  /* colors */
-  --vt-color-heading: #181d27;
-  --vt-color-body: #535862;
-  --vt-color-white: #fff;
-  --vt-color-red: #e1122d;
-  --vt-color-dot: #a4a7ae;
-  --vt-color-disabled: #f5f5f5;
-  --vt-color-disabled-icon: #a4a7ae;
-  --vt-color-overlay: #000c;
-  --vt-color-focus: #2e90fa;
-  --vt-gradient-play: linear-gradient(180deg, #af0e23 0%, #fb2c47 100%);
-  --vt-gradient-active-dot: linear-gradient(180deg, #af0e23 0%, #fb2c47 100%);
+  /* colors, from the design system tokens in styles/variables (colors.css, fonts.css, base.css) */
+  --vt-color-heading: var(--text-primary);
+  --vt-color-body: var(--text-tertiary);
+  --vt-color-white: var(--base-white);
+  --vt-color-red: var(--brand-red-600);
+  --vt-color-dot: var(--gray-400);
+  --vt-color-disabled: var(--gray-100);
+  --vt-color-disabled-icon: var(--gray-400);
+  --vt-color-overlay: color-mix(in srgb, var(--base-black) 80%, transparent);
+  --vt-color-focus: var(--info-500);
+  --vt-gradient-play: var(--gradient-red-button);
+  --vt-gradient-active-dot: var(--gradient-red-button);
 
   /* typography */
   --vt-font-family: var(--body-font-family);
   --vt-heading-font-family: var(--heading-font-family);
-  --vt-font-weight-light: 300;
-  --vt-font-weight-medium: 500;
-  --vt-font-weight-bold: 700;
-  --vt-heading-size: 32px;
-  --vt-heading-line: 36px;
-  --vt-heading-tracking: -0.02em;
-  --vt-body-size: 14px;
-  --vt-body-line: 18px;
+  --vt-font-weight-light: var(--font-weight-light);
+  --vt-font-weight-medium: var(--font-weight-medium);
+  --vt-font-weight-bold: var(--font-weight-bold);
+  --vt-heading-size: var(--heading-3-font-size);
+  --vt-heading-line: var(--heading-3-line-height);
+  --vt-heading-tracking: var(--heading-3-letter-spacing);
+  --vt-body-size: var(--body-2-font-size);
+  --vt-body-line: var(--body-2-line-height);
 
   /* spacing and sizes */
-  --vt-space-2xs: 4px;
-  --vt-space-xs: 8px;
-  --vt-space-s: 12px;
-  --vt-space-m: 16px;
-  --vt-space-l: 20px;
-  --vt-space-xl: 24px;
-  --vt-space-2xl: 48px;
-  --vt-radius: 8px;
-  --vt-radius-pill: 999px;
+  --vt-space-2xs: var(--spacing-xs);
+  --vt-space-xs: var(--spacing-md);
+  --vt-space-s: var(--spacing-lg);
+  --vt-space-m: var(--spacing-xl);
+  --vt-space-l: var(--spacing-2xl);
+  --vt-space-xl: var(--spacing-3xl);
+  --vt-space-2xl: var(--spacing-6xl);
+  --vt-radius: var(--radius-md);
+  --vt-radius-pill: var(--radius-full);
   --vt-card-height: 152px;
   --vt-card-narrow: 40px;
   --vt-card-gap: 12px;
@@ -347,11 +347,11 @@
 
 @media (width >= 900px) {
   .video-testimonials {
-    --vt-heading-size: 48px;
-    --vt-heading-line: 60px;
+    --vt-heading-size: var(--heading-1-font-size);
+    --vt-heading-line: var(--heading-1-line-height);
     --vt-heading-tracking: 0;
-    --vt-body-size: 16px;
-    --vt-body-line: 20px;
+    --vt-body-size: var(--body-1-font-size);
+    --vt-body-line: var(--body-1-line-height);
     --vt-card-height: 320px;
     --vt-card-narrow: 120px;
     --vt-card-gap: 16px;

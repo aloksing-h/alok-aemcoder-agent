@@ -62,6 +62,12 @@
     ]
   },
   {
+    "id": "promo-stack",
+    "components": [
+      "promo-stack-card"
+    ]
+  },
+  {
     "id": "table",
     "components": [
       "table-row"
@@ -83,12 +89,6 @@
     "id": "table-4-columns",
     "components": [
       "table-col-4"
-    ]
-  },
-  {
-    "id": "promo-stack",
-    "components": [
-      "promo-stack-card"
     ]
   },
   {

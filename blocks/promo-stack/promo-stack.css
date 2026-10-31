@@ -1,57 +1,58 @@
 .promo-stack {
-  /* colors */
-  --promo-color-heading: #181d27;
-  --promo-color-body: #535862;
-  --promo-color-muted: #717680;
-  --promo-color-line: #d5d7da;
-  --promo-color-white: #fff;
-  --promo-color-red: #e1122d;
-  --promo-color-focus: #2e90fa;
-  --promo-gradient-red: linear-gradient(172deg, #7f2224 0%, #e1122d 41%, #e1122d 100%);
-  --promo-gradient-navy: linear-gradient(172deg, #0c1c30 0%, #1e4679 64%, #1e4679 100%);
-  --promo-gradient-page: linear-gradient(-36deg, #e1122d 0%, #e1122d 59%, #7f2224 100%);
-  --promo-shadow-red: 0 24px 48px -16px rgb(225 18 45 / 45%);
-  --promo-shadow-navy: 0 24px 48px -16px rgb(30 70 121 / 45%);
-  --promo-border-red: #feb9c2;
-  --promo-border-navy: #bcc8d7;
+  /* colors, from the design system tokens in styles/variables (colors.css, fonts.css, base.css) */
+  --promo-color-heading: var(--text-primary);
+  --promo-color-body: var(--text-tertiary);
+  --promo-color-muted: var(--text-quaternary);
+  --promo-color-line: var(--border-primary);
+  --promo-color-white: var(--base-white);
+  --promo-color-red: var(--brand-red-600);
+  --promo-color-focus: var(--info-500);
+  --promo-gradient-red: linear-gradient(172deg, var(--red-900) 0%, var(--brand-red-600) 41%, var(--brand-red-600) 100%);
+  --promo-gradient-navy: linear-gradient(172deg, var(--brand-blue-900) 0%, var(--brand-blue-500) 64%, var(--brand-blue-500) 100%);
+  --promo-gradient-page: linear-gradient(-36deg, var(--brand-red-600) 0%, var(--brand-red-600) 59%, var(--red-900) 100%);
+  --promo-shadow-red: 0 24px 48px -16px color-mix(in srgb, var(--brand-red-600) 45%, transparent);
+  --promo-shadow-navy: 0 24px 48px -16px color-mix(in srgb, var(--brand-blue-500) 45%, transparent);
+  --promo-border-red: var(--brand-red-100);
+  --promo-border-navy: var(--brand-blue-100);
 
   /* typography */
   --promo-font-family: var(--body-font-family);
   --promo-heading-font-family: var(--heading-font-family);
-  --promo-font-weight-light: 300;
-  --promo-font-weight-medium: 500;
-  --promo-font-weight-semibold: 600;
-  --promo-font-weight-bold: 700;
-  --promo-font-weight-extrabold: 800;
+  --promo-font-weight-light: var(--font-weight-light);
+  --promo-font-weight-medium: var(--font-weight-medium);
+  --promo-font-weight-semibold: var(--font-weight-semibold);
+  --promo-font-weight-bold: var(--font-weight-bold);
+  --promo-font-weight-extrabold: var(--font-weight-extrabold);
   --promo-heading-size: 28px;
   --promo-heading-line: 28px;
-  --promo-body-size: 14px;
-  --promo-body-line: 18px;
-  --promo-cta-size: 14px;
-  --promo-cta-line: 16px;
-  --promo-offer-size: 32px;
-  --promo-offer-line: 36px;
-  --promo-offer-sub-size: 24px;
-  --promo-offer-sub-line: 28px;
-  --promo-tag-size: 12px;
-  --promo-tag-line: 14px;
+  --promo-body-size: var(--body-2-font-size);
+  --promo-body-line: var(--body-2-line-height);
+  --promo-cta-size: var(--button-2-font-size);
+  --promo-cta-line: var(--button-2-line-height);
+  --promo-offer-size: var(--heading-3-font-size);
+  --promo-offer-line: var(--heading-3-line-height);
+  --promo-offer-tracking: var(--heading-3-letter-spacing);
+  --promo-offer-sub-size: var(--heading-4-font-size);
+  --promo-offer-sub-line: var(--heading-4-line-height);
+  --promo-tag-size: var(--button-3-font-size);
+  --promo-tag-line: var(--button-3-line-height);
   --promo-tag-tracking: 1.92px;
-  --promo-page-size: 14px;
-  --promo-page-line: 18px;
+  --promo-page-size: var(--body-2-font-size);
+  --promo-page-line: var(--body-2-line-height);
   --promo-page-width: 19px;
 
   /* spacing and sizes */
-  --promo-space-2xs: 4px;
-  --promo-space-xs: 8px;
+  --promo-space-2xs: var(--spacing-xs);
+  --promo-space-xs: var(--spacing-md);
   --promo-space-tag: 10px;
-  --promo-space-s: 12px;
-  --promo-space-m: 20px;
-  --promo-space-l: 24px;
-  --promo-space-xl: 32px;
-  --promo-space-2xl: 48px;
-  --promo-radius: 8px;
-  --promo-radius-tag: 4px;
-  --promo-radius-pill: 999px;
+  --promo-space-s: var(--spacing-lg);
+  --promo-space-m: var(--spacing-2xl);
+  --promo-space-l: var(--spacing-3xl);
+  --promo-space-xl: var(--spacing-4xl);
+  --promo-space-2xl: var(--spacing-6xl);
+  --promo-radius: var(--radius-md);
+  --promo-radius-tag: var(--radius-xs);
+  --promo-radius-pill: var(--radius-full);
   --promo-cta-height: 38px;
   --promo-cta-icon: 30px;
   --promo-deck-width: 100%;
@@ -63,8 +64,8 @@
   --promo-content-width: 447px;
   --promo-content-offset: 0;
   --promo-pagination-offset: 34px;
-  --promo-pagination-gap: 8px;
-  --promo-leave-distance: 32px;
+  --promo-pagination-gap: var(--spacing-md);
+  --promo-leave-distance: var(--spacing-4xl);
   --promo-leave-tilt: -8deg;
   --promo-container: 1100px;
 
@@ -279,6 +280,7 @@
 
 .promo-stack .promo-stack-offer > :first-child {
   font-size: var(--promo-offer-size);
+  letter-spacing: var(--promo-offer-tracking);
   font-weight: var(--promo-font-weight-light);
   line-height: var(--promo-offer-line);
 }
@@ -353,20 +355,21 @@
   .promo-stack {
     --promo-heading-size: 48px;
     --promo-heading-line: 48px;
-    --promo-body-size: 16px;
-    --promo-body-line: 20px;
-    --promo-cta-size: 16px;
-    --promo-cta-line: 18px;
+    --promo-body-size: var(--body-1-font-size);
+    --promo-body-line: var(--body-1-line-height);
+    --promo-cta-size: var(--button-1-font-size);
+    --promo-cta-line: var(--button-1-line-height);
     --promo-cta-height: 40px;
     --promo-cta-icon: 32px;
-    --promo-offer-size: 40px;
-    --promo-offer-line: 48px;
+    --promo-offer-size: var(--heading-2-font-size);
+    --promo-offer-line: var(--heading-2-line-height);
+    --promo-offer-tracking: 0;
     --promo-deck-width: calc(360px + 2 * var(--promo-peek));
     --promo-card-height: 332px;
     --promo-peek: 16px;
     --promo-scale-1: 0.889;
     --promo-scale-2: 0.839;
-    --promo-gradient-red: linear-gradient(172deg, #7f2224 0%, #fa1432 64%, #fb2c47 100%);
+    --promo-gradient-red: linear-gradient(172deg, var(--red-900) 0%, var(--brand-red-500) 64%, var(--brand-red-400) 100%);
     --promo-content-offset: 52px;
     --promo-pagination-offset: 39px;
     --promo-pagination-gap: 31px;
