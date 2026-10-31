@@ -89,18 +89,30 @@
               "value": ""
             },
             {
-              "name": "Video",
-              "value": "video"
-            },
-            {
               "name": "Blog",
               "value": "blog"
             },
             {
+              "name": "Video",
+              "value": "video"
+            },
+            {
               "name": "Podcast",
               "value": "podcast"
+            },
+            {
+              "name": "Other",
+              "value": "other"
             }
           ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tag_custom",
+          "label": "Custom badge text",
+          "description": "Shown when the badge is Other, e.g. Article or Guide",
+          "value": ""
         },
         {
           "component": "text",

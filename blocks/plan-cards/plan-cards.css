@@ -449,7 +449,9 @@
     --plan-cards-grow-top: 32px;
     --plan-cards-grow-side: 8px;
     --plan-cards-illustration-travel: calc(var(--plan-cards-card-height) - var(--plan-cards-illustration-height));
-    --plan-cards-motion: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Figma smart animate: ease out (measured from the prototype), 300 ms */
+    --plan-cards-motion: 0.3s cubic-bezier(0, 0, 0.58, 1);
   }
 
   .plan-cards .plan-cards-name {

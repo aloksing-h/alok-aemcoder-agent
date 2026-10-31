@@ -13,13 +13,30 @@ const UI = {
 
 const ITEM_IDS = ['plan-card', 'plan-tab'];
 
-// badge types authors pick from: label and icon
+// badge types authors pick from: label and icon; Other shows the author's custom text
 const BADGES = {
   'best-selling': { label: 'Best selling', icon: 'shield' },
   new: { label: 'New', icon: 'sparkle' },
   popular: { label: 'Popular', icon: 'star' },
   recommended: { label: 'Recommended', icon: 'thumbs-up' },
 };
+
+/**
+ * Reads a badge cell: the type from the dropdown and, for Other, the custom text.
+ * @param {Element} [cell]
+ * @returns {{ type: string, text: string }}
+ */
+function readBadge(cell) {
+  const nodes = cell?.querySelector('p') ? cell.querySelectorAll('p') : cell?.childNodes || [];
+  const [type = '', text = ''] = [...nodes]
+    .filter((node) => node.nodeType !== Node.COMMENT_NODE)
+    .map((node) => node.textContent.trim())
+    .filter(Boolean);
+  // both values in one text node, e.g. "otherGuide" when the cell has no paragraphs
+  const joined = type.match(/^other(.+)$/i);
+  if (joined && !text) return { type: 'other', text: joined[1].trim() };
+  return { type, text };
+}
 
 let planCardsCount = 0;
 
@@ -104,9 +121,10 @@ function buildCard(row, headingTag) {
   front.className = 'plan-cards-front';
 
   // the badge is a type from the authoring dropdown; older free text is shown as written
-  const badgeValue = badgeCell?.textContent.trim() || '';
-  const badgeKey = badgeValue.toLowerCase().replace(/\s+/g, '-');
-  const badgeType = BADGES[badgeKey] || (badgeValue && { label: badgeValue, icon: 'shield' });
+  const badgeValue = readBadge(badgeCell);
+  const badgeKey = badgeValue.type.toLowerCase().replace(/\s+/g, '-');
+  const customLabel = badgeKey === 'other' ? badgeValue.text : badgeValue.type;
+  const badgeType = BADGES[badgeKey] || (customLabel && { label: customLabel, icon: 'shield' });
   if (badgeType) {
     const badgeEl = document.createElement('p');
     badgeEl.className = `plan-cards-badge plan-cards-badge-${BADGES[badgeKey] ? badgeKey : 'custom'}`;

@@ -14,12 +14,29 @@ const UI = {
 
 const CAROUSEL_QUERY = '(width < 900px)';
 
-// labels of the badge types authors pick from
+// labels of the badge types authors pick from; Other shows the author's custom text
 const BADGES = {
-  video: 'Video',
   blog: 'Blog',
+  video: 'Video',
   podcast: 'Podcast',
 };
+
+/**
+ * Reads a badge cell: the type from the dropdown and, for Other, the custom text.
+ * @param {Element} [cell]
+ * @returns {{ type: string, text: string }}
+ */
+function readBadge(cell) {
+  const nodes = cell?.querySelector('p') ? cell.querySelectorAll('p') : cell?.childNodes || [];
+  const [type = '', text = ''] = [...nodes]
+    .filter((node) => node.nodeType !== Node.COMMENT_NODE)
+    .map((node) => node.textContent.trim())
+    .filter(Boolean);
+  // both values in one text node, e.g. "otherGuide" when the cell has no paragraphs
+  const joined = type.match(/^other(.+)$/i);
+  if (joined && !text) return { type: 'other', text: joined[1].trim() };
+  return { type, text };
+}
 
 function imgOf(image) {
   return image?.tagName === 'IMG' ? image : image?.querySelector('img');
@@ -43,13 +60,15 @@ function buildCard(row, headingTag) {
   body.className = 'insight-cards-body';
 
   // the badge is a type from the authoring dropdown; older free text is shown as written
-  const tagValue = tagCell?.textContent.trim() || '';
-  const tag = BADGES[tagValue.toLowerCase()] || tagValue;
+  const badge = readBadge(tagCell);
+  const badgeType = badge.type.toLowerCase();
+  let tag = BADGES[badgeType] || badge.type;
+  if (badgeType === 'other') tag = badge.text;
   if (tag) {
     const tagEl = document.createElement('p');
     tagEl.className = 'insight-cards-tag';
     tagEl.textContent = tag;
-    if (BADGES[tagValue.toLowerCase()]) li.dataset.badge = tagValue.toLowerCase();
+    li.dataset.badge = BADGES[badgeType] ? badgeType : 'other';
     body.append(tagEl);
   }
 

@@ -163,8 +163,20 @@
             {
               "name": "Recommended",
               "value": "recommended"
+            },
+            {
+              "name": "Other",
+              "value": "other"
             }
           ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "badge_custom",
+          "label": "Custom badge text",
+          "description": "Shown when the badge is Other, e.g. Tax saver",
+          "value": ""
         },
         {
           "component": "richtext",
