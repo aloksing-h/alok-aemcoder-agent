@@ -1,0 +1,695 @@
+.plan-cards {
+  /* colors */
+  --plan-cards-color-heading: var(--text-primary);
+  --plan-cards-color-body: var(--text-tertiary);
+  --plan-cards-color-accent: var(--brand-red-600);
+  --plan-cards-color-badge: var(--brand-blue-500);
+  --plan-cards-color-card: var(--base-white);
+  --plan-cards-color-border: var(--brand-blue-50);
+  --plan-cards-color-tabs: var(--gray-100);
+  --plan-cards-color-tab-active: var(--brand-blue-500);
+  --plan-cards-color-tab-glow: var(--info-300);
+  --plan-cards-color-tab-glow-strong: var(--info-400);
+  --plan-cards-color-tab-light: var(--blue-50);
+  --plan-cards-color-white: var(--base-white);
+  --plan-cards-color-focus: var(--info-500);
+  --plan-cards-glow: color-mix(in srgb, var(--brand-red-200) 55%, transparent);
+  --plan-cards-glow-soft: color-mix(in srgb, var(--brand-red-200) 18%, transparent);
+  --plan-cards-back-background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-red-800) 70%, var(--brand-red-900)) 0%,
+    var(--brand-red-600) 55%,
+    var(--brand-red-500) 100%
+  );
+
+  /* typography */
+  --plan-cards-font-family: var(--heading-font-family);
+  --plan-cards-title-size: var(--heading-3-font-size);
+  --plan-cards-title-line: var(--heading-3-line-height);
+  --plan-cards-title-tracking: var(--heading-3-letter-spacing);
+  --plan-cards-lead-size: var(--body-2-font-size);
+  --plan-cards-lead-line: var(--body-2-line-height);
+  --plan-cards-name-size: var(--body-1-font-size);
+  --plan-cards-name-line: var(--body-1-line-height);
+  --plan-cards-text-size: var(--body-2-font-size);
+  --plan-cards-text-line: var(--body-2-line-height);
+  --plan-cards-small-size: 12px;
+  --plan-cards-small-line: 14px;
+  --plan-cards-button-size: var(--button-2-font-size);
+  --plan-cards-button-line: var(--button-2-line-height);
+
+  /* spacing and sizes */
+  --plan-cards-header-space: var(--spacing-3xl);
+  --plan-cards-tabs-space: var(--spacing-3xl);
+  --plan-cards-tab-height: 36px;
+  --plan-cards-tab-padding: var(--spacing-lg);
+  --plan-cards-gap: var(--spacing-md);
+  --plan-cards-max-width: 1040px;
+  --plan-cards-card-height: 203px;
+  --plan-cards-card-radius: var(--radius-xl);
+  --plan-cards-card-padding: var(--spacing-xl);
+  --plan-cards-card-padding-top: 48px;
+  --plan-cards-illustration-height: 87px;
+  --plan-cards-back-illustration-height: 137px;
+  --plan-cards-more-space: var(--spacing-xl);
+  --plan-cards-button-height: 38px;
+  --plan-cards-button-arrow: 30px;
+  --plan-cards-icon-size: 20px;
+
+  font-family: var(--plan-cards-font-family);
+}
+
+/* section heading */
+.plan-cards .plan-cards-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--plan-cards-header-space);
+  text-align: center;
+}
+
+.plan-cards .plan-cards-header > * {
+  margin: 0;
+}
+
+.plan-cards .plan-cards-title {
+  color: var(--plan-cards-color-heading);
+  font-family: var(--plan-cards-font-family);
+  font-size: var(--plan-cards-title-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--plan-cards-title-line);
+  letter-spacing: var(--plan-cards-title-tracking);
+}
+
+.plan-cards .plan-cards-title :is(strong, b) {
+  font-weight: var(--font-weight-semibold);
+}
+
+.plan-cards .plan-cards-header > :not(.plan-cards-title) {
+  color: var(--plan-cards-color-body);
+  font-size: var(--plan-cards-lead-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--plan-cards-lead-line);
+}
+
+.plan-cards .plan-cards-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--plan-cards-icon-size);
+  height: var(--plan-cards-icon-size);
+  background-color: currentcolor;
+  mask: var(--plan-cards-icon-image) center / contain no-repeat;
+}
+
+.plan-cards .plan-cards-icon-arrow {
+  --plan-cards-icon-image: url('../../icons/arrow-right.svg');
+}
+
+.plan-cards .plan-cards-icon-shield {
+  --plan-cards-icon-image: url('../../icons/shield-ellipsis.svg');
+}
+
+.plan-cards .plan-cards-icon-sparkle {
+  --plan-cards-icon-image: url('../../icons/sparkle.svg');
+}
+
+.plan-cards .plan-cards-icon-star {
+  --plan-cards-icon-image: url('../../icons/star.svg');
+}
+
+.plan-cards .plan-cards-icon-thumbs-up {
+  --plan-cards-icon-image: url('../../icons/thumbs-up.svg');
+}
+
+.plan-cards .plan-cards-icon-download {
+  --plan-cards-icon-image: url('../../icons/download.svg');
+}
+
+/* tabs: a pill bar with a sliding light blue indicator */
+.plan-cards .plan-cards-tabs {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto var(--plan-cards-tabs-space);
+  overflow-x: auto;
+  border: 1px solid var(--plan-cards-color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--plan-cards-color-tabs);
+  scrollbar-width: none;
+}
+
+.plan-cards .plan-cards-indicator {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  box-sizing: border-box;
+  width: var(--plan-cards-indicator-width, 0);
+  border: 1px solid var(--plan-cards-color-tab-glow);
+  border-radius: var(--radius-full);
+  background:
+    radial-gradient(40% 90% at 22% 18%, color-mix(in srgb, var(--plan-cards-color-white) 80%, transparent) 0%, transparent 100%),
+    radial-gradient(60% 120% at 80% 100%, color-mix(in srgb, var(--plan-cards-color-tab-glow-strong) 55%, transparent) 0%, transparent 100%),
+    linear-gradient(180deg, var(--plan-cards-color-tab-light) 0%, var(--plan-cards-color-tab-glow) 100%);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--plan-cards-color-white) 80%, transparent);
+  translate: var(--plan-cards-indicator-x, 0) 0;
+  transition: translate 0.3s ease, width 0.3s ease;
+}
+
+.plan-cards .plan-cards-tab {
+  position: relative;
+  flex-shrink: 0;
+  height: var(--plan-cards-tab-height);
+  margin: 0;
+  padding: 0 var(--plan-cards-tab-padding);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--plan-cards-color-heading);
+  font-family: var(--plan-cards-font-family);
+  font-size: var(--plan-cards-text-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--plan-cards-text-line);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.plan-cards .plan-cards-tab[aria-selected='true'] {
+  color: var(--plan-cards-color-tab-active);
+  font-weight: var(--font-weight-semibold);
+}
+
+.plan-cards .plan-cards-tab:focus-visible {
+  outline-offset: -2px;
+}
+
+/* mobile: the short label is shown, the full label stays the accessible name */
+.plan-cards .plan-cards-tab-has-short .plan-cards-tab-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.plan-cards .plan-cards-panel:not([hidden]) {
+  animation: plan-cards-fade 0.3s ease;
+}
+
+@keyframes plan-cards-fade {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+/* cards */
+.plan-cards .plan-cards-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--plan-cards-gap);
+  max-width: var(--plan-cards-max-width);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.plan-cards .plan-cards-card {
+  position: relative;
+  min-height: var(--plan-cards-card-height);
+}
+
+.plan-cards .plan-cards-front {
+  position: relative;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: var(--plan-cards-card-height);
+  padding: var(--plan-cards-card-padding);
+  padding-bottom: calc(var(--plan-cards-illustration-height) + var(--spacing-xs));
+  overflow: hidden;
+  border: 1px solid var(--plan-cards-color-border);
+  border-radius: var(--plan-cards-card-radius);
+  background-color: var(--plan-cards-color-card);
+  isolation: isolate;
+}
+
+.plan-cards .plan-cards-glow-blue {
+  --plan-cards-glow: color-mix(in srgb, var(--plan-cards-color-tab-glow) 55%, transparent);
+  --plan-cards-glow-soft: color-mix(in srgb, var(--plan-cards-color-tab-glow) 18%, transparent);
+}
+
+/* soft glow and fluted glass stripes behind the illustration, as in Figma */
+.plan-cards .plan-cards-front::before,
+.plan-cards .plan-cards-front::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 30% 0 0;
+  pointer-events: none;
+}
+
+.plan-cards .plan-cards-front::before {
+  background:
+    radial-gradient(70% 55% at 88% 55%, var(--plan-cards-glow) 0%, transparent 100%),
+    linear-gradient(180deg, transparent 40%, var(--plan-cards-glow-soft) 100%);
+}
+
+.plan-cards .plan-cards-front::after {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 7px,
+    color-mix(in srgb, var(--plan-cards-color-white) 55%, transparent) 7px 8px
+  );
+  mask: radial-gradient(80% 70% at 80% 60%, #000 0%, transparent 100%);
+}
+
+.plan-cards .plan-cards-front > :not(.plan-cards-illustration) {
+  margin: 0;
+}
+
+.plan-cards .plan-cards-front > .plan-cards-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  box-sizing: border-box;
+  width: fit-content;
+  height: 24px;
+  margin: 0 auto var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 1px solid var(--plan-cards-color-badge);
+  border-radius: var(--radius-full);
+  background-color: var(--plan-cards-color-white);
+  color: var(--plan-cards-color-badge);
+  font-size: var(--plan-cards-small-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--plan-cards-small-line);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.plan-cards .plan-cards-badge .plan-cards-icon {
+  --plan-cards-icon-size: 14px;
+}
+
+.plan-cards .plan-cards-front:not(:has(.plan-cards-badge)) {
+  padding-top: var(--plan-cards-card-padding-top);
+}
+
+.plan-cards .plan-cards-name {
+  color: var(--plan-cards-color-heading);
+  font-family: var(--plan-cards-font-family);
+  font-size: var(--plan-cards-name-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--plan-cards-name-line);
+}
+
+.plan-cards .plan-cards-name :is(strong, b) {
+  color: var(--plan-cards-color-accent);
+  font-weight: inherit;
+}
+
+.plan-cards .plan-cards-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* the plan name link covers the card */
+.plan-cards .plan-cards-link::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: var(--plan-cards-card-radius);
+}
+
+.plan-cards .plan-cards-link:focus-visible {
+  outline: none;
+}
+
+.plan-cards .plan-cards-link:focus-visible::after {
+  outline: 2px solid var(--plan-cards-color-focus);
+  outline-offset: -2px;
+}
+
+.plan-cards .plan-cards-description {
+  display: none;
+  color: var(--plan-cards-color-body);
+  font-size: var(--plan-cards-text-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--plan-cards-text-line);
+}
+
+.plan-cards .plan-cards-description > * {
+  margin: 0;
+}
+
+.plan-cards .plan-cards-illustration {
+  pointer-events: none;
+}
+
+.plan-cards .plan-cards-illustration :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.plan-cards .plan-cards-illustration img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.plan-cards .plan-cards-illustration-front {
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--plan-cards-illustration-height);
+}
+
+/* back face: hidden on mobile, where the card links straight to the plan */
+.plan-cards .plan-cards-back {
+  display: none;
+}
+
+/* pill buttons with a round arrow */
+.plan-cards :is(.plan-cards-button, .plan-cards-more) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  box-sizing: border-box;
+  height: var(--plan-cards-button-height);
+  padding-inline: var(--spacing-2xl) var(--spacing-xs);
+  border: 1px solid var(--plan-cards-color-accent);
+  border-radius: var(--radius-full);
+  font-size: var(--plan-cards-button-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--plan-cards-button-line);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.plan-cards .plan-cards-button-arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--plan-cards-button-arrow);
+  height: var(--plan-cards-button-arrow);
+  border-radius: var(--radius-full);
+  background-color: var(--plan-cards-color-accent);
+  color: var(--plan-cards-color-white);
+  transition: translate 0.2s ease;
+}
+
+.plan-cards .plan-cards-footer {
+  margin: var(--plan-cards-more-space) 0 0;
+  text-align: center;
+}
+
+.plan-cards .plan-cards-more {
+  background-color: var(--plan-cards-color-white);
+  color: var(--plan-cards-color-accent);
+}
+
+.plan-cards .plan-cards-more:hover,
+.plan-cards .plan-cards-more-filled {
+  background-color: var(--plan-cards-color-accent);
+  color: var(--plan-cards-color-white);
+}
+
+.plan-cards .plan-cards-more-filled .plan-cards-button-arrow,
+.plan-cards .plan-cards-more:hover .plan-cards-button-arrow {
+  background-color: var(--plan-cards-color-white);
+  color: var(--plan-cards-color-accent);
+}
+
+.plan-cards .plan-cards-more-filled:hover {
+  border-color: var(--brand-red-700);
+  background-color: var(--brand-red-700);
+}
+
+.plan-cards :is(.plan-cards-button, .plan-cards-more):hover .plan-cards-button-arrow {
+  translate: 2px 0;
+}
+
+.plan-cards :focus-visible {
+  outline: 2px solid var(--plan-cards-color-focus);
+  outline-offset: 2px;
+}
+
+/* tablet and desktop: larger cards with a description and a hover face */
+@media (width >= 600px) {
+  .plan-cards {
+    --plan-cards-name-size: var(--sub-heading-1-font-size);
+    --plan-cards-name-line: var(--sub-heading-1-line-height);
+    --plan-cards-card-height: 311px;
+    --plan-cards-illustration-height: 137px;
+    --plan-cards-gap: var(--spacing-xl);
+
+    /* hover face, measured from the Figma prototype */
+    --plan-cards-grow-top: 32px;
+    --plan-cards-grow-side: 8px;
+    --plan-cards-illustration-travel: calc(var(--plan-cards-card-height) - var(--plan-cards-illustration-height));
+    --plan-cards-motion: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .plan-cards .plan-cards-name {
+    letter-spacing: 0;
+  }
+
+  .plan-cards .plan-cards-front > .plan-cards-description {
+    display: block;
+    margin-top: var(--spacing-md);
+  }
+
+  .plan-cards .plan-cards-front > .plan-cards-badge {
+    position: absolute;
+    inset-block-start: var(--spacing-xl);
+    inset-inline-end: var(--spacing-xl);
+    margin: 0;
+  }
+
+  .plan-cards .plan-cards-front:has(.plan-cards-badge) {
+    padding-top: var(--plan-cards-card-padding-top);
+  }
+
+  /*
+   * hover face, as in the Figma prototype: the card grows (up, to both sides and down to fit
+   * the details) while the red face dissolves in and the illustration travels to the top.
+   * The face is laid out at its full size and clipped to the card until it opens.
+   */
+  .plan-cards .plan-cards-back {
+    position: absolute;
+    z-index: 3;
+    inset: calc(var(--plan-cards-grow-top) * -1) calc(var(--plan-cards-grow-side) * -1) auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    box-sizing: border-box;
+    min-height: calc(100% + var(--plan-cards-grow-top));
+    padding: 0 calc(var(--plan-cards-card-padding) + var(--plan-cards-grow-side) / 2) var(--spacing-3xl);
+    overflow: hidden;
+    border-radius: var(--plan-cards-card-radius);
+    background: var(--plan-cards-back-background);
+    color: var(--plan-cards-color-white);
+    opacity: 0;
+    clip-path: inset(
+      var(--plan-cards-grow-top) var(--plan-cards-grow-side)
+      calc(100% - var(--plan-cards-grow-top) - var(--plan-cards-card-height))
+      round var(--plan-cards-card-radius)
+    );
+
+    /* clicks on the empty parts of the face reach the plan link below */
+    pointer-events: none;
+    transition: opacity var(--plan-cards-motion), clip-path var(--plan-cards-motion);
+  }
+
+  .plan-cards .plan-cards-back a {
+    pointer-events: auto;
+  }
+
+  .plan-cards .plan-cards-back:focus-within,
+  .plan-cards .plan-cards-card:hover:not(.plan-cards-dismissed) .plan-cards-back {
+    opacity: 1;
+    clip-path: inset(0 round var(--plan-cards-card-radius));
+  }
+
+  /* the front content fades out and its illustration moves up as the face opens */
+  .plan-cards .plan-cards-front > :is(.plan-cards-badge, .plan-cards-name, .plan-cards-description, .plan-cards-illustration-front) {
+    transition: opacity var(--plan-cards-motion), translate var(--plan-cards-motion);
+  }
+
+  .plan-cards .plan-cards-card:is(:hover:not(.plan-cards-dismissed), :has(.plan-cards-back:focus-within)) .plan-cards-front > :is(.plan-cards-badge, .plan-cards-name, .plan-cards-description, .plan-cards-illustration-front) {
+    opacity: 0;
+  }
+
+  .plan-cards .plan-cards-card:is(:hover:not(.plan-cards-dismissed), :has(.plan-cards-back:focus-within)) .plan-cards-illustration-front {
+    translate: 0 calc(var(--plan-cards-illustration-travel) * -1);
+  }
+
+  .plan-cards .plan-cards-card:is(:hover, :focus-within) {
+    z-index: 2;
+  }
+
+  .plan-cards .plan-cards-illustration-back {
+    flex-shrink: 0;
+    height: var(--plan-cards-back-illustration-height);
+    margin-inline: calc((var(--plan-cards-card-padding) + var(--plan-cards-grow-side) / 2) * -1);
+
+    /* starts where the front illustration is and travels to the top */
+    translate: 0 calc(var(--plan-cards-grow-top) + var(--plan-cards-illustration-travel));
+    transition: translate var(--plan-cards-motion);
+  }
+
+  .plan-cards .plan-cards-back:focus-within .plan-cards-illustration-back,
+  .plan-cards .plan-cards-card:hover:not(.plan-cards-dismissed) .plan-cards-illustration-back {
+    translate: 0 0;
+  }
+
+  .plan-cards .plan-cards-illustration-back img {
+    object-position: center top;
+  }
+
+  .plan-cards .plan-cards-illustration-inverted img {
+    filter: brightness(0) invert(1);
+  }
+
+  .plan-cards .plan-cards-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    font-size: var(--plan-cards-text-size);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--plan-cards-text-line);
+  }
+
+  .plan-cards .plan-cards-details > * {
+    margin: 0;
+  }
+
+  .plan-cards .plan-cards-details > p:first-child {
+    font-size: var(--body-1-font-size);
+    line-height: var(--body-1-line-height);
+  }
+
+  .plan-cards .plan-cards-details ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding-inline-start: var(--spacing-2xl);
+    list-style: disc;
+  }
+
+  .plan-cards .plan-cards-details a {
+    color: inherit;
+  }
+
+  .plan-cards .plan-cards-explore a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    min-height: 24px;
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+  }
+
+  .plan-cards .plan-cards-explore a:hover {
+    text-decoration: underline;
+  }
+
+  .plan-cards .plan-cards-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+    margin-top: auto;
+  }
+
+  .plan-cards .plan-cards-button {
+    border-color: var(--plan-cards-color-white);
+    background-color: var(--plan-cards-color-white);
+    color: var(--plan-cards-color-heading);
+  }
+
+  .plan-cards .plan-cards-download {
+    --plan-cards-icon-size: 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    color: var(--plan-cards-color-white);
+  }
+
+  .plan-cards .plan-cards-card:not(:hover, :focus-within) .plan-cards-back a {
+    pointer-events: none;
+  }
+
+  .plan-cards .plan-cards-back :focus-visible {
+    outline-color: var(--plan-cards-color-white);
+  }
+}
+
+@media (width >= 600px) and (width < 900px) {
+  .plan-cards .plan-cards-list {
+    max-width: 600px;
+  }
+}
+
+@media (width >= 900px) {
+  .plan-cards {
+    --plan-cards-title-size: var(--heading-1-font-size);
+    --plan-cards-title-line: var(--heading-1-line-height);
+    --plan-cards-title-tracking: 0;
+    --plan-cards-lead-size: var(--body-1-font-size);
+    --plan-cards-lead-line: var(--body-1-line-height);
+    --plan-cards-header-space: var(--spacing-5xl);
+    --plan-cards-tabs-space: 38px;
+    --plan-cards-tab-height: 44px;
+    --plan-cards-tab-padding: var(--spacing-2xl);
+    --plan-cards-more-space: var(--spacing-5xl);
+    --plan-cards-button-height: 40px;
+    --plan-cards-button-arrow: 32px;
+    --plan-cards-button-size: var(--button-1-font-size);
+    --plan-cards-button-line: var(--button-1-line-height);
+  }
+
+  .plan-cards .plan-cards-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* the full tab labels are shown on desktop */
+  .plan-cards .plan-cards-tab-has-short .plan-cards-tab-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  .plan-cards .plan-cards-tab-short {
+    display: none;
+  }
+
+  /* category page: the cards use the full content width */
+  .plan-cards.category {
+    --plan-cards-max-width: none;
+  }
+}
+
+/* reduced motion: the faces swap without moving; this comes last to win over the rules above */
+@media (prefers-reduced-motion: reduce) {
+  .plan-cards .plan-cards-indicator,
+  .plan-cards .plan-cards-back,
+  .plan-cards .plan-cards-illustration-back,
+  .plan-cards .plan-cards-front > :is(.plan-cards-badge, .plan-cards-name, .plan-cards-description, .plan-cards-illustration-front),
+  .plan-cards .plan-cards-button-arrow,
+  .plan-cards :is(.plan-cards-button, .plan-cards-more) {
+    transition: none;
+  }
+
+  .plan-cards .plan-cards-panel:not([hidden]) {
+    animation: none;
+  }
+}

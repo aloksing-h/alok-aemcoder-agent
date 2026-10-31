@@ -53,6 +53,8 @@
         "title",
         "hero",
         "insu-banner",
+        "insight-cards",
+        "plan-cards",
         "cards",
         "columns",
         "fragment",

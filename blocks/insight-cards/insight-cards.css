@@ -1,0 +1,454 @@
+.insight-cards {
+  /* colors */
+  --insight-cards-color-heading: var(--text-primary);
+  --insight-cards-color-body: var(--text-tertiary);
+  --insight-cards-color-card: var(--blue-50);
+  --insight-cards-color-tag: var(--brand-blue-500);
+  --insight-cards-color-tag-glow: var(--info-300);
+  --insight-cards-color-surface: var(--base-white);
+  --insight-cards-color-icon: var(--brand-red-500);
+  --insight-cards-color-hover-text: var(--base-white);
+  --insight-cards-color-dot: var(--brand-red-600);
+  --insight-cards-color-dot-idle: var(--gray-500);
+  --insight-cards-color-focus: var(--info-500);
+  --insight-cards-hover-background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--brand-red-800) 70%, var(--brand-red-900)) 0%,
+    var(--brand-red-600) 55%,
+    var(--brand-red-500) 100%
+  );
+
+  /* typography */
+  --insight-cards-font-family: var(--heading-font-family);
+  --insight-cards-title-size: var(--heading-3-font-size);
+  --insight-cards-title-line: var(--heading-3-line-height);
+  --insight-cards-title-tracking: var(--heading-3-letter-spacing);
+  --insight-cards-title-weight: var(--font-weight-light);
+  --insight-cards-title-weight-strong: var(--font-weight-semibold);
+  --insight-cards-lead-size: var(--body-2-font-size);
+  --insight-cards-lead-line: var(--body-2-line-height);
+  --insight-cards-card-title-size: var(--sub-heading-2-font-size);
+  --insight-cards-card-title-line: var(--sub-heading-2-line-height);
+  --insight-cards-card-text-size: var(--body-2-font-size);
+  --insight-cards-card-text-line: var(--body-2-line-height);
+  --insight-cards-tag-size: 12px;
+  --insight-cards-tag-line: 14px;
+
+  /* spacing and sizes */
+  --insight-cards-header-gap: var(--spacing-md);
+  --insight-cards-header-space: var(--spacing-2xl);
+  --insight-cards-gap: var(--spacing-2xl);
+  --insight-cards-card-width: 286px;
+  --insight-cards-card-height: 260px;
+  --insight-cards-card-padding: var(--spacing-3xl);
+  --insight-cards-card-radius: var(--radius-md);
+  --insight-cards-tag-height: 24px;
+  --insight-cards-tag-space: var(--spacing-xl);
+  --insight-cards-text-gap: var(--spacing-md);
+  --insight-cards-button-size: 32px;
+  --insight-cards-icon-size: 22px;
+  --insight-cards-illustration-size: 154px;
+  --insight-cards-pagination-space: var(--spacing-lg);
+
+  font-family: var(--insight-cards-font-family);
+}
+
+/* section heading */
+.insight-cards .insight-cards-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-cards-header-gap);
+  margin-bottom: var(--insight-cards-header-space);
+  text-align: center;
+}
+
+.insight-cards .insight-cards-header > * {
+  margin: 0;
+}
+
+.insight-cards .insight-cards-title {
+  color: var(--insight-cards-color-heading);
+  font-family: var(--insight-cards-font-family);
+  font-size: var(--insight-cards-title-size);
+  font-weight: var(--insight-cards-title-weight);
+  line-height: var(--insight-cards-title-line);
+  letter-spacing: var(--insight-cards-title-tracking);
+}
+
+.insight-cards .insight-cards-title :is(strong, b) {
+  font-weight: var(--insight-cards-title-weight-strong);
+}
+
+.insight-cards .insight-cards-header > :not(.insight-cards-title) {
+  color: var(--insight-cards-color-body);
+  font-size: var(--insight-cards-lead-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--insight-cards-lead-line);
+}
+
+/* cards: a swipeable row on mobile */
+.insight-cards .insight-cards-list {
+  display: grid;
+  grid-auto-columns: var(--insight-cards-card-width);
+  grid-auto-flow: column;
+  gap: var(--insight-cards-gap);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0;
+  scrollbar-width: none;
+}
+
+.insight-cards .insight-cards-list::-webkit-scrollbar {
+  display: none;
+}
+
+.insight-cards .insight-cards-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: var(--insight-cards-card-height);
+  padding: var(--insight-cards-card-padding);
+  overflow: hidden;
+  border-radius: var(--insight-cards-card-radius);
+  background-color: var(--insight-cards-color-card);
+  scroll-snap-align: start;
+  isolation: isolate;
+  transition: height 0.35s ease, margin-bottom 0.35s ease;
+}
+
+/* the red hover background fades in over the light blue card */
+.insight-cards .insight-cards-card::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--insight-cards-hover-background);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.insight-cards .insight-cards-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--insight-cards-text-gap);
+}
+
+.insight-cards .insight-cards-body > * {
+  margin: 0;
+}
+
+.insight-cards .insight-cards-tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: var(--insight-cards-tag-height);
+  margin-bottom: calc(var(--insight-cards-tag-space) - var(--insight-cards-text-gap));
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 1px solid var(--insight-cards-color-tag);
+  border-radius: var(--radius-full);
+  background: linear-gradient(130deg, var(--insight-cards-color-tag-glow) 0%, var(--insight-cards-color-surface) 50%);
+  color: var(--insight-cards-color-tag);
+  font-size: var(--insight-cards-tag-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--insight-cards-tag-line);
+  text-transform: uppercase;
+}
+
+.insight-cards .insight-cards-category {
+  padding: var(--spacing-xxs) var(--spacing-md);
+  border-radius: var(--radius-xxs);
+  background-color: var(--insight-cards-color-surface);
+  color: var(--insight-cards-color-heading);
+  font-size: var(--insight-cards-tag-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--insight-cards-tag-line);
+}
+
+.insight-cards .insight-cards-card-title {
+  color: var(--insight-cards-color-heading);
+  font-family: var(--insight-cards-font-family);
+  font-size: var(--insight-cards-card-title-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--insight-cards-card-title-line);
+  transition: color 0.3s ease;
+}
+
+.insight-cards .insight-cards-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* the title link covers the whole card */
+.insight-cards .insight-cards-link::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: var(--insight-cards-card-radius);
+}
+
+.insight-cards .insight-cards-link:focus-visible {
+  outline: none;
+}
+
+.insight-cards .insight-cards-link:focus-visible::after {
+  outline: 2px solid var(--insight-cards-color-focus);
+  outline-offset: -2px;
+}
+
+.insight-cards .insight-cards-description {
+  color: var(--insight-cards-color-body);
+  font-size: var(--insight-cards-card-text-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--insight-cards-card-text-line);
+  transition: color 0.3s ease;
+}
+
+.insight-cards .insight-cards-description > * {
+  margin: 0;
+}
+
+.insight-cards .insight-cards-description a {
+  position: relative;
+  z-index: 3;
+  color: inherit;
+}
+
+.insight-cards .insight-cards-button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--insight-cards-button-size);
+  height: var(--insight-cards-button-size);
+  margin-top: auto;
+  border-radius: var(--radius-full);
+  background-color: var(--insight-cards-color-surface);
+  color: var(--insight-cards-color-icon);
+}
+
+.insight-cards .insight-cards-icon {
+  display: inline-block;
+  width: var(--insight-cards-icon-size);
+  height: var(--insight-cards-icon-size);
+  background-color: currentcolor;
+  mask: var(--insight-cards-icon-image) center / contain no-repeat;
+  transition: translate 0.3s ease;
+}
+
+.insight-cards .insight-cards-icon-arrow {
+  --insight-cards-icon-image: url('../../icons/arrow-right.svg');
+}
+
+.insight-cards .insight-cards-icon-play {
+  --insight-cards-icon-image: url('../../icons/play-outline.svg');
+}
+
+.insight-cards .insight-cards-illustration {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: var(--insight-cards-illustration-size);
+  height: var(--insight-cards-illustration-size);
+  pointer-events: none;
+}
+
+.insight-cards .insight-cards-illustration :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.insight-cards .insight-cards-illustration img {
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.insight-cards .insight-cards-illustration :is(.insight-cards-illustration-default, .insight-cards-illustration-hover) {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.insight-cards .insight-cards-illustration .insight-cards-illustration-hover {
+  opacity: 0;
+}
+
+/* hover effect option: on hover and keyboard focus the card turns red with white text
+   and the light illustration */
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) {
+  --insight-cards-color-heading: var(--insight-cards-color-hover-text);
+  --insight-cards-color-body: var(--insight-cards-color-hover-text);
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within)::before {
+  opacity: 1;
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-category {
+  --insight-cards-color-heading: var(--text-primary);
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-icon {
+  translate: 2px 0;
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-illustration-has-hover .insight-cards-illustration-default {
+  opacity: 0;
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-illustration-has-hover .insight-cards-illustration-hover {
+  opacity: 1;
+}
+
+.insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-illustration:not(.insight-cards-illustration-has-hover) .insight-cards-illustration-default {
+  filter: brightness(0) invert(1);
+}
+
+/* pagination of the mobile carousel: the hit area is larger than the dots */
+.insight-cards .insight-cards-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(var(--insight-cards-pagination-space) - 9px);
+}
+
+.insight-cards .insight-cards-pagination[hidden] {
+  display: none;
+}
+
+.insight-cards .insight-cards-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  margin: 0 -7px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.insight-cards .insight-cards-dot::before {
+  content: '';
+  box-sizing: border-box;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--insight-cards-color-dot-idle);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.insight-cards .insight-cards-dot[aria-current] {
+  min-width: 46px;
+}
+
+.insight-cards .insight-cards-dot[aria-current]::before {
+  width: 32px;
+  border-color: var(--insight-cards-color-dot);
+  background-color: var(--insight-cards-color-dot);
+}
+
+.insight-cards .insight-cards-dot:last-child {
+  margin-inline-end: 0;
+}
+
+.insight-cards :focus-visible {
+  outline: 2px solid var(--insight-cards-color-focus);
+  outline-offset: 2px;
+}
+
+@media (width >= 900px) {
+  .insight-cards {
+    --insight-cards-title-size: var(--heading-1-font-size);
+    --insight-cards-title-line: var(--heading-1-line-height);
+    --insight-cards-title-tracking: 0;
+    --insight-cards-lead-size: var(--body-1-font-size);
+    --insight-cards-lead-line: var(--body-1-line-height);
+    --insight-cards-header-space: var(--spacing-5xl);
+    --insight-cards-card-title-size: var(--heading-4-font-size);
+    --insight-cards-card-title-line: var(--heading-4-line-height);
+    --insight-cards-card-text-size: var(--body-1-font-size);
+    --insight-cards-card-text-line: var(--body-1-line-height);
+    --insight-cards-card-height: 334px;
+    --insight-cards-card-grow: 52px;
+    --insight-cards-button-size: 44px;
+    --insight-cards-icon-size: 30px;
+    --insight-cards-illustration-size: 240px;
+  }
+
+  .insight-cards .insight-cards-list {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  /* with the hover effect the row keeps room for a grown card, so nothing below it moves */
+  .insight-cards.hover .insight-cards-list {
+    align-items: start;
+    padding-bottom: var(--insight-cards-card-grow);
+  }
+
+  .insight-cards.hover .insight-cards-card {
+    height: var(--insight-cards-card-height);
+  }
+
+  .insight-cards.hover .insight-cards-description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* as in the Figma prototype: the active card grows downwards and shows the whole description */
+  .insight-cards.hover .insight-cards-card:is(:hover, :focus-within) {
+    height: calc(var(--insight-cards-card-height) + var(--insight-cards-card-grow));
+
+    /* the grown part overlaps the reserved space instead of making the row taller */
+    margin-bottom: calc(var(--insight-cards-card-grow) * -1);
+  }
+
+  .insight-cards.hover .insight-cards-card:is(:hover, :focus-within) .insight-cards-description {
+    -webkit-line-clamp: unset;
+  }
+
+  /* discover layout: four compact cards with a category label */
+  .insight-cards.discover {
+    --insight-cards-card-title-size: var(--body-1-font-size);
+    --insight-cards-card-title-line: var(--body-1-line-height);
+    --insight-cards-card-text-size: var(--body-2-font-size);
+    --insight-cards-card-text-line: var(--body-2-line-height);
+    --insight-cards-card-height: 274px;
+    --insight-cards-card-grow: 36px;
+    --insight-cards-card-padding: var(--spacing-xl);
+    --insight-cards-button-size: 32px;
+    --insight-cards-icon-size: 22px;
+    --insight-cards-illustration-size: 154px;
+  }
+
+  .insight-cards.discover .insight-cards-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* reduced motion comes last to win over the rules above */
+@media (prefers-reduced-motion: reduce) {
+  .insight-cards .insight-cards-card,
+  .insight-cards .insight-cards-card::before,
+  .insight-cards .insight-cards-card-title,
+  .insight-cards .insight-cards-description,
+  .insight-cards .insight-cards-icon,
+  .insight-cards .insight-cards-illustration :is(.insight-cards-illustration-default, .insight-cards-illustration-hover),
+  .insight-cards .insight-cards-dot::before {
+    transition: none;
+  }
+}

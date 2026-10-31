@@ -14,6 +14,8 @@
       "title",
       "hero",
       "insu-banner",
+      "insight-cards",
+      "plan-cards",
       "cards",
       "columns",
       "fragment",
@@ -57,9 +59,22 @@
     ]
   },
   {
+    "id": "insight-cards",
+    "components": [
+      "insight-card"
+    ]
+  },
+  {
     "id": "lead-form",
     "components": [
       "lead-form-field"
+    ]
+  },
+  {
+    "id": "plan-cards",
+    "components": [
+      "plan-card",
+      "plan-tab"
     ]
   },
   {

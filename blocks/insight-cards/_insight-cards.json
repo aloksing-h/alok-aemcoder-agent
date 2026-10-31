@@ -1,0 +1,185 @@
+{
+  "definitions": [
+    {
+      "title": "Insight Cards",
+      "id": "insight-cards",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Insight Cards",
+              "model": "insight-cards",
+              "filter": "insight-cards"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Insight Card",
+      "id": "insight-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Insight Card",
+              "model": "insight-card",
+              "tag": "blog",
+              "icon": "arrow"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "insight-cards",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Popular (3 large cards)",
+              "value": ""
+            },
+            {
+              "name": "Discover (4 compact cards)",
+              "value": "discover"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "classes_hover",
+          "label": "Hover effect",
+          "description": "When on, a card turns red and grows when a visitor points at it or moves to it with the keyboard",
+          "valueType": "boolean",
+          "value": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Heading and description",
+          "description": "Section heading (bold words are shown heavier) followed by a short description",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "insight-card",
+      "fields": [
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "tag",
+          "label": "Badge",
+          "description": "Small label at the top of the card",
+          "value": "blog",
+          "options": [
+            {
+              "name": "None",
+              "value": ""
+            },
+            {
+              "name": "Video",
+              "value": "video"
+            },
+            {
+              "name": "Blog",
+              "value": "blog"
+            },
+            {
+              "name": "Podcast",
+              "value": "podcast"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "category",
+          "label": "Category (optional)",
+          "description": "White label above the title, e.g. About Life Insurance",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Title",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "Card link"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Button icon",
+          "value": "arrow",
+          "options": [
+            {
+              "name": "Arrow",
+              "value": "arrow"
+            },
+            {
+              "name": "Play",
+              "value": "play"
+            }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Illustration",
+          "description": "Dark line illustration on a transparent background, shown by default",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Illustration alt text",
+          "description": "Leave empty when the illustration is decorative",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "imageHover",
+          "label": "Hover illustration (optional)",
+          "description": "Light line version shown on the red hover background. Leave empty to show the illustration in white",
+          "multi": false
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "insight-cards",
+      "components": [
+        "insight-card"
+      ]
+    }
+  ]
+}
