@@ -7,12 +7,17 @@
   --promo-color-white: #fff;
   --promo-color-red: #e1122d;
   --promo-color-focus: #2e90fa;
-  --promo-gradient-red: linear-gradient(-36deg, #fb2c47 0%, #fa1432 36%, #7f2224 100%);
-  --promo-gradient-navy: linear-gradient(-36deg, #1e4679 0%, #1e4679 36%, #0c1c30 100%);
+  --promo-gradient-red: linear-gradient(172deg, #7f2224 0%, #e1122d 41%, #e1122d 100%);
+  --promo-gradient-navy: linear-gradient(172deg, #0c1c30 0%, #1e4679 64%, #1e4679 100%);
+  --promo-gradient-page: linear-gradient(-36deg, #e1122d 0%, #e1122d 59%, #7f2224 100%);
+  --promo-shadow-red: 0 24px 48px -16px rgb(225 18 45 / 45%);
+  --promo-shadow-navy: 0 24px 48px -16px rgb(30 70 121 / 45%);
   --promo-border-red: #feb9c2;
   --promo-border-navy: #bcc8d7;
 
   /* typography */
+  --promo-font-family: var(--body-font-family);
+  --promo-heading-font-family: var(--heading-font-family);
   --promo-font-weight-light: 300;
   --promo-font-weight-medium: 500;
   --promo-font-weight-semibold: 600;
@@ -30,9 +35,10 @@
   --promo-offer-sub-line: 28px;
   --promo-tag-size: 12px;
   --promo-tag-line: 14px;
-  --promo-tag-tracking: 0.15em;
+  --promo-tag-tracking: 1.92px;
   --promo-page-size: 14px;
   --promo-page-line: 18px;
+  --promo-page-width: 19px;
 
   /* spacing and sizes */
   --promo-space-2xs: 4px;
@@ -48,21 +54,30 @@
   --promo-radius-pill: 999px;
   --promo-cta-height: 38px;
   --promo-cta-icon: 30px;
-  --promo-card-width: 280px;
+  --promo-deck-width: 100%;
   --promo-card-height: 260px;
   --promo-peek: 10px;
   --promo-scale-1: 0.871;
   --promo-scale-2: 0.775;
   --promo-line-width: 131px;
   --promo-content-width: 447px;
-  --promo-transition: 0.4s ease;
+  --promo-content-offset: 0;
+  --promo-pagination-offset: 34px;
+  --promo-pagination-gap: 8px;
+  --promo-leave-distance: 32px;
+  --promo-leave-tilt: -8deg;
   --promo-container: 1100px;
+
+  /* motion */
+  --promo-duration: 0.5s;
+  --promo-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   display: flex;
   flex-direction: column;
   gap: var(--promo-space-xl);
   max-width: var(--promo-container);
   margin-inline: auto;
+  font-family: var(--promo-font-family);
 }
 
 /* left content */
@@ -71,11 +86,13 @@
   flex-direction: column;
   align-items: flex-start;
   max-width: var(--promo-content-width);
+  padding-top: var(--promo-content-offset);
 }
 
 .promo-stack .promo-stack-content :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
   color: var(--promo-color-heading);
+  font-family: var(--promo-heading-font-family);
   font-size: var(--promo-heading-size);
   font-weight: var(--promo-font-weight-light);
   line-height: var(--promo-heading-line);
@@ -142,15 +159,20 @@
 .promo-stack .promo-stack-carousel {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--promo-space-l);
+  align-self: stretch;
+  align-items: flex-start;
+  gap: var(--promo-pagination-gap);
+
+  /* a dragged full-width card must not create a horizontal scrollbar */
+  overflow-x: clip;
 }
 
 .promo-stack .promo-stack-deck {
   position: relative;
-  width: calc(var(--promo-card-width) + 2 * var(--promo-peek));
+  width: var(--promo-deck-width);
   height: var(--promo-card-height);
   touch-action: pan-y;
+  user-select: none;
 }
 
 .promo-stack .promo-stack-card {
@@ -160,7 +182,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: var(--promo-card-width);
+  width: calc(100% - 2 * var(--promo-peek));
   height: var(--promo-card-height);
   padding: 0 var(--promo-space-l) var(--promo-space-2xl);
   box-sizing: border-box;
@@ -170,10 +192,15 @@
   background: var(--promo-gradient-red);
   color: var(--promo-color-white);
   transform-origin: right center;
-  transition: transform var(--promo-transition), opacity var(--promo-transition);
+  transition:
+    transform var(--promo-duration) var(--promo-ease),
+    opacity var(--promo-duration) var(--promo-ease),
+    box-shadow var(--promo-duration) var(--promo-ease);
 }
 
 .promo-stack .promo-stack-card-navy {
+  --promo-shadow: var(--promo-shadow-navy);
+
   border-color: var(--promo-border-navy);
   background: var(--promo-gradient-navy);
 }
@@ -200,6 +227,31 @@
   transform: translateX(calc(2 * var(--promo-peek))) scale(var(--promo-scale-2));
 }
 
+/* motion states: dragged by the pointer, flying out (next) or in (previous) */
+.promo-stack .promo-stack-card.is-dragging {
+  z-index: 4;
+  box-shadow: var(--promo-shadow, var(--promo-shadow-red));
+  transform: translateX(var(--promo-drag, 0)) rotate(var(--promo-tilt, 0));
+  transition: none;
+  cursor: grabbing;
+}
+
+.promo-stack .promo-stack-card.is-leaving {
+  z-index: 4;
+  opacity: 0;
+  box-shadow: var(--promo-shadow, var(--promo-shadow-red));
+  transform: translateX(calc(-100% - var(--promo-leave-distance))) rotate(var(--promo-leave-tilt));
+  pointer-events: none;
+}
+
+.promo-stack .promo-stack-card.is-faded {
+  opacity: 0;
+}
+
+.promo-stack .promo-stack-card.is-instant {
+  transition: none;
+}
+
 .promo-stack .promo-stack-tag {
   position: absolute;
   inset-block-start: var(--promo-space-l);
@@ -209,7 +261,7 @@
   border: 1px solid var(--promo-color-white);
   border-radius: var(--promo-radius-tag);
   font-size: var(--promo-tag-size);
-  font-weight: var(--promo-font-weight-medium);
+  font-weight: var(--promo-font-weight-semibold);
   line-height: var(--promo-tag-line);
   letter-spacing: var(--promo-tag-tracking);
   text-transform: uppercase;
@@ -218,6 +270,11 @@
 .promo-stack .promo-stack-offer :is(h1, h2, h3, h4, h5, h6, p) {
   margin: 0;
   color: inherit;
+  font-family: var(--promo-font-family);
+}
+
+.promo-stack .promo-stack-offer :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--promo-heading-font-family);
 }
 
 .promo-stack .promo-stack-offer > :first-child {
@@ -259,17 +316,21 @@
   display: flex;
   align-items: center;
   gap: var(--promo-space-xs);
+  margin-inline-start: var(--promo-pagination-offset);
 }
 
 .promo-stack .promo-stack-page {
+  min-width: var(--promo-page-width);
   margin: 0;
   padding: 0;
   border: 0;
   background: none;
   color: var(--promo-color-muted);
   font-size: var(--promo-page-size);
+  font-family: var(--promo-font-family);
   font-weight: var(--promo-font-weight-semibold);
   line-height: var(--promo-page-line);
+  text-align: center;
   cursor: pointer;
 }
 
@@ -278,7 +339,9 @@
 }
 
 .promo-stack .promo-stack-page[aria-current] {
-  color: var(--promo-color-red);
+  background: var(--promo-gradient-page);
+  background-clip: text;
+  color: transparent;
 }
 
 .promo-stack .promo-stack-line {
@@ -298,19 +361,27 @@
     --promo-cta-icon: 32px;
     --promo-offer-size: 40px;
     --promo-offer-line: 48px;
-    --promo-card-width: 360px;
+    --promo-deck-width: calc(360px + 2 * var(--promo-peek));
     --promo-card-height: 332px;
     --promo-peek: 16px;
     --promo-scale-1: 0.889;
     --promo-scale-2: 0.839;
+    --promo-gradient-red: linear-gradient(172deg, #7f2224 0%, #fa1432 64%, #fb2c47 100%);
+    --promo-content-offset: 52px;
+    --promo-pagination-offset: 39px;
+    --promo-pagination-gap: 31px;
 
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+
+    /* the card flies out across the block, which keeps the page from scrolling sideways */
+    overflow-x: clip;
   }
 
   .promo-stack .promo-stack-carousel {
-    gap: var(--promo-space-xl);
+    align-self: auto;
+    overflow-x: visible;
   }
 }
 

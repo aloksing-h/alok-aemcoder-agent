@@ -173,12 +173,14 @@ export default function decorate(block) {
   let active = 0;
   const show = (index) => {
     active = (index + items.length) % items.length;
+    // cards keep their authored order; a window of VISIBLE cards around the active one is shown
+    const start = Math.max(0, Math.min(active - 1, items.length - VISIBLE));
     items.forEach((item, i) => {
-      const position = (i - active + items.length) % items.length;
-      item.card.dataset.position = position < VISIBLE ? String(position) : 'hidden';
-      item.card.style.order = String(position);
+      const inWindow = i >= start && i < start + VISIBLE;
+      if (i === active) item.card.dataset.position = '0';
+      else item.card.dataset.position = inWindow ? 'strip' : 'hidden';
       // narrow cards stay clickable (they expand); their play button is hidden until then
-      const isActive = position === 0;
+      const isActive = i === active;
       item.card.setAttribute('aria-hidden', String(!isActive));
     });
     dots.forEach((dot, i) => {

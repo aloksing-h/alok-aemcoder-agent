@@ -13,6 +13,8 @@
   --vt-gradient-active-dot: linear-gradient(180deg, #af0e23 0%, #fb2c47 100%);
 
   /* typography */
+  --vt-font-family: var(--body-font-family);
+  --vt-heading-font-family: var(--heading-font-family);
   --vt-font-weight-light: 300;
   --vt-font-weight-medium: 500;
   --vt-font-weight-bold: 700;
@@ -43,11 +45,23 @@
   --vt-close-size: 28px;
   --vt-dialog-ratio: 328 / 200;
   --vt-dialog-width: calc(100vw - 2 * var(--vt-space-m));
-  --vt-transition: 0.4s ease;
+  --vt-dialog-inset: var(--vt-space-l);
+  --vt-title-gap: var(--vt-space-xs);
+  --vt-pagination-gap: var(--vt-space-s);
   --vt-container: 1100px;
+
+  /* motion */
+  --vt-duration: 0.6s;
+  --vt-ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --vt-transition: var(--vt-duration) var(--vt-ease);
+  --vt-duration-fast: 0.2s;
+  --vt-transition-fast: var(--vt-duration-fast) ease;
+  --vt-play-delay: var(--vt-duration-fast);
+  --vt-header-gap: var(--vt-space-l);
 
   max-width: var(--vt-container);
   margin-inline: auto;
+  font-family: var(--vt-font-family);
 }
 
 /* header */
@@ -58,6 +72,7 @@
 .video-testimonials .video-testimonials-header :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
   color: var(--vt-color-heading);
+  font-family: var(--vt-heading-font-family);
   font-size: var(--vt-heading-size);
   font-weight: var(--vt-font-weight-light);
   line-height: var(--vt-heading-line);
@@ -69,7 +84,7 @@
 }
 
 .video-testimonials .video-testimonials-header p {
-  margin: var(--vt-space-xs) 0 0;
+  margin: var(--vt-title-gap) 0 0;
   color: var(--vt-color-body);
   font-size: var(--vt-body-size);
   font-weight: var(--vt-font-weight-medium);
@@ -85,8 +100,8 @@
 .video-testimonials .video-testimonials-carousel {
   display: flex;
   flex-direction: column;
-  gap: var(--vt-space-s);
-  margin-top: var(--vt-space-l);
+  gap: var(--vt-pagination-gap);
+  margin-top: var(--vt-header-gap);
 }
 
 .video-testimonials .video-testimonials-track {
@@ -123,6 +138,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  -webkit-user-drag: none;
 }
 
 .video-testimonials .video-testimonials-icon {
@@ -151,10 +167,57 @@
   background: var(--vt-gradient-play);
   color: var(--vt-color-white);
   cursor: pointer;
+  transition:
+    opacity var(--vt-transition) var(--vt-play-delay),
+    transform var(--vt-transition) var(--vt-play-delay),
+    visibility 0s;
 }
 
+/* the play button fades in once a card has expanded, and is hidden (not focusable) on strips */
 .video-testimonials .video-testimonials-card:not([data-position='0']) .video-testimonials-play {
-  display: none;
+  --vt-play-delay: 0s;
+
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity var(--vt-transition-fast),
+    transform var(--vt-transition-fast),
+    visibility 0s var(--vt-duration-fast);
+}
+
+/* hover: the hovered card expands, the others become strips (devices with a pointer) */
+@media (hover: hover) {
+  .video-testimonials .video-testimonials-track:has(.video-testimonials-card:hover) .video-testimonials-card[data-position='0']:not(:hover) {
+    flex: 0 0 var(--vt-card-narrow);
+  }
+
+  .video-testimonials .video-testimonials-card[data-position='strip']:hover {
+    flex: 1 1 0;
+  }
+
+  .video-testimonials .video-testimonials-card[data-position='strip']:hover .video-testimonials-play {
+    --vt-play-delay: var(--vt-duration-fast);
+
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--vt-transition) var(--vt-play-delay),
+      transform var(--vt-transition) var(--vt-play-delay),
+      visibility 0s;
+  }
+
+  /* the active card's play button hides while another card is expanded */
+  .video-testimonials .video-testimonials-track:has(.video-testimonials-card:hover) .video-testimonials-card[data-position='0']:not(:hover) .video-testimonials-play {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.8);
+    transition:
+      opacity var(--vt-transition-fast),
+      transform var(--vt-transition-fast),
+      visibility 0s var(--vt-duration-fast);
+  }
 }
 
 /* line pagination */
@@ -245,8 +308,8 @@
   --vt-icon: url('../../icons/close.svg');
 
   position: absolute;
-  inset-block-start: var(--vt-space-l);
-  inset-inline-end: var(--vt-space-l);
+  inset-block-start: var(--vt-dialog-inset);
+  inset-inline-end: var(--vt-dialog-inset);
   width: var(--vt-close-size);
   height: var(--vt-close-size);
   border: 1px solid var(--vt-color-white);
@@ -295,12 +358,10 @@
     --vt-play-size: 40px;
     --vt-play-inset: 24px;
     --vt-dialog-ratio: 960 / 446;
-    --vt-dialog-width: min(960px, calc(100vw - 4 * var(--vt-space-2xl) - 2 * var(--vt-control-size)));
-  }
-
-  .video-testimonials .video-testimonials-carousel {
-    gap: var(--vt-space-l);
-    margin-top: var(--vt-space-2xl);
+    --vt-dialog-inset: 50px;
+    --vt-dialog-width: min(960px, calc(100vw - 4 * var(--vt-dialog-inset) - 2 * var(--vt-control-size)));
+    --vt-header-gap: 34px;
+    --vt-pagination-gap: var(--vt-space-l);
   }
 
   .video-testimonials .video-testimonials-pagination {
@@ -309,18 +370,13 @@
 
   /* desktop: arrows sit on both sides of the video */
   .video-testimonials .video-testimonials-dialog {
-    padding: var(--vt-space-2xl);
-  }
-
-  .video-testimonials .video-testimonials-close {
-    inset-block-start: var(--vt-space-2xl);
-    inset-inline-end: var(--vt-space-2xl);
+    padding: var(--vt-dialog-inset);
   }
 
   .video-testimonials .video-testimonials-nav {
     position: absolute;
     inset-block-start: 50%;
-    inset-inline: var(--vt-space-2xl);
+    inset-inline: var(--vt-dialog-inset);
     width: auto;
     transform: translateY(-50%);
     pointer-events: none;
@@ -333,7 +389,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .video-testimonials .video-testimonials-card,
-  .video-testimonials .video-testimonials-dot {
+  .video-testimonials .video-testimonials-dot,
+  .video-testimonials .video-testimonials-card .video-testimonials-play {
     transition: none;
   }
 }

@@ -39,6 +39,15 @@
       "id": "promo-stack",
       "fields": [
         {
+          "component": "multiselect",
+          "valueType": "string",
+          "name": "classes",
+          "label": "Options",
+          "options": [
+            { "name": "Auto-slide off", "value": "no-autoplay" }
+          ]
+        },
+        {
           "component": "richtext",
           "valueType": "string",
           "name": "text",

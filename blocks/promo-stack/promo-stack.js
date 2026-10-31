@@ -1,7 +1,13 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const SWIPE_THRESHOLD = 40;
+const DRAG_START = 4;
+const MAX_TILT = 12;
 const VISIBLE_BEHIND = 2;
+// keep in sync with --promo-duration
+const LEAVE_DURATION = 500;
+const AUTOPLAY_INTERVAL = 1500;
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function pad(n) {
   return String(n).padStart(2, '0');
@@ -145,43 +151,157 @@ export default function decorate(block) {
     buttons[active]?.after(line);
   };
 
-  buttons.forEach((button, i) => button.addEventListener('click', () => show(i)));
+  // next: the front card flies out, the cards behind move up; previous: the card flies back in
+  let busy = false;
+  // a page chosen while a card is still moving is shown once the motion ends
+  let pending = null;
+  let goTo;
+  const done = () => {
+    busy = false;
+    if (pending !== null) {
+      const index = pending;
+      pending = null;
+      goTo(index);
+    }
+  };
+  const go = (delta) => {
+    const target = active + delta;
+    if (busy) return;
+    if (REDUCED_MOTION.matches || cards.length < 2 || Math.abs(delta) !== 1) {
+      show(target);
+      return;
+    }
+    busy = true;
+    if (delta === 1) {
+      const leaving = cards[active];
+      leaving.classList.add('is-leaving');
+      show(target);
+      setTimeout(() => {
+        // put the card at the back of the stack without animating, then fade it in
+        leaving.classList.add('is-instant', 'is-faded');
+        leaving.classList.remove('is-leaving');
+        leaving.getBoundingClientRect();
+        leaving.classList.remove('is-instant');
+        requestAnimationFrame(() => {
+          leaving.classList.remove('is-faded');
+          done();
+        });
+      }, LEAVE_DURATION);
+    } else {
+      const entering = cards[(active - 1 + cards.length) % cards.length];
+      entering.classList.add('is-instant', 'is-leaving');
+      entering.getBoundingClientRect();
+      entering.classList.remove('is-instant');
+      show(target);
+      requestAnimationFrame(() => {
+        entering.classList.remove('is-leaving');
+        setTimeout(done, LEAVE_DURATION);
+      });
+    }
+  };
 
-  // a swipe ends with a click, which must not switch the card a second time
-  let swiped = false;
+  goTo = (index) => {
+    if (busy) {
+      pending = index;
+      return;
+    }
+    const delta = (index - active + cards.length) % cards.length;
+    if (delta === 1) go(1);
+    else if (delta === cards.length - 1) go(-1);
+    else if (delta) show(index);
+  };
+
+  buttons.forEach((button, i) => button.addEventListener('click', () => goTo(i)));
+
+  // a drag ends with a click, which must not switch the card again or follow its link
+  let dragged = false;
 
   // a card peeking behind the front card brings it forward
   deck.addEventListener('click', (event) => {
-    if (swiped) {
-      swiped = false;
+    if (dragged) {
+      dragged = false;
       event.preventDefault();
       return;
     }
     const card = event.target.closest('.promo-stack-card');
-    if (card && card.dataset.position !== '0') show(cards.indexOf(card));
+    if (card && card.dataset.position !== '0') goTo(cards.indexOf(card));
   });
 
-  let startX = null;
-  deck.addEventListener('pointerdown', (event) => { startX = event.clientX; });
-  deck.addEventListener('pointerup', (event) => {
-    if (startX === null) return;
-    const delta = event.clientX - startX;
-    startX = null;
-    if (Math.abs(delta) > SWIPE_THRESHOLD) {
-      swiped = true;
-      show(active + (delta < 0 ? 1 : -1));
-    }
+  // the front card follows the pointer, and is thrown away past the threshold
+  deck.addEventListener('pointerdown', (event) => {
+    const front = event.target.closest('.promo-stack-card[data-position="0"]');
+    if (!front || busy || event.button > 0) return;
+    const startX = event.clientX;
+    let delta = 0;
+    const move = (e) => {
+      delta = e.clientX - startX;
+      if (Math.abs(delta) < DRAG_START) return;
+      dragged = true;
+      front.classList.add('is-dragging');
+      front.style.setProperty('--promo-drag', `${delta}px`);
+      front.style.setProperty('--promo-tilt', `${Math.max(-MAX_TILT, Math.min(MAX_TILT, delta / 20))}deg`);
+    };
+    const end = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', end);
+      window.removeEventListener('pointercancel', end);
+      front.classList.remove('is-dragging');
+      front.style.removeProperty('--promo-drag');
+      front.style.removeProperty('--promo-tilt');
+      if (Math.abs(delta) > SWIPE_THRESHOLD) go(delta < 0 ? 1 : -1);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
   });
-  deck.addEventListener('pointercancel', () => { startX = null; });
 
   carousel.addEventListener('keydown', (event) => {
     if (!event.target.closest('.promo-stack-pagination')) return;
     if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
     event.preventDefault();
-    show(active + (event.key === 'ArrowRight' ? 1 : -1));
+    go(event.key === 'ArrowRight' ? 1 : -1);
     buttons[active].focus();
   });
 
   block.replaceChildren(content, carousel);
   if (cards.length) show(0);
+
+  // auto-slide; paused while the user hovers, focuses, drags or cannot see it
+  const autoplay = cards.length > 1
+    && !block.classList.contains('no-autoplay')
+    && !REDUCED_MOTION.matches
+    && !document.documentElement.classList.contains('adobe-ue-edit');
+  if (!autoplay) return;
+  let timer = null;
+  let hovering = false;
+  let focused = false;
+  let pressing = false;
+  let inView = false;
+  const schedule = () => {
+    clearTimeout(timer);
+    if (hovering || focused || pressing || !inView || document.hidden) return;
+    timer = setTimeout(() => {
+      go(1);
+      schedule();
+    }, AUTOPLAY_INTERVAL);
+  };
+  block.addEventListener('mouseenter', () => { hovering = true; schedule(); });
+  block.addEventListener('mouseleave', () => { hovering = false; schedule(); });
+  block.addEventListener('focusin', () => { focused = true; schedule(); });
+  block.addEventListener('focusout', (event) => {
+    if (block.contains(event.relatedTarget)) return;
+    focused = false;
+    schedule();
+  });
+  deck.addEventListener('pointerdown', () => { pressing = true; schedule(); });
+  window.addEventListener('pointerup', () => {
+    if (!pressing) return;
+    pressing = false;
+    schedule();
+  });
+  document.addEventListener('visibilitychange', schedule);
+  new IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting;
+    schedule();
+  }, { threshold: 0.5 }).observe(deck);
 }
