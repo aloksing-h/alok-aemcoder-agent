@@ -3,6 +3,7 @@
 | File | What it is | How to use it |
 |---|---|---|
 | `aemcoder-components-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/aemcoder-components` with every blog content component, plus 3 media assets in `/content/dam/alok-aemcoder-agent/aemcoder-components` | AEM author → CRX Package Manager → Upload Package → Install |
+| `insight-and-plan-cards-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/insight-and-plan-cards` with the Insight Cards block (Popular, and Discover with the Hover effect option) and the Plan Cards block (tabs, Home and Category page layouts, all badge types), plus 4 sample SVG illustrations and a sample brochure PDF in `/content/dam/alok-aemcoder-agent/insight-and-plan-cards-sample`. Use it with the `insight-and-plan-cards` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `insu-banner-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/insu-banner` with the Insu Banner block (heading, description, button, reading time, views, share menu, desktop and mobile illustration), plus 2 sample SVG illustrations in `/content/dam/alok-aemcoder-agent/insu-banner-sample`. Use it with the `insu-banner` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `category-links-variants-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/category-links-variants` with both layouts of the Category Links block (Category links and Table of contents), with default and authored icons, plus 4 SVG icons in `/content/dam/alok-aemcoder-agent/category-links`. Use it with the `category-links-variants` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `promo-and-testimonials-page-1.1.0.zip` | **AEM content package (latest)**: the page `/content/alok-aemcoder-agent/promo-and-testimonials` with the Promo Stack and Video Testimonials components, plus 1 video in `/content/dam/alok-aemcoder-agent/promo-and-testimonials`. Same page content as 1.0.0; use it with the `promo-and-testimonials-v2` code | AEM author → CRX Package Manager → Upload Package → Install |
@@ -11,7 +12,7 @@
 
 ## After installing a content package
 
-1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links` or `insu-banner-sample` under
+1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links`, `insu-banner-sample` or `insight-and-plan-cards-sample` under
    `/content/dam/alok-aemcoder-agent/`) → select its assets → Reprocess, then Publish.
 2. The pages also use images that already exist in `/content/dam/alok-aemcoder-agent/`
    (the boilerplate images on the home page).
@@ -22,3 +23,4 @@
    - `https://promo-and-testimonials-v2--alok-aemcoder-agent--aloksing-h.aem.page/promo-and-testimonials`
    - `https://category-links-variants--alok-aemcoder-agent--aloksing-h.aem.page/category-links-variants`
    - `https://insu-banner--alok-aemcoder-agent--aloksing-h.aem.page/insu-banner`
+   - `https://insight-and-plan-cards--alok-aemcoder-agent--aloksing-h.aem.page/insight-and-plan-cards`
