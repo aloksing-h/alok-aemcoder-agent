@@ -1,0 +1,415 @@
+/* the banner background spans the full page width */
+main > .section > .insu-banner-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+main > .section.insu-banner-container:first-of-type {
+  margin-top: 0;
+}
+
+.insu-banner {
+  /* colors */
+  --insu-banner-color-heading: var(--text-primary);
+  --insu-banner-color-body: var(--text-tertiary);
+  --insu-banner-color-icon: var(--brand-red-600);
+  --insu-banner-color-share: var(--brand-red-500);
+  --insu-banner-color-cta: var(--brand-red-600);
+  --insu-banner-color-cta-hover: var(--brand-red-700);
+  --insu-banner-color-cta-text: var(--base-white);
+  --insu-banner-color-arrow: var(--gray-900);
+  --insu-banner-color-surface: var(--base-white);
+  --insu-banner-color-divider: var(--gray-300);
+  --insu-banner-color-glow: var(--blue-100);
+  --insu-banner-color-share-active: var(--base-black);
+  --insu-banner-color-option: var(--gray-900);
+  --insu-banner-color-focus: var(--info-500);
+
+  /* typography */
+  --insu-banner-font-family: var(--heading-font-family);
+  --insu-banner-title-size: var(--heading-3-font-size);
+  --insu-banner-title-line: var(--heading-3-line-height);
+  --insu-banner-title-tracking: var(--heading-3-letter-spacing);
+  --insu-banner-title-weight: var(--font-weight-light);
+  --insu-banner-title-weight-strong: var(--font-weight-semibold);
+  --insu-banner-body-size: var(--body-2-font-size);
+  --insu-banner-body-line: var(--body-2-line-height);
+  --insu-banner-body-weight: var(--font-weight-medium);
+  --insu-banner-cta-size: var(--button-2-font-size);
+  --insu-banner-cta-line: var(--button-2-line-height);
+  --insu-banner-cta-weight: var(--font-weight-extrabold);
+  --insu-banner-stat-size: 12px;
+  --insu-banner-stat-line: 14px;
+  --insu-banner-stat-weight: var(--font-weight-medium);
+
+  /*
+   * spacing and sizes
+   * The Figma banner sits behind a transparent header. Here the header is above the banner,
+   * so its height is taken off the top padding to keep the heading where Figma places it.
+   */
+  --insu-banner-header-offset: var(--nav-height, 64px);
+  --insu-banner-padding-top: calc(118px - var(--insu-banner-header-offset));
+  --insu-banner-padding-bottom: 71px;
+  --insu-banner-padding-inline: var(--spacing-xl);
+  --insu-banner-max-width: 1200px;
+  --insu-banner-content-width: 633px;
+  --insu-banner-gap-text: var(--spacing-md);
+  --insu-banner-gap-cta: var(--spacing-2xl);
+  --insu-banner-gap-meta: var(--spacing-xl);
+  --insu-banner-gap-stats: var(--spacing-lg);
+  --insu-banner-gap-stat: var(--spacing-xs);
+  --insu-banner-cta-height: 38px;
+  --insu-banner-cta-padding-start: var(--spacing-2xl);
+  --insu-banner-cta-padding-end: var(--spacing-xs);
+  --insu-banner-cta-gap: var(--spacing-lg);
+  --insu-banner-cta-arrow: 30px;
+  --insu-banner-cta-arrow-icon: 22.5px;
+  --insu-banner-icon-size: 16px;
+  --insu-banner-divider-height: 16px;
+  --insu-banner-share-size: 24px;
+  --insu-banner-share-icon: 18px;
+  --insu-banner-share-option: 24px;
+  --insu-banner-share-option-icon: 16px;
+  --insu-banner-share-menu-padding-block: var(--spacing-lg);
+  --insu-banner-share-menu-padding-inline: var(--spacing-xl);
+  --insu-banner-share-menu-gap: var(--spacing-lg);
+  --insu-banner-share-menu-offset: var(--spacing-md);
+  --insu-banner-radius-pill: var(--radius-full);
+  --insu-banner-radius-menu: var(--radius-md);
+  --insu-banner-shadow-menu: var(--shadow-lg);
+  --insu-banner-illustration-width: 135px;
+  --insu-banner-illustration-height: 169px;
+
+  /* blurred light blue shapes behind the content, as in Figma */
+  --insu-banner-background:
+    radial-gradient(385px 376px at -44px 81px, var(--insu-banner-color-glow) 0%, rgb(209 233 255 / 0%) 100%),
+    radial-gradient(381px 200px at calc(100% + 126px) 157px, var(--insu-banner-color-glow) 0%, rgb(209 233 255 / 0%) 100%),
+    var(--insu-banner-color-surface);
+
+  position: relative;
+
+  /* the illustration is cut at the page edge; the share menu may still overlap the next section */
+  overflow-x: clip;
+  background: var(--insu-banner-background);
+  font-family: var(--insu-banner-font-family);
+}
+
+.insu-banner .insu-banner-body {
+  position: relative;
+  box-sizing: border-box;
+  max-width: var(--insu-banner-max-width);
+  margin-inline: auto;
+  padding: var(--insu-banner-padding-top) var(--insu-banner-padding-inline) var(--insu-banner-padding-bottom);
+}
+
+.insu-banner .insu-banner-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: var(--insu-banner-content-width);
+}
+
+/* heading and description */
+.insu-banner .insu-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insu-banner-gap-text);
+  margin-bottom: var(--insu-banner-gap-cta);
+}
+
+.insu-banner .insu-banner-text > * {
+  margin: 0;
+}
+
+.insu-banner .insu-banner-title {
+  color: var(--insu-banner-color-heading);
+  font-family: var(--insu-banner-font-family);
+  font-size: var(--insu-banner-title-size);
+  font-weight: var(--insu-banner-title-weight);
+  line-height: var(--insu-banner-title-line);
+  letter-spacing: var(--insu-banner-title-tracking);
+}
+
+.insu-banner .insu-banner-title :is(strong, b) {
+  font-weight: var(--insu-banner-title-weight-strong);
+}
+
+.insu-banner .insu-banner-text > :not(.insu-banner-title) {
+  color: var(--insu-banner-color-body);
+  font-size: var(--insu-banner-body-size);
+  font-weight: var(--insu-banner-body-weight);
+  line-height: var(--insu-banner-body-line);
+}
+
+/* call to action */
+.insu-banner .insu-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insu-banner-cta-gap);
+  box-sizing: border-box;
+  height: var(--insu-banner-cta-height);
+  padding-inline: var(--insu-banner-cta-padding-start) var(--insu-banner-cta-padding-end);
+  border-radius: var(--insu-banner-radius-pill);
+  background-color: var(--insu-banner-color-cta);
+  color: var(--insu-banner-color-cta-text);
+  font-size: var(--insu-banner-cta-size);
+  font-weight: var(--insu-banner-cta-weight);
+  line-height: var(--insu-banner-cta-line);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.insu-banner .insu-banner-cta:hover {
+  --insu-banner-arrow-shift: 2px;
+
+  background-color: var(--insu-banner-color-cta-hover);
+  color: var(--insu-banner-color-cta-text);
+}
+
+.insu-banner .insu-banner-cta-arrow {
+  --insu-banner-icon-box: var(--insu-banner-cta-arrow-icon);
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--insu-banner-cta-arrow);
+  height: var(--insu-banner-cta-arrow);
+  border-radius: var(--insu-banner-radius-pill);
+  background-color: var(--insu-banner-color-surface);
+  color: var(--insu-banner-color-arrow);
+}
+
+/* reading time, views and share */
+.insu-banner .insu-banner-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insu-banner-gap-stats);
+  margin-top: var(--insu-banner-gap-meta);
+}
+
+.insu-banner .insu-banner-stat {
+  --insu-banner-icon-color: var(--insu-banner-color-icon);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insu-banner-gap-stat);
+  color: var(--insu-banner-color-body);
+  font-size: var(--insu-banner-stat-size);
+  font-weight: var(--insu-banner-stat-weight);
+  line-height: var(--insu-banner-stat-line);
+}
+
+.insu-banner .insu-banner-divider {
+  width: 1px;
+  height: var(--insu-banner-divider-height);
+  background-color: var(--insu-banner-color-divider);
+}
+
+.insu-banner .insu-banner-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--insu-banner-icon-box, var(--insu-banner-icon-size));
+  height: var(--insu-banner-icon-box, var(--insu-banner-icon-size));
+  background-color: var(--insu-banner-icon-color, currentcolor);
+  mask: var(--insu-banner-icon-image) center / contain no-repeat;
+}
+
+.insu-banner .insu-banner-icon-arrow {
+  --insu-banner-icon-image: url('../../icons/arrow-right.svg');
+
+  transform: translateX(var(--insu-banner-arrow-shift, 0));
+  transition: transform 0.2s ease;
+}
+
+.insu-banner .insu-banner-icon-clock {
+  --insu-banner-icon-image: url('../../icons/clock.svg');
+}
+
+.insu-banner .insu-banner-icon-eye {
+  --insu-banner-icon-image: url('../../icons/eye.svg');
+}
+
+.insu-banner .insu-banner-icon-share {
+  --insu-banner-icon-image: url('../../icons/share.svg');
+}
+
+.insu-banner .insu-banner-icon-mail {
+  --insu-banner-icon-image: url('../../icons/mail.svg');
+}
+
+.insu-banner .insu-banner-icon-whatsapp {
+  --insu-banner-icon-image: url('../../icons/whatsapp.svg');
+}
+
+.insu-banner .insu-banner-icon-copy {
+  --insu-banner-icon-image: url('../../icons/copy.svg');
+}
+
+.insu-banner .insu-banner-share {
+  position: relative;
+  display: inline-flex;
+}
+
+.insu-banner .insu-banner-share-toggle {
+  --insu-banner-icon-box: var(--insu-banner-share-icon);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--insu-banner-share-size);
+  height: var(--insu-banner-share-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insu-banner-radius-pill);
+  background-color: var(--insu-banner-color-surface);
+  color: var(--insu-banner-color-share);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.insu-banner .insu-banner-share-toggle[aria-expanded='true'] {
+  background-color: var(--insu-banner-color-share-active);
+  color: var(--insu-banner-color-surface);
+}
+
+.insu-banner .insu-banner-share-menu {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: calc(100% + var(--insu-banner-share-menu-offset));
+
+  /* the last option sits right below the share button, as in Figma */
+  inset-inline-end: calc(
+    var(--insu-banner-share-size) / 2 - var(--insu-banner-share-option) / 2 - var(--insu-banner-share-menu-padding-inline)
+  );
+  display: flex;
+  gap: var(--insu-banner-share-menu-gap);
+  padding: var(--insu-banner-share-menu-padding-block) var(--insu-banner-share-menu-padding-inline);
+  border-radius: var(--insu-banner-radius-menu);
+  background-color: var(--insu-banner-color-surface);
+  box-shadow: var(--insu-banner-shadow-menu);
+}
+
+.insu-banner .insu-banner-share-menu[hidden] {
+  display: none;
+}
+
+.insu-banner .insu-banner-share-option {
+  --insu-banner-icon-box: var(--insu-banner-share-option-icon);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--insu-banner-share-option);
+  height: var(--insu-banner-share-option);
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid currentcolor;
+  border-radius: var(--insu-banner-radius-pill);
+  background: none;
+  color: var(--insu-banner-color-option);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.insu-banner .insu-banner-share-option:hover {
+  background-color: var(--insu-banner-color-option);
+  color: var(--insu-banner-color-surface);
+}
+
+.insu-banner .insu-banner-share-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.insu-banner :focus-visible {
+  outline: 2px solid var(--insu-banner-color-focus);
+  outline-offset: 2px;
+}
+
+/* illustration: bottom right corner on mobile, right half on desktop */
+.insu-banner .insu-banner-illustration {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: var(--insu-banner-illustration-width);
+  height: var(--insu-banner-illustration-height);
+  pointer-events: none;
+}
+
+.insu-banner .insu-banner-illustration :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.insu-banner .insu-banner-illustration img {
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.insu-banner .insu-banner-illustration-has-mobile .insu-banner-illustration-default {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insu-banner .insu-banner-cta,
+  .insu-banner .insu-banner-icon-arrow,
+  .insu-banner .insu-banner-share-toggle,
+  .insu-banner .insu-banner-share-option {
+    transition: none;
+  }
+}
+
+@media (width >= 900px) {
+  .insu-banner {
+    --insu-banner-title-size: var(--heading-1-font-size);
+    --insu-banner-title-line: var(--heading-1-line-height);
+    --insu-banner-title-tracking: 0;
+    --insu-banner-body-size: var(--body-1-font-size);
+    --insu-banner-body-line: var(--body-1-line-height);
+    --insu-banner-cta-size: var(--button-1-font-size);
+    --insu-banner-cta-line: var(--button-1-line-height);
+    --insu-banner-padding-top: calc(96px - var(--insu-banner-header-offset));
+    --insu-banner-padding-bottom: 56px;
+    --insu-banner-padding-inline: 50px;
+    --insu-banner-gap-meta: var(--spacing-3xl);
+    --insu-banner-cta-height: 40px;
+    --insu-banner-cta-arrow: 32px;
+    --insu-banner-cta-arrow-icon: 20px;
+    --insu-banner-share-size: 32px;
+    --insu-banner-share-icon: 20px;
+    --insu-banner-illustration-width: 522px;
+    --insu-banner-illustration-height: 400px;
+    --insu-banner-illustration-left: max(66.42%, calc(var(--insu-banner-content-width) + 100px));
+    --insu-banner-background:
+      radial-gradient(718px 668px at max(7px, calc(50% - 593px)) -18px, var(--insu-banner-color-glow) 0%, rgb(209 233 255 / 0%) 100%),
+      radial-gradient(557px 205px at calc(50% + 381px) -51px, var(--insu-banner-color-glow) 0%, rgb(209 233 255 / 0%) 100%),
+      var(--insu-banner-color-surface);
+  }
+
+  .insu-banner .insu-banner-illustration {
+    inset-inline: var(--insu-banner-illustration-left) auto;
+  }
+
+  .insu-banner .insu-banner-illustration img {
+    object-position: left bottom;
+  }
+
+  .insu-banner .insu-banner-illustration-has-mobile .insu-banner-illustration-default {
+    display: block;
+  }
+
+  .insu-banner .insu-banner-illustration .insu-banner-illustration-mobile {
+    display: none;
+  }
+}

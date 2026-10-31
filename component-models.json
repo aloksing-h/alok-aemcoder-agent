@@ -433,6 +433,72 @@
     ]
   },
   {
+    "id": "insu-banner",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Heading and description",
+        "description": "Heading 1 (bold words are shown heavier) followed by a short description",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "Button link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Button label",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Illustration",
+        "description": "Shown on the right on desktop. Use an image with a transparent background",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Illustration alt text",
+        "description": "Leave empty when the illustration is decorative",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image_mobile",
+        "label": "Mobile illustration (optional)",
+        "description": "Shown in the bottom right corner on mobile. Leave empty to use the illustration above",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "meta_readTime",
+        "label": "Reading time",
+        "description": "For example: 5 Mins read",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "meta_views",
+        "label": "Views",
+        "description": "For example: 94 view. Shown after the reading time",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "lead-form",
     "fields": [
       {
