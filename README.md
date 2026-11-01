@@ -4,6 +4,7 @@
 |---|---|---|
 | `aemcoder-components-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/aemcoder-components` with every blog content component, plus 3 media assets in `/content/dam/alok-aemcoder-agent/aemcoder-components` | AEM author → CRX Package Manager → Upload Package → Install |
 | `new-components-pages-1.0.0.zip` | **AEM content package (all new components in one)**: the sample pages `/content/alok-aemcoder-agent/insu-banner`, `/content/alok-aemcoder-agent/insight-and-plan-cards` and `/content/alok-aemcoder-agent/impact-and-advisor`, plus their sample assets in `insu-banner-sample`, `insight-and-plan-cards-sample` and `impact-and-advisor-sample`. Same content as the three separate packages. Use it with the `impact-and-advisor` code, which includes all of these blocks | AEM author → CRX Package Manager → Upload Package → Install |
+| `impact-and-advisor-page-1.1.0.zip` | **AEM content package (with all images)**: the page `/content/alok-aemcoder-agent/impact-and-advisor` with the Impact Cards and Life Advisor blocks and all 16 of its images from Figma in `/content/dam/alok-aemcoder-agent/impact-cards` and `/content/dam/alok-aemcoder-agent/life-advisor`. Use it with the `impact-and-advisor` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `impact-and-advisor-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/impact-and-advisor` with the Impact Cards block (quote layout and stats-only layout) and the Life Advisor block, plus 4 sample SVG images in `/content/dam/alok-aemcoder-agent/impact-and-advisor-sample`. Use it with the `impact-and-advisor` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `insight-and-plan-cards-page-1.1.0.zip` | **AEM content package (latest)**: the same page as 1.0.0 with the badge dropdowns (including Other with custom text). Use it with the `insight-and-plan-cards-v2` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `insight-and-plan-cards-page-1.0.0.zip` | **AEM content package**: the page `/content/alok-aemcoder-agent/insight-and-plan-cards` with the Insight Cards block (Popular, and Discover with the Hover effect option) and the Plan Cards block (tabs, Home and Category page layouts, all badge types), plus 4 sample SVG illustrations and a sample brochure PDF in `/content/dam/alok-aemcoder-agent/insight-and-plan-cards-sample`. Use it with the `insight-and-plan-cards` code | AEM author → CRX Package Manager → Upload Package → Install |
@@ -15,7 +16,7 @@
 
 ## After installing a content package
 
-1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links`, `insu-banner-sample`, `insight-and-plan-cards-sample` or `impact-and-advisor-sample` under
+1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links`, `insu-banner-sample`, `insight-and-plan-cards-sample`, `impact-and-advisor-sample`, `impact-cards` or `life-advisor` under
    `/content/dam/alok-aemcoder-agent/`) → select its assets → Reprocess, then Publish.
 2. The pages also use images that already exist in `/content/dam/alok-aemcoder-agent/`
    (the boilerplate images on the home page).
