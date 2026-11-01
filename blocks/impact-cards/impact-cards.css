@@ -1,0 +1,499 @@
+.impact-cards {
+  /* colors */
+  --impact-cards-color-heading: var(--text-primary);
+  --impact-cards-color-body: var(--text-tertiary);
+  --impact-cards-color-muted: var(--text-secondary);
+  --impact-cards-color-light: var(--blue-50);
+  --impact-cards-color-white: var(--base-white);
+  --impact-cards-color-accent: var(--brand-red-600);
+  --impact-cards-color-focus: var(--info-500);
+  --impact-cards-red-background: linear-gradient(
+    -36deg,
+    var(--brand-red-600) 0%,
+    var(--brand-red-600) 59%,
+    color-mix(in srgb, var(--brand-red-800) 70%, var(--brand-red-900)) 100%
+  );
+
+  /* typography */
+  --impact-cards-font-family: var(--heading-font-family);
+  --impact-cards-title-size: var(--heading-3-font-size);
+  --impact-cards-title-line: var(--heading-3-line-height);
+  --impact-cards-title-tracking: var(--heading-3-letter-spacing);
+  --impact-cards-lead-size: var(--body-2-font-size);
+  --impact-cards-lead-line: var(--body-2-line-height);
+  --impact-cards-value-size: var(--body-2-font-size);
+  --impact-cards-value-line: var(--body-2-line-height);
+  --impact-cards-value-weight: var(--font-weight-semibold);
+  --impact-cards-label-size: 12px;
+  --impact-cards-label-line: 14px;
+  --impact-cards-label-weight: var(--font-weight-semibold);
+  --impact-cards-quote-size: var(--body-2-font-size);
+  --impact-cards-quote-line: var(--body-2-line-height);
+  --impact-cards-name-size: 12px;
+  --impact-cards-name-line: 14px;
+  --impact-cards-role-size: 10px;
+  --impact-cards-role-line: 14px;
+  --impact-cards-button-size: var(--button-2-font-size);
+  --impact-cards-button-line: var(--button-2-line-height);
+
+  /* spacing and sizes */
+  --impact-cards-header-gap: var(--spacing-md);
+  --impact-cards-grid-space: 30px;
+  --impact-cards-quote-space: var(--spacing-md);
+  --impact-cards-gap: var(--spacing-lg);
+  --impact-cards-row: 71px;
+  --impact-cards-radius: var(--radius-sm);
+  --impact-cards-padding: var(--spacing-md);
+  --impact-cards-padding-tall: var(--spacing-lg);
+  --impact-cards-text-gap: var(--spacing-xxs);
+  --impact-cards-quote-padding: var(--spacing-2xl);
+  --impact-cards-quote-text-width: 196px;
+  --impact-cards-portrait-width: 137px;
+  --impact-cards-portrait-height: 239px;
+  --impact-cards-portrait-rise: 23px;
+  --impact-cards-quote-mark-width: 22px;
+  --impact-cards-quote-mark-height: 24px;
+  --impact-cards-button-height: 38px;
+  --impact-cards-button-arrow: 30px;
+  --impact-cards-cta-space: var(--spacing-2xl);
+  --impact-cards-tall-art: 56%;
+  --impact-cards-short-art: 42%;
+
+  display: grid;
+  grid-template-areas:
+    'title'
+    'lead'
+    'grid'
+    'cta';
+  font-family: var(--impact-cards-font-family);
+}
+
+/* section heading */
+.impact-cards .impact-cards-title {
+  grid-area: title;
+}
+
+.impact-cards .impact-cards-title > * {
+  margin: 0;
+  color: var(--impact-cards-color-heading);
+  font-family: var(--impact-cards-font-family);
+  font-size: var(--impact-cards-title-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--impact-cards-title-line);
+  letter-spacing: var(--impact-cards-title-tracking);
+}
+
+.impact-cards .impact-cards-title :is(strong, b) {
+  font-weight: var(--font-weight-semibold);
+}
+
+.impact-cards .impact-cards-lead {
+  grid-area: lead;
+  margin-top: var(--impact-cards-header-gap);
+  color: var(--impact-cards-color-body);
+  font-size: var(--impact-cards-lead-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--impact-cards-lead-line);
+}
+
+.impact-cards .impact-cards-lead > * {
+  margin: 0;
+}
+
+/* the button sits below the cards on mobile and beside the heading on desktop */
+.impact-cards .impact-cards-cta {
+  grid-area: cta;
+  margin: var(--impact-cards-cta-space) 0 0;
+  text-align: center;
+}
+
+.impact-cards .impact-cards-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  box-sizing: border-box;
+  height: var(--impact-cards-button-height);
+  padding-inline: var(--spacing-2xl) var(--spacing-xs);
+  border: 1px solid var(--impact-cards-color-accent);
+  border-radius: var(--radius-full);
+  background-color: var(--impact-cards-color-white);
+  color: var(--impact-cards-color-accent);
+  font-size: var(--impact-cards-button-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--impact-cards-button-line);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.impact-cards .impact-cards-button-arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--impact-cards-button-arrow);
+  height: var(--impact-cards-button-arrow);
+  border-radius: var(--radius-full);
+  background-color: var(--impact-cards-color-accent);
+  color: var(--impact-cards-color-white);
+  transition: translate 0.2s ease;
+}
+
+.impact-cards .impact-cards-button:hover,
+.impact-cards .impact-cards-button-filled {
+  background-color: var(--impact-cards-color-accent);
+  color: var(--impact-cards-color-white);
+}
+
+.impact-cards .impact-cards-button-filled .impact-cards-button-arrow,
+.impact-cards .impact-cards-button:hover .impact-cards-button-arrow {
+  background-color: var(--impact-cards-color-white);
+  color: var(--impact-cards-color-accent);
+  translate: 2px 0;
+}
+
+.impact-cards .impact-cards-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  background-color: currentcolor;
+  mask: var(--impact-cards-icon-image) center / contain no-repeat;
+}
+
+.impact-cards .impact-cards-icon-arrow {
+  --impact-cards-icon-image: url('../../icons/arrow-right.svg');
+}
+
+.impact-cards .impact-cards-icon-quote {
+  --impact-cards-icon-image: url('../../icons/quote.svg');
+}
+
+/* grid: mobile has two columns, the first card spans both, the second is tall */
+.impact-cards .impact-cards-grid {
+  display: grid;
+  grid-area: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto;
+  grid-auto-rows: var(--impact-cards-row);
+  gap: var(--impact-cards-gap);
+  margin: var(--impact-cards-grid-space) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.impact-cards.impact-cards-with-quote .impact-cards-grid {
+  padding-top: var(--impact-cards-quote-space);
+}
+
+.impact-cards .impact-cards-card {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: var(--impact-cards-radius);
+}
+
+/* stat cards */
+.impact-cards .impact-cards-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--impact-cards-text-gap);
+  padding: var(--impact-cards-padding);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.impact-cards .impact-cards-stat.impact-cards-tall {
+  padding: var(--impact-cards-padding-tall);
+}
+
+.impact-cards .impact-cards-light {
+  background-color: var(--impact-cards-color-light);
+  color: var(--impact-cards-color-heading);
+}
+
+.impact-cards .impact-cards-red {
+  background: var(--impact-cards-red-background);
+  color: var(--impact-cards-color-white);
+}
+
+.impact-cards .impact-cards-stat > p {
+  margin: 0;
+}
+
+.impact-cards .impact-cards-value {
+  font-size: var(--impact-cards-value-size);
+  font-weight: var(--impact-cards-value-weight);
+  line-height: var(--impact-cards-value-line);
+}
+
+.impact-cards .impact-cards-label {
+  font-size: var(--impact-cards-label-size);
+  font-weight: var(--impact-cards-label-weight);
+  line-height: var(--impact-cards-label-line);
+}
+
+.impact-cards .impact-cards-stat.impact-cards-tall .impact-cards-value {
+  --impact-cards-value-size: var(--heading-4-font-size);
+  --impact-cards-value-line: var(--heading-4-line-height);
+}
+
+/* the illustration fills the lower right corner, behind the text */
+.impact-cards .impact-cards-illustration {
+  position: absolute;
+  z-index: -1;
+  inset: auto 0 0 auto;
+  width: 100%;
+  height: var(--impact-cards-short-art);
+  pointer-events: none;
+}
+
+.impact-cards .impact-cards-tall .impact-cards-illustration {
+  height: var(--impact-cards-tall-art);
+}
+
+.impact-cards .impact-cards-illustration :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.impact-cards .impact-cards-illustration img {
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.impact-cards .impact-cards-illustration-has-mobile .impact-cards-illustration-default {
+  display: none;
+}
+
+/* quote card */
+.impact-cards .impact-cards-quote {
+  display: flex;
+  min-height: calc(var(--impact-cards-portrait-height) - var(--impact-cards-portrait-rise));
+  background-color: var(--impact-cards-color-light);
+}
+
+.impact-cards .impact-cards-quote-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: var(--impact-cards-quote-padding);
+  color: var(--impact-cards-color-heading);
+}
+
+.impact-cards .impact-cards-quote-mark {
+  flex-shrink: 0;
+  width: var(--impact-cards-quote-mark-width);
+  height: var(--impact-cards-quote-mark-height);
+  color: var(--impact-cards-color-heading);
+}
+
+.impact-cards .impact-cards-quote-mark-custom :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.impact-cards .impact-cards-quote-text {
+  max-width: var(--impact-cards-quote-text-width);
+  margin: var(--spacing-xl) 0 0;
+  font-size: var(--impact-cards-quote-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--impact-cards-quote-line);
+}
+
+.impact-cards .impact-cards-quote-text > * {
+  margin: 0;
+}
+
+.impact-cards .impact-cards-quote-caption {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding-top: var(--spacing-xl);
+}
+
+.impact-cards .impact-cards-quote-name {
+  font-size: var(--impact-cards-name-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--impact-cards-name-line);
+}
+
+.impact-cards .impact-cards-quote-role {
+  color: var(--impact-cards-color-muted);
+  font-size: var(--impact-cards-role-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--impact-cards-role-line);
+}
+
+/* the portrait rises above the card at the right */
+.impact-cards .impact-cards-portrait {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: var(--impact-cards-portrait-width);
+  height: var(--impact-cards-portrait-height);
+  pointer-events: none;
+}
+
+.impact-cards .impact-cards-portrait :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.impact-cards .impact-cards-portrait img {
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.impact-cards :focus-visible {
+  outline: 2px solid var(--impact-cards-color-focus);
+  outline-offset: 2px;
+}
+
+/* mobile and tablet: the first card spans both columns, the second is tall */
+@media (width < 900px) {
+  .impact-cards .impact-cards-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .impact-cards .impact-cards-card.impact-cards-tall:not(:first-child) {
+    grid-row: span 2;
+  }
+
+  /* a stat card across the full width has its illustration on the right */
+  .impact-cards .impact-cards-stat:first-child {
+    min-height: 96px;
+    padding: var(--impact-cards-padding-tall);
+  }
+
+  .impact-cards .impact-cards-stat:first-child > p {
+    max-width: 55%;
+  }
+
+  .impact-cards .impact-cards-stat:first-child .impact-cards-illustration {
+    inset: var(--impact-cards-padding-tall) 0 0 auto;
+    width: 40%;
+    height: auto;
+  }
+
+  .impact-cards .impact-cards-stat:first-child .impact-cards-illustration img {
+    object-position: right center;
+  }
+}
+
+@media (width >= 900px) {
+  .impact-cards {
+    --impact-cards-title-size: var(--heading-1-font-size);
+    --impact-cards-title-line: 48px;
+    --impact-cards-title-tracking: 0;
+    --impact-cards-lead-size: var(--body-1-font-size);
+    --impact-cards-lead-line: var(--body-1-line-height);
+    --impact-cards-grid-space: var(--spacing-5xl);
+    --impact-cards-quote-space: 58px;
+    --impact-cards-row: 132px;
+    --impact-cards-radius: var(--radius-md);
+    --impact-cards-padding: var(--spacing-2xl);
+    --impact-cards-padding-tall: var(--spacing-2xl);
+    --impact-cards-text-gap: var(--spacing-xs);
+    --impact-cards-value-size: var(--heading-3-font-size);
+    --impact-cards-value-line: var(--heading-3-line-height);
+    --impact-cards-value-weight: var(--font-weight-regular);
+    --impact-cards-label-size: var(--body-1-font-size);
+    --impact-cards-label-line: var(--body-1-line-height);
+    --impact-cards-label-weight: var(--font-weight-medium);
+    --impact-cards-quote-size: var(--body-1-font-size);
+    --impact-cards-quote-line: var(--body-1-line-height);
+    --impact-cards-name-size: var(--body-2-font-size);
+    --impact-cards-name-line: var(--body-2-line-height);
+    --impact-cards-role-size: 12px;
+    --impact-cards-quote-text-width: 205px;
+    --impact-cards-portrait-width: 215px;
+    --impact-cards-portrait-height: 300px;
+    --impact-cards-portrait-rise: 24px;
+    --impact-cards-quote-mark-width: 29px;
+    --impact-cards-quote-mark-height: 31px;
+    --impact-cards-button-height: 40px;
+    --impact-cards-button-arrow: 32px;
+    --impact-cards-button-size: var(--button-1-font-size);
+    --impact-cards-button-line: var(--button-1-line-height);
+    --impact-cards-tall-art: 160px;
+    --impact-cards-short-art: 100%;
+
+    grid-template:
+      'title lead' auto
+      'title cta' 1fr
+      'grid grid' auto / minmax(0, 1fr) 353px;
+    column-gap: var(--spacing-xl);
+  }
+
+  /* the stats only layout uses the wider heading line height of its Figma frame */
+  .impact-cards.impact-cards-stats-only {
+    --impact-cards-title-line: var(--heading-1-line-height);
+    --impact-cards-tall-art: 152px;
+  }
+
+  .impact-cards .impact-cards-title {
+    max-width: 633px;
+  }
+
+  .impact-cards .impact-cards-lead {
+    align-self: start;
+    margin: 0;
+    text-align: end;
+  }
+
+  .impact-cards .impact-cards-cta {
+    align-self: start;
+    margin: var(--spacing-xl) 0 0;
+    text-align: end;
+  }
+
+  .impact-cards .impact-cards-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: none;
+    gap: var(--spacing-lg) 21px;
+  }
+
+  /* with a quote the columns follow the Figma frame: 447 / 260 / 353 */
+  .impact-cards.impact-cards-with-quote .impact-cards-grid {
+    grid-template-columns: minmax(0, 447fr) minmax(0, 260fr) minmax(0, 353fr);
+    column-gap: var(--spacing-2xl);
+  }
+
+  .impact-cards .impact-cards-card.impact-cards-tall {
+    grid-row: span 2;
+  }
+
+  .impact-cards .impact-cards-stat.impact-cards-tall .impact-cards-value {
+    --impact-cards-value-size: var(--heading-3-font-size);
+    --impact-cards-value-line: var(--heading-3-line-height);
+  }
+
+  .impact-cards .impact-cards-short .impact-cards-illustration {
+    width: min(280px, 80%);
+  }
+
+  .impact-cards .impact-cards-illustration-has-mobile .impact-cards-illustration-default {
+    display: block;
+  }
+
+  .impact-cards .impact-cards-illustration .impact-cards-illustration-mobile {
+    display: none;
+  }
+
+  .impact-cards .impact-cards-quote {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-cards .impact-cards-button,
+  .impact-cards .impact-cards-button-arrow {
+    transition: none;
+  }
+}

@@ -16,6 +16,8 @@
       "insu-banner",
       "insight-cards",
       "plan-cards",
+      "impact-cards",
+      "life-advisor",
       "cards",
       "columns",
       "fragment",
@@ -56,6 +58,13 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "impact-cards",
+    "components": [
+      "impact-stat",
+      "impact-quote"
     ]
   },
   {

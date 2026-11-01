@@ -1,0 +1,211 @@
+.life-advisor {
+  /* colors */
+  --life-advisor-color-heading: var(--text-primary);
+  --life-advisor-color-accent: var(--brand-red-600);
+  --life-advisor-color-accent-hover: var(--brand-red-700);
+  --life-advisor-color-white: var(--base-white);
+  --life-advisor-color-focus: var(--info-500);
+
+  /* typography */
+  --life-advisor-font-family: var(--heading-font-family);
+  --life-advisor-title-size: var(--heading-3-font-size);
+  --life-advisor-title-line: var(--heading-3-line-height);
+  --life-advisor-title-tracking: var(--heading-3-letter-spacing);
+  --life-advisor-sub-size: var(--sub-heading-2-font-size);
+  --life-advisor-sub-line: var(--sub-heading-2-line-height);
+  --life-advisor-button-size: var(--button-2-font-size);
+  --life-advisor-button-line: var(--button-2-line-height);
+
+  /* spacing and sizes */
+  --life-advisor-text-gap: 6px;
+  --life-advisor-media-space: 21px;
+  --life-advisor-cta-space: 33px;
+  --life-advisor-bleed: var(--spacing-xl);
+  --life-advisor-button-height: 38px;
+  --life-advisor-button-arrow: 30px;
+  --life-advisor-media-ratio: 578 / 400;
+
+  display: grid;
+  grid-template-areas:
+    'text'
+    'media'
+    'cta';
+  font-family: var(--life-advisor-font-family);
+}
+
+/* mobile: heading and line, then the image, then the button */
+.life-advisor .life-advisor-content {
+  display: contents;
+}
+
+.life-advisor .life-advisor-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--life-advisor-text-gap);
+  grid-area: text;
+  color: var(--life-advisor-color-heading);
+  text-align: end;
+}
+
+.life-advisor .life-advisor-text > * {
+  margin: 0;
+  font-size: var(--life-advisor-sub-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--life-advisor-sub-line);
+}
+
+.life-advisor .life-advisor-text > .life-advisor-title {
+  font-family: var(--life-advisor-font-family);
+  font-size: var(--life-advisor-title-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--life-advisor-title-line);
+  letter-spacing: var(--life-advisor-title-tracking);
+}
+
+.life-advisor .life-advisor-media {
+  grid-area: media;
+  max-width: 578px;
+  margin: var(--life-advisor-media-space) calc(var(--life-advisor-bleed) * -1) 0;
+}
+
+.life-advisor .life-advisor-media :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--life-advisor-media-ratio);
+}
+
+.life-advisor .life-advisor-media img {
+  object-fit: contain;
+}
+
+.life-advisor .life-advisor-cta {
+  grid-area: cta;
+  margin: var(--life-advisor-cta-space) 0 0;
+  text-align: center;
+}
+
+.life-advisor .life-advisor-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  box-sizing: border-box;
+  height: var(--life-advisor-button-height);
+  padding-inline: var(--spacing-2xl) var(--spacing-xs);
+  border: 1px solid var(--life-advisor-color-accent);
+  border-radius: var(--radius-full);
+  background-color: var(--life-advisor-color-accent);
+  color: var(--life-advisor-color-white);
+  font-size: var(--life-advisor-button-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--life-advisor-button-line);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.life-advisor .life-advisor-button:hover {
+  border-color: var(--life-advisor-color-accent-hover);
+  background-color: var(--life-advisor-color-accent-hover);
+}
+
+.life-advisor .life-advisor-button-arrow {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--life-advisor-button-arrow);
+  height: var(--life-advisor-button-arrow);
+  border-radius: var(--radius-full);
+  background-color: var(--life-advisor-color-white);
+  color: var(--life-advisor-color-heading);
+  transition: translate 0.2s ease;
+}
+
+.life-advisor .life-advisor-button-outline {
+  background-color: var(--life-advisor-color-white);
+  color: var(--life-advisor-color-accent);
+}
+
+.life-advisor .life-advisor-button-outline .life-advisor-button-arrow {
+  background-color: var(--life-advisor-color-accent);
+  color: var(--life-advisor-color-white);
+}
+
+.life-advisor .life-advisor-button-outline:hover {
+  color: var(--life-advisor-color-white);
+}
+
+.life-advisor .life-advisor-button:hover .life-advisor-button-arrow {
+  translate: 2px 0;
+}
+
+.life-advisor .life-advisor-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: currentcolor;
+  mask: url('../../icons/arrow-right.svg') center / contain no-repeat;
+}
+
+.life-advisor :focus-visible {
+  outline: 2px solid var(--life-advisor-color-focus);
+  outline-offset: 2px;
+}
+
+@media (width >= 600px) {
+  .life-advisor .life-advisor-media {
+    justify-self: center;
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
+/* desktop: image on the left, the text overlaps it a little on the right */
+@media (width >= 900px) {
+  .life-advisor {
+    --life-advisor-sub-size: var(--heading-4-font-size);
+    --life-advisor-sub-line: var(--heading-4-line-height);
+    --life-advisor-text-gap: var(--spacing-xs);
+    --life-advisor-button-height: 40px;
+    --life-advisor-button-arrow: 32px;
+    --life-advisor-button-size: var(--button-1-font-size);
+    --life-advisor-button-line: var(--button-1-line-height);
+
+    grid-template-columns: minmax(0, 514fr) minmax(0, 64fr) minmax(0, 522fr);
+    grid-template-areas: none;
+    align-items: center;
+  }
+
+  .life-advisor .life-advisor-media {
+    grid-area: 1 / 1 / 2 / 3;
+    justify-self: stretch;
+    margin: 0;
+  }
+
+  .life-advisor .life-advisor-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    grid-area: 1 / 2 / 2 / 4;
+
+    /* as in Figma the text block sits below the middle of the image */
+    margin-top: 96px;
+  }
+
+  .life-advisor .life-advisor-text {
+    width: 100%;
+  }
+
+  .life-advisor .life-advisor-cta {
+    margin-top: var(--spacing-3xl);
+    text-align: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .life-advisor .life-advisor-button,
+  .life-advisor .life-advisor-button-arrow {
+    transition: none;
+  }
+}
