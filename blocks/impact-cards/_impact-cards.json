@@ -80,8 +80,14 @@
           "label": "Button style",
           "value": "",
           "options": [
-            { "name": "Outline", "value": "" },
-            { "name": "Filled", "value": "primary" }
+            {
+              "name": "Outline",
+              "value": ""
+            },
+            {
+              "name": "Filled",
+              "value": "primary"
+            }
           ]
         }
       ]
@@ -112,8 +118,14 @@
           "label": "Colour",
           "value": "light",
           "options": [
-            { "name": "Light blue", "value": "light" },
-            { "name": "Red", "value": "red" }
+            {
+              "name": "Light blue",
+              "value": "light"
+            },
+            {
+              "name": "Red",
+              "value": "red"
+            }
           ]
         },
         {
@@ -155,14 +167,14 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "name",
+          "name": "author",
           "label": "Name",
           "value": ""
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "role",
+          "name": "author_role",
           "label": "Role",
           "description": "For example: Managing Director - Kotak Life",
           "value": ""
@@ -197,7 +209,10 @@
   "filters": [
     {
       "id": "impact-cards",
-      "components": ["impact-stat", "impact-quote"]
+      "components": [
+        "impact-stat",
+        "impact-quote"
+      ]
     }
   ]
 }

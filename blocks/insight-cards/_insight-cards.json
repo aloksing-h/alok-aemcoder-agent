@@ -27,7 +27,7 @@
               "name": "Insight Card",
               "model": "insight-card",
               "tag": "blog",
-              "icon": "arrow"
+              "link_icon": "arrow"
             }
           }
         }
@@ -117,7 +117,7 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "category",
+          "name": "tag_category",
           "label": "Category (optional)",
           "description": "White label above the title, e.g. About Life Insurance",
           "value": ""
@@ -132,7 +132,7 @@
         {
           "component": "richtext",
           "valueType": "string",
-          "name": "description",
+          "name": "title_description",
           "label": "Description",
           "value": ""
         },
@@ -145,7 +145,7 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "icon",
+          "name": "link_icon",
           "label": "Button icon",
           "value": "arrow",
           "options": [
@@ -178,7 +178,7 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "imageHover",
+          "name": "image_hover",
           "label": "Hover illustration (optional)",
           "description": "Light line version shown on the red hover background. Leave empty to show the illustration in white",
           "multi": false

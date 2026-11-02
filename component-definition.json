@@ -311,7 +311,7 @@
                   "name": "Insight Card",
                   "model": "insight-card",
                   "tag": "blog",
-                  "icon": "arrow"
+                  "link_icon": "arrow"
                 }
               }
             }
@@ -428,7 +428,7 @@
                 "template": {
                   "name": "Plan Card",
                   "model": "plan-card",
-                  "glow": "red"
+                  "badge_glow": "red"
                 }
               }
             }

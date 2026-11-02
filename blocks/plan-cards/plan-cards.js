@@ -13,6 +13,9 @@ const UI = {
 
 const ITEM_IDS = ['plan-card', 'plan-tab'];
 
+// background glow colours of a card
+const GLOWS = ['red', 'blue'];
+
 // badge types authors pick from: label and icon; Other shows the author's custom text
 const BADGES = {
   'best-selling': { label: 'Best selling', icon: 'shield' },
@@ -22,20 +25,29 @@ const BADGES = {
 };
 
 /**
- * Reads a badge cell: the type from the dropdown and, for Other, the custom text.
+ * Returns the values of a cell that groups several fields, in model order: paragraphs
+ * (AEM delivery) or text nodes (plain HTML), without comments and empty text.
  * @param {Element} [cell]
- * @returns {{ type: string, text: string }}
+ * @returns {Node[]}
+ */
+function cellNodes(cell) {
+  return [...(cell?.childNodes || [])].filter((node) => node.nodeType === Node.ELEMENT_NODE
+    || (node.nodeType === Node.TEXT_NODE && node.textContent.trim()));
+}
+
+/**
+ * Reads the badge cell: badge type, custom text (for Other) and the background glow.
+ * @param {Element} [cell]
+ * @returns {{ type: string, text: string, glow: string }}
  */
 function readBadge(cell) {
-  const nodes = cell?.querySelector('p') ? cell.querySelectorAll('p') : cell?.childNodes || [];
-  const [type = '', text = ''] = [...nodes]
-    .filter((node) => node.nodeType !== Node.COMMENT_NODE)
-    .map((node) => node.textContent.trim())
-    .filter(Boolean);
-  // both values in one text node, e.g. "otherGuide" when the cell has no paragraphs
-  const joined = type.match(/^other(.+)$/i);
-  if (joined && !text) return { type: 'other', text: joined[1].trim() };
-  return { type, text };
+  const values = cellNodes(cell).map((node) => node.textContent.trim()).filter(Boolean);
+  // the glow always has a value and comes last
+  let glow = 'red';
+  if (GLOWS.includes(values.at(-1)?.toLowerCase())) glow = values.pop().toLowerCase();
+  const type = (values[0] || '').toLowerCase().replace(/\s+/g, '-');
+  if (!BADGES[type] && type !== 'other') return { type: '', text: '', glow };
+  return { type, text: type === 'other' ? values[1] || '' : '', glow };
 }
 
 let planCardsCount = 0;
@@ -105,35 +117,42 @@ function buildIllustration(image, className) {
  * @returns {HTMLLIElement}
  */
 function buildCard(row, headingTag) {
-  const [
-    badgeCell, titleCell, descriptionCell, glowCell, imageCell, hoverCell,
-    detailsCell, buttonCell, downloadCell,
-  ] = row.children;
+  // cells: badge (type, custom text, glow), title (name, description),
+  // image (illustration, alt, hover illustration, brochure link), details (details, button)
+  const [badgeCell, titleCell, imageCell, detailsCell] = row.children;
+  const badge = readBadge(badgeCell);
   const li = document.createElement('li');
-  const glow = glowCell?.textContent.trim().toLowerCase() === 'blue' ? 'blue' : 'red';
-  li.className = `plan-cards-card plan-cards-glow-${glow}`;
+  li.className = `plan-cards-card plan-cards-glow-${badge.glow}`;
   moveInstrumentation(row, li);
 
-  const buttonSource = buttonCell?.querySelector('a[href]');
+  // the last link of the details cell is the button; the links before it stay in the details
+  const buttonSource = [...(detailsCell?.querySelectorAll('a[href]') || [])].at(-1);
+  if (buttonSource) {
+    const holder = buttonSource.parentElement;
+    const alone = holder !== detailsCell
+      && holder.textContent.trim() === buttonSource.textContent.trim();
+    (alone ? holder : buttonSource).remove();
+  }
 
   // front face: badge, plan name, description and illustration
   const front = document.createElement('div');
   front.className = 'plan-cards-front';
 
-  // the badge is a type from the authoring dropdown; older free text is shown as written
-  const badgeValue = readBadge(badgeCell);
-  const badgeKey = badgeValue.type.toLowerCase().replace(/\s+/g, '-');
-  const customLabel = badgeKey === 'other' ? badgeValue.text : badgeValue.type;
-  const badgeType = BADGES[badgeKey] || (customLabel && { label: customLabel, icon: 'shield' });
+  // the badge is a type from the authoring dropdown; Other shows the custom text
+  const badgeType = BADGES[badge.type] || (badge.text && { label: badge.text, icon: 'shield' });
   if (badgeType) {
     const badgeEl = document.createElement('p');
-    badgeEl.className = `plan-cards-badge plan-cards-badge-${BADGES[badgeKey] ? badgeKey : 'custom'}`;
+    badgeEl.className = `plan-cards-badge plan-cards-badge-${BADGES[badge.type] ? badge.type : 'custom'}`;
     const text = document.createElement('span');
     text.textContent = badgeType.label;
     badgeEl.append(icon(badgeType.icon), text);
     front.append(badgeEl);
   }
 
+  // the first value of the title cell is the plan name, the rest is the description
+  const [nameNode, ...descriptionNodes] = cellNodes(titleCell);
+  const nameHolder = document.createElement('div');
+  if (nameNode) nameHolder.append(nameNode);
   const name = document.createElement(headingTag);
   name.className = 'plan-cards-name';
   if (buttonSource) {
@@ -141,22 +160,25 @@ function buildCard(row, headingTag) {
     const link = document.createElement('a');
     link.className = 'plan-cards-link';
     link.href = buttonSource.href;
-    moveInline(titleCell, link);
+    moveInline(nameHolder, link);
     name.append(link);
-  } else if (titleCell) {
-    moveInline(titleCell, name);
+  } else {
+    moveInline(nameHolder, name);
   }
   front.append(name);
 
-  if (descriptionCell?.textContent.trim()) {
+  if (descriptionNodes.some((node) => node.textContent.trim())) {
     const description = document.createElement('div');
     description.className = 'plan-cards-description';
-    description.append(...descriptionCell.childNodes);
+    description.append(...descriptionNodes);
     front.append(description);
   }
 
-  const image = imageCell?.querySelector('picture') || imageCell?.querySelector('img');
-  const hoverImage = hoverCell?.querySelector('picture') || hoverCell?.querySelector('img');
+  // the first picture is the illustration, a second one the hover illustration
+  const pictures = [...(imageCell?.querySelectorAll('picture') || [])];
+  if (!pictures.length) pictures.push(...(imageCell?.querySelectorAll('img') || []));
+  const [image, hoverImage] = pictures;
+  const downloadSource = imageCell?.querySelector('a[href]');
   const frontIllustration = buildIllustration(image, 'plan-cards-illustration-front');
   if (frontIllustration) front.append(frontIllustration);
   li.append(front);
@@ -199,12 +221,11 @@ function buildCard(row, headingTag) {
   actions.className = 'plan-cards-actions';
   const button = buildButton(buttonSource, 'plan-cards-button');
   if (button) actions.append(button);
-  const downloadSource = downloadCell?.querySelector('a[href]');
   if (downloadSource) {
     const download = document.createElement('a');
     download.className = 'plan-cards-download';
     download.href = downloadSource.href;
-    const label = downloadCell.textContent.trim();
+    const label = downloadSource.textContent.trim();
     // the authored label names the icon link; the URL is never a usable name
     const downloadName = label && label !== downloadSource.href ? label : downloadSource.title;
     download.setAttribute('aria-label', downloadName || UI.download);
@@ -323,8 +344,10 @@ export default function decorate(block) {
   itemRows.forEach((row) => {
     // imported content may start an item row with its component id
     const first = row.firstElementChild;
-    const itemId = first && !first.querySelector('a, picture, img') ? first.textContent.trim() : '';
-    if (ITEM_IDS.includes(itemId)) first.remove();
+    const text = first && !first.querySelector('a, picture, img') ? first.textContent.trim() : '';
+    const itemId = ITEM_IDS.includes(text) ? text : '';
+    if (itemId) first.remove();
+    // without an id, a tab has two cells (label, mobile label) and a card four
     const isTab = itemId ? itemId === 'plan-tab' : row.children.length === 2;
     if (isTab) {
       const [labelCell, shortCell] = row.children;

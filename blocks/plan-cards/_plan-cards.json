@@ -43,7 +43,7 @@
             "template": {
               "name": "Plan Card",
               "model": "plan-card",
-              "glow": "red"
+              "badge_glow": "red"
             }
           }
         }
@@ -179,25 +179,9 @@
           "value": ""
         },
         {
-          "component": "richtext",
-          "valueType": "string",
-          "name": "title",
-          "label": "Plan name",
-          "description": "Bold words are shown in red. Start a new line after Kotak with Shift+Enter, e.g. Kotak / **Gen2Gen** Term",
-          "value": ""
-        },
-        {
-          "component": "richtext",
-          "valueType": "string",
-          "name": "description",
-          "label": "Short description",
-          "description": "Shown on the card on desktop",
-          "value": ""
-        },
-        {
           "component": "select",
           "valueType": "string",
-          "name": "glow",
+          "name": "badge_glow",
           "label": "Background glow",
           "value": "red",
           "options": [
@@ -210,6 +194,22 @@
               "value": "blue"
             }
           ]
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "title",
+          "label": "Plan name",
+          "description": "Bold words are shown in red. Start a new line after Kotak with Shift+Enter, e.g. Kotak / **Gen2Gen** Term",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "title_description",
+          "label": "Short description",
+          "description": "Shown on the card on desktop",
+          "value": ""
         },
         {
           "component": "reference",
@@ -230,10 +230,25 @@
         {
           "component": "reference",
           "valueType": "string",
-          "name": "imageHover",
+          "name": "image_hover",
           "label": "Hover illustration (optional)",
           "description": "Light line version for the red hover face. Leave empty to show the illustration in white",
           "multi": false
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "image_download",
+          "label": "Brochure link (optional)",
+          "description": "Shows a download icon next to the button"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "image_downloadText",
+          "label": "Brochure link label",
+          "description": "Read by screen readers, e.g. Download the Gen2Gen Term brochure",
+          "value": ""
         },
         {
           "component": "richtext",
@@ -246,30 +261,16 @@
         {
           "component": "aem-content",
           "valueType": "string",
-          "name": "button",
-          "label": "Button link"
+          "name": "details_button",
+          "label": "Button link",
+          "description": "Required: the plan link, shown as the button on the hover face"
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "buttonText",
+          "name": "details_buttonText",
           "label": "Button label",
           "description": "For example: Protect Your Family",
-          "value": ""
-        },
-        {
-          "component": "aem-content",
-          "valueType": "string",
-          "name": "download",
-          "label": "Brochure link (optional)",
-          "description": "Shows a download icon next to the button"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "downloadText",
-          "label": "Brochure link label",
-          "description": "Read by screen readers, e.g. Download the Gen2Gen Term brochure",
           "value": ""
         }
       ]

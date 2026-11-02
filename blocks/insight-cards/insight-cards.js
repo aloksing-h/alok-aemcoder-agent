@@ -22,20 +22,32 @@ const BADGES = {
 };
 
 /**
- * Reads a badge cell: the type from the dropdown and, for Other, the custom text.
+ * Returns the values of a cell that groups several fields, in model order: paragraphs
+ * (AEM delivery) or text nodes (plain HTML), without comments and empty text.
  * @param {Element} [cell]
- * @returns {{ type: string, text: string }}
+ * @returns {Node[]}
+ */
+function cellNodes(cell) {
+  return [...(cell?.childNodes || [])].filter((node) => node.nodeType === Node.ELEMENT_NODE
+    || (node.nodeType === Node.TEXT_NODE && node.textContent.trim()));
+}
+
+/**
+ * Reads the badge cell: badge type, custom text (for Other) and the category label.
+ * The custom text is only used with Other, so the last other value is the category.
+ * @param {Element} [cell]
+ * @returns {{ type: string, text: string, category: string }}
  */
 function readBadge(cell) {
-  const nodes = cell?.querySelector('p') ? cell.querySelectorAll('p') : cell?.childNodes || [];
-  const [type = '', text = ''] = [...nodes]
-    .filter((node) => node.nodeType !== Node.COMMENT_NODE)
-    .map((node) => node.textContent.trim())
-    .filter(Boolean);
-  // both values in one text node, e.g. "otherGuide" when the cell has no paragraphs
-  const joined = type.match(/^other(.+)$/i);
-  if (joined && !text) return { type: 'other', text: joined[1].trim() };
-  return { type, text };
+  const values = cellNodes(cell).map((node) => node.textContent.trim()).filter(Boolean);
+  const first = (values[0] || '').toLowerCase();
+  if (!BADGES[first] && first !== 'other') {
+    // no badge type selected: only the category is left
+    return { type: '', text: '', category: values.at(-1) || '' };
+  }
+  const rest = values.slice(1);
+  if (first === 'other') return { type: first, text: rest[0] || '', category: rest[1] || '' };
+  return { type: first, text: '', category: rest.at(-1) || '' };
 }
 
 function imgOf(image) {
@@ -49,9 +61,9 @@ function imgOf(image) {
  * @returns {HTMLLIElement}
  */
 function buildCard(row, headingTag) {
-  const [
-    tagCell, categoryCell, titleCell, descriptionCell, linkCell, iconCell, imageCell, hoverCell,
-  ] = row.children;
+  // cells: badge (type, custom text, category), title (title, description),
+  // link (link, button icon), image (illustration, alt, hover illustration)
+  const [tagCell, titleCell, linkCell, imageCell] = row.children;
   const li = document.createElement('li');
   li.className = 'insight-cards-card';
   moveInstrumentation(row, li);
@@ -59,20 +71,18 @@ function buildCard(row, headingTag) {
   const body = document.createElement('div');
   body.className = 'insight-cards-body';
 
-  // the badge is a type from the authoring dropdown; older free text is shown as written
+  // the badge is a type from the authoring dropdown; Other shows the custom text
   const badge = readBadge(tagCell);
-  const badgeType = badge.type.toLowerCase();
-  let tag = BADGES[badgeType] || badge.type;
-  if (badgeType === 'other') tag = badge.text;
+  const tag = badge.type === 'other' ? badge.text : BADGES[badge.type];
   if (tag) {
     const tagEl = document.createElement('p');
     tagEl.className = 'insight-cards-tag';
     tagEl.textContent = tag;
-    li.dataset.badge = BADGES[badgeType] ? badgeType : 'other';
+    li.dataset.badge = badge.type;
     body.append(tagEl);
   }
 
-  const category = categoryCell?.textContent.trim();
+  const { category } = badge;
   if (category) {
     const categoryEl = document.createElement('p');
     categoryEl.className = 'insight-cards-category';
@@ -82,8 +92,11 @@ function buildCard(row, headingTag) {
 
   const heading = document.createElement(headingTag);
   heading.className = 'insight-cards-card-title';
-  const title = titleCell?.textContent.trim() || '';
-  const href = linkCell?.querySelector('a[href]')?.href;
+  // the first value is the title, the rest is the description
+  const [titleNode, ...descriptionNodes] = cellNodes(titleCell);
+  const title = titleNode?.textContent.trim() || '';
+  const link = linkCell?.querySelector('a[href]');
+  const href = link?.href;
   if (href) {
     const a = document.createElement('a');
     a.className = 'insight-cards-link';
@@ -95,30 +108,36 @@ function buildCard(row, headingTag) {
   }
   body.append(heading);
 
-  if (descriptionCell?.textContent.trim()) {
+  if (descriptionNodes.some((node) => node.textContent.trim())) {
     const description = document.createElement('div');
     description.className = 'insight-cards-description';
-    description.append(...descriptionCell.childNodes);
+    description.append(...descriptionNodes);
     body.append(description);
   }
   li.append(body);
 
   // the whole card is the link; the round button is its visual cue only
-  const icon = iconCell?.textContent.trim().toLowerCase() === 'play' ? 'play' : 'arrow';
+  const iconValue = cellNodes(linkCell)
+    .filter((node) => node !== link && !node.contains?.(link))
+    .map((node) => node.textContent.trim().toLowerCase())
+    .find(Boolean);
+  const icon = iconValue === 'play' ? 'play' : 'arrow';
   const button = document.createElement('span');
   button.className = 'insight-cards-button';
   button.setAttribute('aria-hidden', 'true');
   button.innerHTML = `<span class="insight-cards-icon insight-cards-icon-${icon}"></span>`;
   li.append(button);
 
-  const image = imageCell?.querySelector('picture') || imageCell?.querySelector('img');
+  // the first picture is the illustration, a second one the hover illustration
+  const pictures = [...(imageCell?.querySelectorAll('picture') || [])];
+  if (!pictures.length) pictures.push(...(imageCell?.querySelectorAll('img') || []));
+  const [image, hover] = pictures;
   if (image) {
     const illustration = document.createElement('div');
     illustration.className = 'insight-cards-illustration';
     const alt = imgOf(image)?.alt || '';
     image.classList.add('insight-cards-illustration-default');
     illustration.append(image);
-    const hover = hoverCell?.querySelector('picture') || hoverCell?.querySelector('img');
     if (hover) {
       // the hover version shows the same picture, so it is hidden from assistive technology
       const hoverImg = imgOf(hover);

@@ -8,6 +8,9 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const ITEM_IDS = ['impact-stat', 'impact-quote'];
 
+// colours of a stat card
+const THEMES = ['light', 'red'];
+
 function imgOf(image) {
   return image?.tagName === 'IMG' ? image : image?.querySelector('img');
 }
@@ -15,6 +18,19 @@ function imgOf(image) {
 function pictures(cell) {
   const found = [...(cell?.querySelectorAll('picture') || [])];
   return found.length ? found : [...(cell?.querySelectorAll('img') || [])];
+}
+
+/**
+ * Returns the values of a cell that groups several fields, in model order: paragraphs
+ * (AEM delivery) or text nodes (plain HTML), without comments and empty text.
+ * @param {Element} [cell]
+ * @returns {string[]}
+ */
+function cellValues(cell) {
+  return [...(cell?.childNodes || [])]
+    .filter((node) => node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE)
+    .map((node) => node.textContent.trim())
+    .filter(Boolean);
 }
 
 /**
@@ -52,7 +68,7 @@ function buildButton(source) {
 function buildStat(row) {
   const [valueCell, labelCell, themeCell, imageCell] = row.children;
   const li = document.createElement('li');
-  const theme = themeCell?.textContent.trim().toLowerCase() === 'red' ? 'red' : 'light';
+  const theme = themeCell?.textContent.trim().toLowerCase() === 'red' ? 'red' : THEMES[0];
   li.className = `impact-cards-card impact-cards-stat impact-cards-${theme}`;
   moveInstrumentation(row, li);
 
@@ -85,12 +101,12 @@ function buildStat(row) {
 }
 
 /**
- * Builds the quote card: quote, name, role, portrait and quote icon.
+ * Builds the quote card: quote, author (name and role), portrait and quote icon.
  * @param {Element} row
  * @returns {HTMLLIElement}
  */
 function buildQuote(row) {
-  const [quoteCell, nameCell, roleCell, imageCell, iconCell] = row.children;
+  const [quoteCell, authorCell, imageCell, iconCell] = row.children;
   const li = document.createElement('li');
   li.className = 'impact-cards-card impact-cards-quote';
   moveInstrumentation(row, li);
@@ -116,8 +132,7 @@ function buildQuote(row) {
 
   const caption = document.createElement('figcaption');
   caption.className = 'impact-cards-quote-caption';
-  const name = nameCell?.textContent.trim();
-  const role = roleCell?.textContent.trim();
+  const [name, role] = cellValues(authorCell);
   if (name) {
     const nameEl = document.createElement('span');
     nameEl.className = 'impact-cards-quote-name';
@@ -145,6 +160,20 @@ function buildQuote(row) {
 }
 
 /**
+ * Tells a quote row from a stat row: both have four cells, the third one of a stat
+ * holds its colour and the third one of a quote its portrait.
+ * @param {Element} row
+ * @param {string} itemId component id of imported content, if any
+ * @returns {boolean}
+ */
+function isQuoteRow(row, itemId) {
+  if (itemId) return itemId === 'impact-quote';
+  const third = row.children[2];
+  if (third?.querySelector('picture, img')) return true;
+  return !THEMES.includes(third?.textContent.trim().toLowerCase());
+}
+
+/**
  * loads and decorates the block
  * @param {Element} block The block element
  */
@@ -166,10 +195,10 @@ export default function decorate(block) {
   const cards = itemRows.map((row) => {
     // imported content may start an item row with its component id
     const first = row.firstElementChild;
-    const itemId = first && !first.querySelector('a, picture, img') ? first.textContent.trim() : '';
-    if (ITEM_IDS.includes(itemId)) first.remove();
-    const isQuote = itemId ? itemId === 'impact-quote' : row.children.length === 5;
-    return isQuote ? buildQuote(row) : buildStat(row);
+    const text = first && !first.querySelector('a, picture, img') ? first.textContent.trim() : '';
+    const itemId = ITEM_IDS.includes(text) ? text : '';
+    if (itemId) first.remove();
+    return isQuoteRow(row, itemId) ? buildQuote(row) : buildStat(row);
   });
   // the first two cards are tall; the next two share the last column
   cards.forEach((card, i) => card.classList.add(i % 4 < 2 ? 'impact-cards-tall' : 'impact-cards-short'));
