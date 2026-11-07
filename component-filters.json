@@ -18,6 +18,10 @@
       "plan-cards",
       "impact-cards",
       "life-advisor",
+      "contact-hero",
+      "contact-help",
+      "contact-form",
+      "branch-locator",
       "cards",
       "columns",
       "fragment",
@@ -58,6 +62,18 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "contact-form",
+    "components": [
+      "contact-form-field"
+    ]
+  },
+  {
+    "id": "contact-help",
+    "components": [
+      "contact-help-card"
     ]
   },
   {

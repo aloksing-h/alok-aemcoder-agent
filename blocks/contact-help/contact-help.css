@@ -1,0 +1,436 @@
+/* space above the section, as in Figma (sections cannot set their spacing in this project) */
+main > .section.contact-help-container {
+  margin-top: 60px;
+}
+
+@media (width >= 900px) {
+  main > .section.contact-help-container {
+    margin-top: 80px;
+  }
+}
+
+.contact-help {
+  /* colors */
+  --contact-help-color-heading: var(--text-primary);
+  --contact-help-color-body: var(--text-tertiary);
+  --contact-help-color-label: var(--text-quaternary);
+  --contact-help-color-card: var(--blue-25);
+  --contact-help-color-border: var(--brand-blue-50);
+  --contact-help-color-border-hover: linear-gradient(180deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+  --contact-help-color-icon: linear-gradient(160deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+  --contact-help-color-icon-glow: var(--brand-red-100);
+  --contact-help-color-accent: var(--brand-red-600);
+  --contact-help-color-banner: var(--brand-blue-500);
+  --contact-help-color-banner-icon: var(--brand-red-200);
+  --contact-help-color-white: var(--base-white);
+  --contact-help-color-button-text: var(--text-primary);
+  --contact-help-color-button-arrow: var(--brand-red-500);
+  --contact-help-color-focus: var(--info-500);
+
+  /* typography */
+  --contact-help-font-family: var(--heading-font-family);
+  --contact-help-title-size: var(--heading-3-font-size);
+  --contact-help-title-line: var(--heading-3-line-height);
+  --contact-help-title-tracking: var(--heading-3-letter-spacing);
+  --contact-help-lead-size: var(--body-2-font-size);
+  --contact-help-lead-line: var(--body-2-line-height);
+  --contact-help-banner-title-size: var(--sub-heading-2-font-size);
+  --contact-help-banner-title-line: var(--sub-heading-2-line-height);
+
+  /* spacing and sizes */
+  --contact-help-header-gap: var(--spacing-md);
+  --contact-help-header-space: 30px;
+  --contact-help-header-space-form: var(--spacing-2xl);
+  --contact-help-gap: var(--spacing-3xl);
+  --contact-help-cards-gap: var(--spacing-xl);
+  --contact-help-card-padding: var(--spacing-xl) var(--spacing-2xl);
+  --contact-help-card-gap: var(--spacing-md);
+  --contact-help-radius: var(--radius-md);
+  --contact-help-icon-box: 40px;
+  --contact-help-icon-size: 26px;
+  --contact-help-chevron-size: 24px;
+  --contact-help-chevron-space: 0;
+  --contact-help-banner-padding: var(--spacing-3xl);
+  --contact-help-banner-gap: var(--spacing-2xl);
+  --contact-help-banner-icon: 60px;
+  --contact-help-button-height: 38px;
+  --contact-help-button-arrow: 30px;
+  --contact-help-motion: 0.2s ease;
+
+  font-family: var(--contact-help-font-family);
+}
+
+.contact-help :is(a, button):focus-visible {
+  outline: 2px solid var(--contact-help-color-focus);
+  outline-offset: 2px;
+}
+
+/* icons */
+.contact-help .contact-help-icon {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  background-color: currentcolor;
+  mask: var(--contact-help-icon-image) center / contain no-repeat;
+}
+
+.contact-help .contact-help-icon-phone {
+  --contact-help-icon-image: url('../../icons/phone.svg');
+}
+
+.contact-help .contact-help-icon-whatsapp {
+  --contact-help-icon-image: url('../../icons/whatsapp.svg');
+}
+
+.contact-help .contact-help-icon-advisor {
+  --contact-help-icon-image: url('../../icons/user.svg');
+}
+
+.contact-help .contact-help-icon-headset {
+  --contact-help-icon-image: url('../../icons/headset.svg');
+}
+
+.contact-help .contact-help-icon-mail {
+  --contact-help-icon-image: url('../../icons/mail.svg');
+}
+
+.contact-help .contact-help-icon-location {
+  --contact-help-icon-image: url('../../icons/location.svg');
+}
+
+.contact-help .contact-help-icon-chevron {
+  --contact-help-icon-image: url('../../icons/chevron-right.svg');
+}
+
+.contact-help .contact-help-icon-arrow {
+  --contact-help-icon-image: url('../../icons/arrow-right.svg');
+}
+
+/* heading and description */
+.contact-help .contact-help-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-help-header-gap);
+  margin-bottom: var(--contact-help-header-space);
+}
+
+.contact-help.contact-help-form-open .contact-help-header {
+  margin-bottom: var(--contact-help-header-space-form);
+}
+
+.contact-help .contact-help-title {
+  margin: 0;
+  color: var(--contact-help-color-heading);
+  font-size: var(--contact-help-title-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--contact-help-title-line);
+  letter-spacing: var(--contact-help-title-tracking);
+}
+
+.contact-help .contact-help-title :is(strong, b) {
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-help .contact-help-lead > * {
+  margin: 0;
+  color: var(--contact-help-color-body);
+  font-size: var(--contact-help-lead-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--contact-help-lead-line);
+}
+
+.contact-help .contact-help-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-help-gap);
+}
+
+.contact-help .contact-help-body[hidden] {
+  display: none;
+}
+
+/* contact cards */
+.contact-help .contact-help-cards {
+  display: grid;
+  gap: var(--contact-help-cards-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-help .contact-help-link {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: var(--contact-help-card-padding);
+  border: 1px solid transparent;
+  border-radius: var(--contact-help-radius);
+  background:
+    linear-gradient(var(--contact-help-color-card), var(--contact-help-color-card)) padding-box,
+    linear-gradient(var(--contact-help-color-border), var(--contact-help-color-border)) border-box;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.contact-help div.contact-help-link {
+  cursor: default;
+}
+
+.contact-help :is(a, button).contact-help-link:hover {
+  background:
+    linear-gradient(var(--contact-help-color-card), var(--contact-help-color-card)) padding-box,
+    var(--contact-help-color-border-hover) border-box;
+}
+
+.contact-help .contact-help-link > .contact-help-icon {
+  position: relative;
+  margin-right: var(--contact-help-card-gap);
+  width: var(--contact-help-icon-box);
+  height: var(--contact-help-icon-box);
+  background: none;
+  mask: none;
+}
+
+/* a soft glow behind the icon, as in Figma */
+.contact-help .contact-help-link > .contact-help-icon::before {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, var(--contact-help-color-icon-glow) 0%, transparent 70%);
+  content: '';
+}
+
+.contact-help .contact-help-link > .contact-help-icon::after {
+  position: absolute;
+  inset: calc((var(--contact-help-icon-box) - var(--contact-help-icon-size)) / 2);
+  background: var(--contact-help-color-icon);
+  content: '';
+  mask: var(--contact-help-icon-image) center / contain no-repeat;
+}
+
+.contact-help .contact-help-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.contact-help .contact-help-label {
+  color: var(--contact-help-color-label);
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--body-2-line-height);
+}
+
+.contact-help .contact-help-value {
+  color: var(--contact-help-color-heading);
+  font-size: var(--body-1-font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--body-1-line-height);
+}
+
+.contact-help .contact-help-note {
+  color: var(--contact-help-color-body);
+  font-size: var(--caption-font-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--caption-line-height);
+}
+
+/* the text may run close to the chevron, as in Figma */
+.contact-help .contact-help-chevron {
+  display: flex;
+  flex: none;
+  margin-left: var(--contact-help-chevron-space);
+  align-items: center;
+  justify-content: center;
+  width: var(--contact-help-chevron-size);
+  height: var(--contact-help-chevron-size);
+  border-radius: var(--radius-full);
+  background-color: var(--contact-help-color-white);
+  color: var(--contact-help-color-accent);
+}
+
+.contact-help .contact-help-chevron .contact-help-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* customer care banner */
+.contact-help .contact-help-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--contact-help-banner-gap);
+  padding: var(--contact-help-banner-padding);
+  border-radius: var(--contact-help-radius);
+  background-color: var(--contact-help-color-banner);
+  color: var(--contact-help-color-white);
+  text-align: center;
+}
+
+.contact-help .contact-help-banner > .contact-help-icon {
+  width: var(--contact-help-banner-icon);
+  height: var(--contact-help-banner-icon);
+  margin-bottom: calc(var(--spacing-xxs) - var(--contact-help-banner-gap));
+
+  /* the headband of the headset is tinted, as in Figma */
+  background: linear-gradient(180deg, var(--contact-help-color-banner-icon) 0 26%, var(--contact-help-color-white) 26%);
+}
+
+.contact-help .contact-help-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 280px;
+}
+
+.contact-help .contact-help-banner-text > * {
+  margin: 0;
+}
+
+.contact-help .contact-help-banner-title {
+  font-size: var(--contact-help-banner-title-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--contact-help-banner-title-line);
+  text-wrap: balance;
+}
+
+.contact-help .contact-help-banner-description {
+  font-size: var(--caption-font-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--caption-line-height);
+}
+
+.contact-help .contact-help-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-lg);
+  box-sizing: border-box;
+  height: var(--contact-help-button-height);
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background-color: var(--contact-help-color-white);
+  color: var(--contact-help-color-button-text);
+  font-size: var(--button-2-font-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--button-2-line-height);
+  text-decoration: none;
+}
+
+.contact-help .contact-help-button-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--contact-help-button-arrow);
+  height: var(--contact-help-button-arrow);
+  border-radius: var(--radius-full);
+  background-color: var(--contact-help-color-button-arrow);
+  color: var(--contact-help-color-white);
+  transition: transform var(--contact-help-motion);
+}
+
+.contact-help .contact-help-button:hover .contact-help-button-arrow {
+  transform: translateX(2px);
+}
+
+.contact-help .contact-help-button-arrow .contact-help-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-help .contact-help-banner-text :is(a:any-link) {
+  color: inherit;
+}
+
+@media (width >= 600px) {
+  .contact-help .contact-help-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* an odd last card takes the full row on tablets */
+  .contact-help .contact-help-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (width >= 900px) {
+  .contact-help {
+    --contact-help-title-size: var(--heading-1-font-size);
+    --contact-help-title-line: var(--heading-1-line-height);
+    --contact-help-title-tracking: normal;
+    --contact-help-lead-size: var(--body-1-font-size);
+    --contact-help-lead-line: var(--body-1-line-height);
+    --contact-help-header-space: 50px;
+    --contact-help-gap: 30px;
+    --contact-help-cards-gap: var(--spacing-2xl);
+    --contact-help-card-gap: var(--spacing-2xl);
+    --contact-help-chevron-space: var(--spacing-md);
+    --contact-help-banner-padding: var(--spacing-lg) var(--spacing-3xl) var(--spacing-lg) var(--spacing-xl);
+    --contact-help-banner-icon: 48px;
+    --contact-help-banner-title-size: var(--sub-heading-1-font-size);
+    --contact-help-banner-title-line: var(--sub-heading-1-line-height);
+  }
+
+  .contact-help .contact-help-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-xl);
+  }
+
+  .contact-help .contact-help-title {
+    max-width: 633px;
+  }
+
+  .contact-help .contact-help-lead {
+    max-width: 353px;
+    text-align: right;
+  }
+
+  .contact-help .contact-help-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .contact-help .contact-help-card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .contact-help .contact-help-banner {
+    flex-direction: row;
+    gap: var(--spacing-3xl);
+    text-align: left;
+  }
+
+  .contact-help .contact-help-banner > .contact-help-icon {
+    margin-bottom: 0;
+  }
+
+  .contact-help .contact-help-banner-text {
+    flex: 1;
+    gap: var(--spacing-xs);
+    max-width: none;
+  }
+
+  .contact-help .contact-help-banner-title {
+    letter-spacing: normal;
+    text-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-help .contact-help-button-arrow {
+    transition: none;
+  }
+}

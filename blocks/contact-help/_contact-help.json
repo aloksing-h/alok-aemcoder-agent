@@ -1,0 +1,134 @@
+{
+  "definitions": [
+    {
+      "title": "Contact Help",
+      "id": "contact-help",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Contact Help",
+              "model": "contact-help",
+              "filter": "contact-help"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Contact Card",
+      "id": "contact-help-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Contact Card",
+              "model": "contact-help-card",
+              "icon": "phone"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "contact-help",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Heading and description",
+          "description": "Section heading (bold words are shown heavier) followed by a short description",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "banner",
+          "label": "Banner title and description",
+          "description": "The blue banner below the cards: a title followed by a short description. Leave empty to hide the banner",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "Banner button link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "linkText",
+          "label": "Banner button label",
+          "description": "For example: Get In Touch",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "contact-help-card",
+      "fields": [
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Icon",
+          "value": "phone",
+          "options": [
+            {
+              "name": "Phone",
+              "value": "phone"
+            },
+            {
+              "name": "WhatsApp",
+              "value": "whatsapp"
+            },
+            {
+              "name": "Advisor",
+              "value": "advisor"
+            },
+            {
+              "name": "Customer care",
+              "value": "headset"
+            },
+            {
+              "name": "Email",
+              "value": "mail"
+            },
+            {
+              "name": "Location",
+              "value": "location"
+            }
+          ]
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Text",
+          "description": "Three lines: a label (Toll free number), the main text (1800 209 8800) and a note (Mon to Sat, 8 AM to 10 PM)",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "Link",
+          "description": "A phone number (tel:18002098800), a WhatsApp chat (https://wa.me/919321003007), a page, or #life-advisor to open the Request a Life Advisor form on this page"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "contact-help",
+      "components": [
+        "contact-help-card"
+      ]
+    }
+  ]
+}

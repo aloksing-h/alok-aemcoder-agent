@@ -1,0 +1,204 @@
+/* the banner background spans the full page width */
+main > .section > .contact-hero-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+main > .section.contact-hero-container:first-of-type {
+  margin-top: 0;
+}
+
+.contact-hero {
+  /* colors */
+  --contact-hero-color-text: var(--text-white);
+  --contact-hero-color-surface: var(--brand-red-600);
+
+  /* the blurred dark red shapes of the Figma banner */
+  --contact-hero-color-shadow: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--brand-red-900) 75%, var(--brand-red-600)) 85%,
+    var(--gray-500)
+  );
+  --contact-hero-color-symbol: rgb(255 255 255 / 10%);
+
+  /* typography */
+  --contact-hero-font-family: var(--heading-font-family);
+  --contact-hero-title-size: var(--heading-3-font-size);
+  --contact-hero-title-line: var(--heading-3-line-height);
+  --contact-hero-title-tracking: var(--heading-3-letter-spacing);
+  --contact-hero-body-size: var(--body-2-font-size);
+  --contact-hero-body-line: var(--body-2-line-height);
+
+  /*
+   * spacing and sizes
+   * The Figma banner sits behind a transparent header. Here the header is above the banner,
+   * so its height is taken off the banner to keep the heading where Figma places it.
+   */
+  --contact-hero-header-offset: var(--nav-height, 64px);
+  --contact-hero-height: calc(439px - var(--contact-hero-header-offset));
+  --contact-hero-padding-top: calc(132px - var(--contact-hero-header-offset));
+  --contact-hero-padding-inline: var(--spacing-xl);
+  --contact-hero-max-width: 1200px;
+  --contact-hero-content-width: 449px;
+  --contact-hero-gap: var(--spacing-md);
+  --contact-hero-illustration-width: 182px;
+  --contact-hero-illustration-height: 157px;
+  --contact-hero-illustration-left: auto;
+  --contact-hero-illustration-right: 0;
+  --contact-hero-illustration-top: auto;
+  --contact-hero-illustration-bottom: 0;
+  --contact-hero-symbol-width: 231px;
+  --contact-hero-symbol-height: 138px;
+  --contact-hero-symbol-left: 160px;
+  --contact-hero-symbol-top: calc(283px - var(--contact-hero-header-offset));
+  --contact-hero-background:
+    radial-gradient(250px 242px at 246px calc(24px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+    radial-gradient(221px 254px at 217px calc(15px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+    radial-gradient(258px 233px at 180px calc(646px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+    var(--contact-hero-color-surface);
+
+  position: relative;
+  overflow: clip;
+  min-height: var(--contact-hero-height);
+  background: var(--contact-hero-background);
+  color: var(--contact-hero-color-text);
+  font-family: var(--contact-hero-font-family);
+}
+
+.contact-hero .contact-hero-body {
+  position: relative;
+  box-sizing: border-box;
+  max-width: var(--contact-hero-max-width);
+  min-height: var(--contact-hero-height);
+  margin-inline: auto;
+  padding: var(--contact-hero-padding-top) var(--contact-hero-padding-inline) 0;
+}
+
+/* heading and description */
+.contact-hero .contact-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--contact-hero-gap);
+  max-width: var(--contact-hero-content-width);
+}
+
+.contact-hero .contact-hero-content > * {
+  margin: 0;
+}
+
+.contact-hero .contact-hero-title {
+  color: inherit;
+  font-family: var(--contact-hero-font-family);
+  font-size: var(--contact-hero-title-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--contact-hero-title-line);
+  letter-spacing: var(--contact-hero-title-tracking);
+}
+
+.contact-hero .contact-hero-title :is(strong, b) {
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-hero .contact-hero-content > :not(.contact-hero-title) {
+  font-size: var(--contact-hero-body-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--contact-hero-body-line);
+}
+
+/* brand symbol and illustration */
+.contact-hero .contact-hero-visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact-hero .contact-hero-symbol {
+  position: absolute;
+  top: var(--contact-hero-symbol-top);
+  left: var(--contact-hero-symbol-left);
+  width: var(--contact-hero-symbol-width);
+  height: var(--contact-hero-symbol-height);
+  background-color: var(--contact-hero-color-symbol);
+  mask: url('../../icons/brand-symbol.svg') left top / 100% 100% no-repeat;
+}
+
+.contact-hero .contact-hero-illustration {
+  position: absolute;
+  inset: var(--contact-hero-illustration-top) var(--contact-hero-illustration-right) var(--contact-hero-illustration-bottom) var(--contact-hero-illustration-left);
+  width: var(--contact-hero-illustration-width);
+  height: var(--contact-hero-illustration-height);
+}
+
+.contact-hero .contact-hero-illustration picture,
+.contact-hero .contact-hero-illustration img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-hero .contact-hero-illustration img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.contact-hero .contact-hero-illustration-has-mobile .contact-hero-illustration-default {
+  display: none;
+}
+
+@media (width >= 600px) {
+  .contact-hero {
+    --contact-hero-illustration-width: 280px;
+    --contact-hero-illustration-height: 242px;
+    --contact-hero-symbol-width: 330px;
+    --contact-hero-symbol-height: 197px;
+    --contact-hero-symbol-left: auto;
+  }
+
+  .contact-hero .contact-hero-symbol {
+    right: -40px;
+  }
+}
+
+@media (width >= 900px) {
+  .contact-hero {
+    --contact-hero-title-size: 52px;
+    --contact-hero-title-line: 60px;
+    --contact-hero-title-tracking: normal;
+    --contact-hero-body-size: var(--body-1-font-size);
+    --contact-hero-body-line: var(--body-1-line-height);
+    --contact-hero-height: calc(496px - var(--contact-hero-header-offset));
+    --contact-hero-padding-top: calc(160px - var(--contact-hero-header-offset));
+    --contact-hero-padding-inline: 50px;
+    --contact-hero-illustration-width: 448px;
+    --contact-hero-illustration-height: 388px;
+    --contact-hero-illustration-left: 680px;
+    --contact-hero-illustration-right: auto;
+    --contact-hero-illustration-top: calc(194px - var(--contact-hero-header-offset));
+
+    /* the illustration is cropped at the bottom of the banner, as in Figma */
+    --contact-hero-illustration-bottom: auto;
+    --contact-hero-symbol-width: 610px;
+    --contact-hero-symbol-height: 367px;
+    --contact-hero-symbol-left: 607px;
+    --contact-hero-symbol-top: calc(139px - var(--contact-hero-header-offset));
+    --contact-hero-background:
+      radial-gradient(409px 396px at calc(50% - 337px) calc(78px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+      radial-gradient(306px 296px at calc(50% + 361px) calc(37px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+      radial-gradient(327px 295px at calc(50% + 421px) calc(527px - var(--contact-hero-header-offset)), var(--contact-hero-color-shadow) 0%, var(--contact-hero-color-shadow) 30%, transparent 100%),
+      var(--contact-hero-color-surface);
+  }
+
+  .contact-hero .contact-hero-symbol {
+    right: auto;
+  }
+
+  .contact-hero .contact-hero-illustration-has-mobile .contact-hero-illustration-default {
+    display: block;
+  }
+
+  .contact-hero .contact-hero-illustration-has-mobile .contact-hero-illustration-mobile {
+    display: none;
+  }
+}

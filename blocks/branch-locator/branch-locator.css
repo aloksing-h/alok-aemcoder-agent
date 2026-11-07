@@ -1,0 +1,778 @@
+/* space around the section, as in Figma (sections cannot set their spacing in this project) */
+main > .section.branch-locator-container {
+  margin-block: 90px;
+}
+
+@media (width >= 900px) {
+  main > .section.branch-locator-container {
+    margin-block: 140px;
+  }
+}
+
+.branch-locator {
+  /* colors */
+  --branch-locator-color-heading: var(--text-primary);
+  --branch-locator-color-body: var(--text-tertiary);
+  --branch-locator-color-detail: var(--text-secondary);
+  --branch-locator-color-label: var(--text-quaternary);
+  --branch-locator-color-name: var(--base-black);
+  --branch-locator-color-panel: var(--blue-25);
+  --branch-locator-color-panel-border: var(--border-secondary);
+  --branch-locator-color-field: var(--base-white);
+  --branch-locator-color-border: var(--border-primary);
+  --branch-locator-color-border-hover: var(--gray-400);
+  --branch-locator-color-border-focus: var(--brand-blue-500);
+  --branch-locator-color-card: var(--blue-25);
+  --branch-locator-color-card-border: var(--blue-100);
+  --branch-locator-color-card-hover: linear-gradient(180deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+  --branch-locator-color-icon: linear-gradient(160deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+  --branch-locator-color-accent: var(--brand-red-600);
+  --branch-locator-color-accent-strong: var(--brand-red-500);
+  --branch-locator-color-accent-hover: var(--brand-red-700);
+  --branch-locator-color-error: var(--text-error);
+  --branch-locator-color-button: var(--gray-100);
+
+  /* the inactive button text keeps 4.5:1 contrast, one step darker than Figma */
+  --branch-locator-color-button-text: var(--text-tertiary);
+  --branch-locator-color-button-arrow: var(--gray-400);
+  --branch-locator-color-page: var(--brand-blue-600);
+  --branch-locator-color-page-border: var(--border-secondary);
+  --branch-locator-color-divider: var(--border-primary);
+  --branch-locator-color-white: var(--base-white);
+  --branch-locator-color-focus: var(--info-500);
+
+  /* typography */
+  --branch-locator-font-family: var(--heading-font-family);
+  --branch-locator-title-size: var(--heading-3-font-size);
+  --branch-locator-title-line: var(--heading-3-line-height);
+  --branch-locator-title-tracking: var(--heading-3-letter-spacing);
+  --branch-locator-lead-size: var(--body-2-font-size);
+  --branch-locator-lead-line: var(--body-2-line-height);
+  --branch-locator-panel-title-size: var(--body-2-font-size);
+  --branch-locator-panel-title-line: var(--body-2-line-height);
+  --branch-locator-panel-text-size: var(--disclaimer-font-size);
+  --branch-locator-panel-text-line: var(--disclaimer-line-height);
+  --branch-locator-search-size: var(--button-2-font-size);
+  --branch-locator-search-line: var(--button-2-line-height);
+
+  /* spacing and sizes */
+  --branch-locator-header-gap: var(--spacing-md);
+  --branch-locator-header-space: 30px;
+  --branch-locator-radius: var(--radius-md);
+  --branch-locator-map-height: 200px;
+  --branch-locator-panel-padding: var(--spacing-xl);
+  --branch-locator-intro-space: var(--spacing-lg);
+  --branch-locator-near-space: var(--spacing-3xl);
+  --branch-locator-search-space: var(--spacing-xl);
+  --branch-locator-field-height: 40px;
+  --branch-locator-search-height: 38px;
+  --branch-locator-search-arrow: 30px;
+  --branch-locator-results-space: var(--spacing-3xl);
+  --branch-locator-cards-gap: var(--spacing-xl);
+  --branch-locator-card-padding: var(--spacing-xl);
+  --branch-locator-motion: 0.2s ease;
+
+  font-family: var(--branch-locator-font-family);
+}
+
+.branch-locator .branch-locator-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.branch-locator :is(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--branch-locator-color-focus);
+  outline-offset: 2px;
+}
+
+/* icons */
+.branch-locator .branch-locator-icon {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  background-color: currentcolor;
+  mask: var(--branch-locator-icon-image) center / contain no-repeat;
+}
+
+.branch-locator .branch-locator-icon-location {
+  --branch-locator-icon-image: url('../../icons/location.svg');
+}
+
+.branch-locator .branch-locator-icon-phone {
+  --branch-locator-icon-image: url('../../icons/phone.svg');
+}
+
+.branch-locator .branch-locator-icon-search {
+  --branch-locator-icon-image: url('../../icons/search.svg');
+}
+
+.branch-locator .branch-locator-icon-chevron {
+  --branch-locator-icon-image: url('../../icons/chevron-down.svg');
+}
+
+.branch-locator .branch-locator-icon-chevron-left {
+  --branch-locator-icon-image: url('../../icons/chevron-left.svg');
+}
+
+.branch-locator .branch-locator-icon-chevron-right {
+  --branch-locator-icon-image: url('../../icons/chevron-right.svg');
+}
+
+.branch-locator .branch-locator-icon-arrow {
+  --branch-locator-icon-image: url('../../icons/arrow-right.svg');
+}
+
+.branch-locator .branch-locator-icon-share {
+  --branch-locator-icon-image: url('../../icons/share.svg');
+}
+
+/* heading and description */
+.branch-locator .branch-locator-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--branch-locator-header-gap);
+  margin-bottom: var(--branch-locator-header-space);
+}
+
+.branch-locator .branch-locator-header > * {
+  margin: 0;
+  color: var(--branch-locator-color-body);
+  font-size: var(--branch-locator-lead-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--branch-locator-lead-line);
+}
+
+.branch-locator .branch-locator-header > .branch-locator-title {
+  color: var(--branch-locator-color-heading);
+  font-size: var(--branch-locator-title-size);
+  font-weight: var(--font-weight-light);
+  line-height: var(--branch-locator-title-line);
+  letter-spacing: var(--branch-locator-title-tracking);
+}
+
+.branch-locator .branch-locator-title :is(strong, b) {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* map and search panel */
+.branch-locator .branch-locator-finder {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--branch-locator-color-panel-border);
+  border-radius: var(--branch-locator-radius);
+  background-color: var(--branch-locator-color-panel);
+}
+
+.branch-locator .branch-locator-map {
+  position: relative;
+  height: var(--branch-locator-map-height);
+  overflow: hidden;
+  background-color: var(--branch-locator-color-card-border);
+}
+
+
+/* the map image fills the map area; the search panel sets the height on desktop */
+.branch-locator .branch-locator-map > picture,
+.branch-locator .branch-locator-map > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.branch-locator .branch-locator-map img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 46% 59%;
+}
+
+.branch-locator .branch-locator-panel {
+  display: flex;
+  flex-direction: column;
+  padding: var(--branch-locator-panel-padding);
+}
+
+.branch-locator .branch-locator-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--branch-locator-intro-space);
+}
+
+.branch-locator .branch-locator-intro > * {
+  margin: 0;
+  color: var(--branch-locator-color-body);
+  font-size: var(--branch-locator-panel-text-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--branch-locator-panel-text-line);
+}
+
+.branch-locator .branch-locator-intro > :first-child {
+  color: var(--branch-locator-color-heading);
+  font-size: var(--branch-locator-panel-title-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--branch-locator-panel-title-line);
+}
+
+.branch-locator .branch-locator-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.branch-locator .branch-locator-near-me {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--spacing-xs);
+  height: 32px;
+  margin: 0 0 var(--branch-locator-near-space);
+  padding: 0 var(--spacing-lg);
+  border: 1px solid var(--branch-locator-color-accent);
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--branch-locator-color-accent);
+  font-family: inherit;
+  font-size: var(--button-3-font-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--button-3-line-height);
+  cursor: pointer;
+  transition: background-color var(--branch-locator-motion), color var(--branch-locator-motion);
+}
+
+.branch-locator .branch-locator-near-me[hidden] {
+  display: none;
+}
+
+.branch-locator .branch-locator-near-me:hover:not(:disabled) {
+  background-color: var(--branch-locator-color-accent);
+  color: var(--branch-locator-color-white);
+}
+
+.branch-locator .branch-locator-near-me[aria-busy='true'] {
+  cursor: progress;
+}
+
+.branch-locator .branch-locator-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.branch-locator .branch-locator-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--branch-locator-field-height);
+  margin: 0;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: 1px solid var(--branch-locator-color-border);
+  border-radius: var(--radius-none);
+  background-color: var(--branch-locator-color-field);
+  color: var(--branch-locator-color-heading);
+  font-family: inherit;
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--body-2-line-height);
+  transition: border-color var(--branch-locator-motion);
+  appearance: none;
+}
+
+.branch-locator .branch-locator-input:hover {
+  border-color: var(--branch-locator-color-border-hover);
+}
+
+.branch-locator .branch-locator-input:focus {
+  border-color: var(--branch-locator-color-border-focus);
+}
+
+.branch-locator .branch-locator-input:disabled {
+  cursor: not-allowed;
+  border-color: var(--branch-locator-color-border);
+  opacity: 0.6;
+}
+
+.branch-locator .branch-locator-input::placeholder {
+  color: var(--branch-locator-color-label);
+  opacity: 1;
+}
+
+.branch-locator .branch-locator-input[aria-invalid='true'] {
+  border-color: var(--border-error);
+}
+
+/* the pincode search bar */
+.branch-locator .branch-locator-pincode {
+  position: relative;
+}
+
+.branch-locator .branch-locator-pincode .branch-locator-icon-search {
+  position: absolute;
+  top: 50%;
+  left: var(--spacing-xl);
+  color: var(--branch-locator-color-label);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.branch-locator .branch-locator-pincode .branch-locator-input {
+  padding-left: calc(var(--spacing-xl) + 22px);
+  border-radius: var(--spacing-6xl);
+}
+
+.branch-locator .branch-locator-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--branch-locator-color-detail);
+  font-size: var(--caption-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--caption-line-height);
+}
+
+.branch-locator .branch-locator-or::before,
+.branch-locator .branch-locator-or::after {
+  flex: 1;
+  border-top: 1px solid var(--branch-locator-color-divider);
+  content: '';
+}
+
+/* state and city, with floating labels */
+.branch-locator .branch-locator-area {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.branch-locator .branch-locator-select {
+  position: relative;
+}
+
+.branch-locator .branch-locator-select .branch-locator-input {
+  padding-right: calc(var(--spacing-xl) + 28px);
+  cursor: pointer;
+}
+
+.branch-locator .branch-locator-label {
+  position: absolute;
+  top: calc(var(--branch-locator-field-height) / 2);
+  left: calc(var(--spacing-xl) + 1px);
+  color: var(--branch-locator-color-label);
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--body-2-line-height);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: top var(--branch-locator-motion), font-size var(--branch-locator-motion);
+}
+
+.branch-locator .branch-locator-select:is(:focus-within, .branch-locator-filled) .branch-locator-label {
+  top: 0;
+  left: calc(var(--spacing-xl) - var(--spacing-xs));
+  padding-inline: var(--spacing-xs);
+  background-color: var(--branch-locator-color-field);
+  color: var(--branch-locator-color-body);
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.branch-locator .branch-locator-select .branch-locator-icon-chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-lg);
+  color: var(--branch-locator-color-label);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.branch-locator .branch-locator-error {
+  margin: var(--spacing-md) 0 0;
+  color: var(--branch-locator-color-error);
+  font-size: var(--caption-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--caption-line-height);
+}
+
+.branch-locator .branch-locator-error:empty {
+  margin: 0;
+}
+
+/* search button */
+.branch-locator .branch-locator-search {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: var(--spacing-lg);
+  box-sizing: border-box;
+  height: var(--branch-locator-search-height);
+  margin: var(--branch-locator-search-space) 0 0;
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-2xl);
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--branch-locator-color-button);
+  color: var(--branch-locator-color-button-text);
+  font-family: inherit;
+  font-size: var(--branch-locator-search-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--branch-locator-search-line);
+  cursor: pointer;
+  transition: background-color var(--branch-locator-motion), color var(--branch-locator-motion);
+}
+
+.branch-locator .branch-locator-search-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--branch-locator-search-arrow);
+  height: var(--branch-locator-search-arrow);
+  border-radius: var(--radius-full);
+  background-color: var(--branch-locator-color-white);
+  color: var(--branch-locator-color-button-arrow);
+}
+
+.branch-locator .branch-locator-search:disabled {
+  cursor: not-allowed;
+}
+
+.branch-locator .branch-locator-ready .branch-locator-search {
+  background-color: var(--branch-locator-color-accent);
+  color: var(--branch-locator-color-white);
+}
+
+.branch-locator .branch-locator-ready .branch-locator-search:hover {
+  background-color: var(--branch-locator-color-accent-hover);
+}
+
+.branch-locator .branch-locator-ready .branch-locator-search-arrow {
+  color: var(--branch-locator-color-accent);
+}
+
+/* results */
+.branch-locator .branch-locator-results {
+  scroll-margin-top: calc(var(--nav-height, 64px) + var(--spacing-xl));
+}
+
+.branch-locator .branch-locator-summary {
+  margin: var(--branch-locator-results-space) 0 0;
+  color: var(--branch-locator-color-body);
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--body-2-line-height);
+  text-align: center;
+}
+
+.branch-locator .branch-locator-summary:empty {
+  display: none;
+}
+
+.branch-locator .branch-locator-summary:focus {
+  outline: none;
+}
+
+.branch-locator .branch-locator-list {
+  display: grid;
+  gap: var(--branch-locator-cards-gap);
+  margin: var(--branch-locator-results-space) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.branch-locator .branch-locator-list[hidden] {
+  display: none;
+}
+
+.branch-locator .branch-locator-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-3xl);
+  padding: var(--branch-locator-card-padding);
+  border: 1px solid transparent;
+  border-radius: var(--branch-locator-radius);
+  background:
+    linear-gradient(var(--branch-locator-color-card), var(--branch-locator-color-card)) padding-box,
+    linear-gradient(var(--branch-locator-color-card-border), var(--branch-locator-color-card-border)) border-box;
+}
+
+.branch-locator .branch-locator-card:is(:hover, :focus-within) {
+  background:
+    linear-gradient(var(--branch-locator-color-card), var(--branch-locator-color-card)) padding-box,
+    var(--branch-locator-color-card-hover) border-box;
+}
+
+.branch-locator .branch-locator-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.branch-locator .branch-locator-name {
+  margin: 0;
+  color: var(--branch-locator-color-name);
+  font-family: inherit;
+  font-size: var(--body-1-font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--body-1-line-height);
+}
+
+.branch-locator .branch-locator-address,
+.branch-locator .branch-locator-phones {
+  display: flex;
+  margin: 0;
+  color: var(--branch-locator-color-detail);
+  font-size: var(--caption-font-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--caption-line-height);
+}
+
+.branch-locator .branch-locator-address {
+  gap: var(--spacing-lg);
+}
+
+.branch-locator .branch-locator-phones {
+  flex-wrap: wrap;
+  gap: var(--spacing-md) var(--spacing-3xl);
+}
+
+.branch-locator .branch-locator-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  min-height: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.branch-locator .branch-locator-phone:hover {
+  text-decoration: underline;
+}
+
+.branch-locator .branch-locator-address .branch-locator-icon,
+.branch-locator .branch-locator-phone .branch-locator-icon {
+  width: 16px;
+  height: 16px;
+  background: var(--branch-locator-color-icon);
+}
+
+.branch-locator .branch-locator-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+}
+
+.branch-locator .branch-locator-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  min-height: 32px;
+  color: var(--branch-locator-color-heading);
+  font-size: var(--button-2-font-size);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--button-2-line-height);
+  text-decoration: none;
+}
+
+.branch-locator .branch-locator-directions-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background-color: var(--branch-locator-color-accent-strong);
+  color: var(--branch-locator-color-white);
+  transition: transform var(--branch-locator-motion);
+}
+
+.branch-locator .branch-locator-directions:hover .branch-locator-directions-arrow {
+  transform: translateX(2px);
+}
+
+.branch-locator .branch-locator-directions-arrow .branch-locator-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.branch-locator .branch-locator-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--branch-locator-color-white);
+  color: var(--branch-locator-color-accent-strong);
+  cursor: pointer;
+}
+
+.branch-locator .branch-locator-share:hover {
+  background-color: var(--brand-red-25);
+}
+
+/* pages */
+.branch-locator .branch-locator-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-2xl);
+}
+
+.branch-locator .branch-locator-pagination[hidden] {
+  display: none;
+}
+
+.branch-locator .branch-locator-pages {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.branch-locator .branch-locator-page,
+.branch-locator .branch-locator-page-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.branch-locator .branch-locator-page {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--branch-locator-color-page-border);
+  border-radius: var(--radius-md);
+  background-color: var(--branch-locator-color-white);
+  color: var(--branch-locator-color-heading);
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--body-2-line-height);
+}
+
+.branch-locator .branch-locator-page:hover {
+  border-color: var(--branch-locator-color-page);
+}
+
+.branch-locator .branch-locator-page[aria-current='page'] {
+  border-color: var(--branch-locator-color-page);
+  background-color: var(--branch-locator-color-page);
+  color: var(--branch-locator-color-white);
+}
+
+.branch-locator .branch-locator-page-step {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--branch-locator-color-accent);
+}
+
+.branch-locator .branch-locator-page-step:disabled {
+  color: var(--branch-locator-color-label);
+  cursor: default;
+}
+
+.branch-locator .branch-locator-page-gap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  box-sizing: border-box;
+  border: 1px solid var(--branch-locator-color-page-border);
+  border-radius: var(--radius-md);
+  color: var(--branch-locator-color-heading);
+  font-size: var(--body-2-font-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (width >= 600px) {
+  .branch-locator .branch-locator-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .branch-locator .branch-locator-area {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  .branch-locator {
+    --branch-locator-title-size: var(--heading-1-font-size);
+    --branch-locator-title-line: var(--heading-1-line-height);
+    --branch-locator-title-tracking: normal;
+    --branch-locator-lead-size: var(--body-1-font-size);
+    --branch-locator-lead-line: var(--body-1-line-height);
+    --branch-locator-header-space: 50px;
+    --branch-locator-panel-padding: var(--spacing-3xl);
+    --branch-locator-panel-title-size: var(--body-1-font-size);
+    --branch-locator-panel-title-line: var(--body-1-line-height);
+    --branch-locator-panel-text-size: var(--caption-font-size);
+    --branch-locator-panel-text-line: var(--caption-line-height);
+    --branch-locator-intro-space: var(--spacing-xl);
+    --branch-locator-search-space: var(--spacing-2xl);
+    --branch-locator-search-height: 40px;
+    --branch-locator-search-arrow: 32px;
+    --branch-locator-search-size: var(--button-1-font-size);
+    --branch-locator-search-line: var(--button-1-line-height);
+    --branch-locator-cards-gap: var(--spacing-2xl);
+    --branch-locator-card-padding: var(--spacing-2xl);
+  }
+
+  .branch-locator .branch-locator-header {
+    align-items: center;
+    max-width: 726px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .branch-locator .branch-locator-finder {
+    grid-template-columns: minmax(0, 675fr) minmax(0, 425fr);
+  }
+
+  .branch-locator .branch-locator-map {
+    height: auto;
+    min-height: 296px;
+  }
+
+  .branch-locator .branch-locator-near-me {
+    font-size: var(--button-2-font-size);
+    line-height: var(--button-2-line-height);
+  }
+
+  .branch-locator .branch-locator-or {
+    font-size: var(--body-2-font-size);
+    line-height: var(--body-2-line-height);
+  }
+
+  .branch-locator .branch-locator-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .branch-locator .branch-locator-pagination {
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .branch-locator .branch-locator-input,
+  .branch-locator .branch-locator-label,
+  .branch-locator .branch-locator-near-me,
+  .branch-locator .branch-locator-search,
+  .branch-locator .branch-locator-directions-arrow {
+    transition: none;
+  }
+}
