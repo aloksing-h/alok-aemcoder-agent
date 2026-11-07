@@ -160,6 +160,7 @@ export default function decorate(block) {
 
   // the form takes the place of the cards and banner while it is open
   formLinks.forEach(({ link, type }) => connectFormTrigger(type, link, {
+    content: body,
     onOpen: () => {
       body.hidden = true;
       block.classList.add('contact-help-form-open');

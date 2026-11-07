@@ -46,6 +46,9 @@ const UI = {
 
 const PAGE_SIZE = 6;
 
+// the prototype's dissolve to the results: about 550ms with Figma's ease out
+const DISSOLVE = { duration: 550, easing: 'cubic-bezier(0, 0, 0.58, 1)' };
+
 let locatorCount = 0;
 
 function icon(name) {
@@ -60,6 +63,29 @@ function element(tag, className, text) {
   if (className) el.className = className;
   if (text) el.textContent = text;
   return el;
+}
+
+/**
+ * Shows new results with a cross-fade of the page, like the prototype. Without view
+ * transitions the results fade in; with reduced motion they appear at once.
+ * @param {Function} update the DOM change
+ * @param {Element} shown the results, for the fallback fade
+ */
+function dissolve(update, shown) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    update();
+    return;
+  }
+  if (document.startViewTransition) {
+    const root = document.documentElement;
+    root.classList.add('branch-locator-dissolve');
+    document.startViewTransition(update).finished
+      .catch(() => {})
+      .finally(() => root.classList.remove('branch-locator-dissolve'));
+    return;
+  }
+  update();
+  shown.animate([{ opacity: 0 }, { opacity: 1 }], DISSOLVE);
 }
 
 /**
@@ -380,13 +406,13 @@ export default async function decorate(block) {
       results.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }
   };
-  const showResults = (found, text) => {
+  const showResults = (found, text) => dissolve(() => {
     current = found;
     summary.textContent = text;
     block.classList.add('branch-locator-has-results');
     map?.showBranches(found);
     showPage(1, false);
-  };
+  }, results);
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();

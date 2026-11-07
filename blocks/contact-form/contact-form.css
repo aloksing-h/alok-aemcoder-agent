@@ -12,7 +12,6 @@
   --contact-form-color-border-focus: var(--brand-blue-500);
   --contact-form-color-focus: var(--info-500);
   --contact-form-color-accent: var(--brand-red-600);
-  --contact-form-color-accent-hover: var(--brand-red-700);
   --contact-form-color-error: var(--text-error);
   --contact-form-color-error-border: var(--border-error);
   --contact-form-color-button: var(--gray-100);
@@ -60,6 +59,16 @@
 
 .contact-form[hidden] {
   display: none;
+}
+
+/*
+ * Opening and closing the form cross-fade the page, as the prototype's dissolve
+ * (measured: about 550ms with Figma's ease out). The class is set only while it runs.
+ */
+html.contact-form-dissolve::view-transition-old(root),
+html.contact-form-dissolve::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
 .contact-form .contact-form-visually-hidden {
@@ -119,10 +128,6 @@
   display: none;
 }
 
-.contact-form .contact-form-close:hover {
-  background-color: var(--contact-form-color-accent);
-  color: var(--contact-form-color-white);
-}
 
 .contact-form .contact-form-close .contact-form-icon {
   width: var(--contact-form-close-icon);
@@ -455,9 +460,6 @@
   color: var(--contact-form-color-white);
 }
 
-.contact-form .contact-form-ready .contact-form-submit:hover {
-  background-color: var(--contact-form-color-accent-hover);
-}
 
 .contact-form .contact-form-ready .contact-form-submit-arrow {
   color: var(--contact-form-color-accent);

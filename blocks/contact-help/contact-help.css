@@ -16,7 +16,14 @@ main > .section.contact-help-container {
   --contact-help-color-label: var(--text-quaternary);
   --contact-help-color-card: var(--blue-25);
   --contact-help-color-border: var(--brand-blue-50);
-  --contact-help-color-border-hover: linear-gradient(180deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+
+  /* hover border, as in the prototype: dark red at the top to red from 60% down */
+  --contact-help-color-border-dark: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--brand-red-900) 75%, var(--brand-red-600)) 85%,
+    var(--gray-500)
+  );
+  --contact-help-color-border-hover: linear-gradient(180deg, var(--contact-help-color-border-dark) 0%, var(--brand-red-600) 60%);
   --contact-help-color-icon: linear-gradient(160deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
   --contact-help-color-icon-glow: var(--brand-red-100);
   --contact-help-color-accent: var(--brand-red-600);
@@ -55,7 +62,10 @@ main > .section.contact-help-container {
   --contact-help-banner-icon: 60px;
   --contact-help-button-height: 38px;
   --contact-help-button-arrow: 30px;
-  --contact-help-motion: 0.2s ease;
+
+  /* card hover, measured in the prototype: a 12px lift with Figma's ease out */
+  --contact-help-lift: -12px;
+  --contact-help-motion: 0.45s cubic-bezier(0, 0, 0.58, 1);
 
   font-family: var(--contact-help-font-family);
 }
@@ -160,6 +170,7 @@ main > .section.contact-help-container {
 }
 
 .contact-help .contact-help-link {
+  position: relative;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -177,16 +188,47 @@ main > .section.contact-help-container {
   text-align: left;
   text-decoration: none;
   cursor: pointer;
+  transition: transform var(--contact-help-motion);
+}
+
+/* the hover border fades in over the resting one, a gradient cannot transition itself */
+.contact-help .contact-help-link::after {
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--contact-help-color-border-hover);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--contact-help-motion);
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
 .contact-help div.contact-help-link {
   cursor: default;
 }
 
-.contact-help :is(a, button).contact-help-link:hover {
-  background:
-    linear-gradient(var(--contact-help-color-card), var(--contact-help-color-card)) padding-box,
-    var(--contact-help-color-border-hover) border-box;
+/*
+ * The list item stays in place and takes the hover, so the card does not move away from
+ * the pointer at its lower edge. Touch screens get no hover state.
+ */
+@media (hover: hover) {
+  .contact-help .contact-help-card:hover > :is(a, button).contact-help-link {
+    transform: translateY(var(--contact-help-lift));
+  }
+
+  .contact-help .contact-help-card:hover > :is(a, button).contact-help-link::after {
+    opacity: 1;
+  }
+}
+
+.contact-help :is(a, button).contact-help-link:focus-visible {
+  transform: translateY(var(--contact-help-lift));
+}
+
+.contact-help :is(a, button).contact-help-link:focus-visible::after {
+  opacity: 1;
 }
 
 .contact-help .contact-help-link > .contact-help-icon {
@@ -338,11 +380,6 @@ main > .section.contact-help-container {
   border-radius: var(--radius-full);
   background-color: var(--contact-help-color-button-arrow);
   color: var(--contact-help-color-white);
-  transition: transform var(--contact-help-motion);
-}
-
-.contact-help .contact-help-button:hover .contact-help-button-arrow {
-  transform: translateX(2px);
 }
 
 .contact-help .contact-help-button-arrow .contact-help-icon {
@@ -430,7 +467,8 @@ main > .section.contact-help-container {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-help .contact-help-button-arrow {
+  .contact-help .contact-help-link,
+  .contact-help .contact-help-link::after {
     transition: none;
   }
 }

@@ -301,7 +301,8 @@ function updateFilled(field) {
  * The trigger becomes a button that shows the form in place of the cards.
  * @param {string} type form type, the id of the form
  * @param {HTMLAnchorElement} trigger
- * @param {{ onOpen?: Function, onClose?: Function }} [handlers]
+ * @param {{ onOpen?: Function, onClose?: Function, content?: Element }} [handlers] content is
+ *   what shows again when the form closes
  */
 export function connectFormTrigger(type, trigger, handlers = {}) {
   const entry = { trigger, ...handlers };
@@ -312,6 +313,35 @@ export function connectFormTrigger(type, trigger, handlers = {}) {
     if (!waiting.has(type)) waiting.set(type, []);
     waiting.get(type).push(entry);
   }
+}
+
+// the prototype's dissolve: about 550ms with Figma's ease out (see contact-form.css)
+const DISSOLVE = { duration: 550, easing: 'cubic-bezier(0, 0, 0.58, 1)' };
+
+/**
+ * Swaps the cards and the form with a cross-fade of the page, like the prototype.
+ * Without view transitions the newly shown content fades in; with reduced motion the
+ * swap is instant.
+ * @param {Function} update the DOM change
+ * @param {Element} [shown] the content that appears, for the fallback fade
+ * @returns {Promise<void>} resolves when the change is visible
+ */
+function dissolve(update, shown) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    update();
+    return Promise.resolve();
+  }
+  if (document.startViewTransition) {
+    const root = document.documentElement;
+    root.classList.add('contact-form-dissolve');
+    const transition = document.startViewTransition(update);
+    return transition.finished
+      .catch(() => {})
+      .finally(() => root.classList.remove('contact-form-dissolve'));
+  }
+  update();
+  shown?.animate([{ opacity: 0 }, { opacity: 1 }], DISSOLVE);
+  return Promise.resolve();
 }
 
 function toButton(link) {
@@ -508,18 +538,21 @@ export default function decorate(block) {
   });
   const closeForm = () => {
     if (block.hidden || !triggers.length) return;
-    block.hidden = true;
-    setExpanded(false);
-    triggers.forEach((entry) => entry.onClose?.());
-    (active?.trigger || triggers[0].trigger).focus();
+    const trigger = active?.trigger || triggers[0].trigger;
+    dissolve(() => {
+      block.hidden = true;
+      setExpanded(false);
+      triggers.forEach((entry) => entry.onClose?.());
+    }, active?.content).then(() => trigger.focus());
     active = null;
   };
   const openForm = (entry) => {
     active = entry;
-    triggers.forEach((item) => item.onOpen?.());
-    block.hidden = false;
-    setExpanded(true);
-    (title || form.querySelector('input, select, textarea'))?.focus();
+    dissolve(() => {
+      triggers.forEach((item) => item.onOpen?.());
+      block.hidden = false;
+      setExpanded(true);
+    }, block).then(() => (title || form.querySelector('input, select, textarea'))?.focus());
   };
   close.addEventListener('click', closeForm);
   block.addEventListener('keydown', (event) => {

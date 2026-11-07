@@ -9,6 +9,16 @@ main > .section.branch-locator-container {
   }
 }
 
+/*
+ * Showing results cross-fades the page, as the prototype's dissolve (measured: about
+ * 550ms with Figma's ease out). The class is set only while it runs.
+ */
+html.branch-locator-dissolve::view-transition-old(root),
+html.branch-locator-dissolve::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
+}
+
 .branch-locator {
   /* colors */
   --branch-locator-color-heading: var(--text-primary);
@@ -24,11 +34,17 @@ main > .section.branch-locator-container {
   --branch-locator-color-border-focus: var(--brand-blue-500);
   --branch-locator-color-card: var(--blue-25);
   --branch-locator-color-card-border: var(--blue-100);
-  --branch-locator-color-card-hover: linear-gradient(180deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
+
+  /* hover border, as in the prototype: dark red at the top to red from 60% down */
+  --branch-locator-color-card-dark: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--brand-red-900) 75%, var(--brand-red-600)) 85%,
+    var(--gray-500)
+  );
+  --branch-locator-color-card-hover: linear-gradient(180deg, var(--branch-locator-color-card-dark) 0%, var(--brand-red-600) 60%);
   --branch-locator-color-icon: linear-gradient(160deg, var(--brand-red-900) 0%, var(--brand-red-600) 100%);
   --branch-locator-color-accent: var(--brand-red-600);
   --branch-locator-color-accent-strong: var(--brand-red-500);
-  --branch-locator-color-accent-hover: var(--brand-red-700);
   --branch-locator-color-error: var(--text-error);
   --branch-locator-color-button: var(--gray-100);
 
@@ -71,6 +87,10 @@ main > .section.branch-locator-container {
   --branch-locator-cards-gap: var(--spacing-xl);
   --branch-locator-card-padding: var(--spacing-xl);
   --branch-locator-motion: 0.2s ease;
+
+  /* card hover, measured in the prototype: a 12px lift with Figma's ease out */
+  --branch-locator-lift: 12px;
+  --branch-locator-card-motion: 0.45s cubic-bezier(0, 0, 0.58, 1);
 
   font-family: var(--branch-locator-font-family);
 }
@@ -248,11 +268,6 @@ main > .section.branch-locator-container {
 
 .branch-locator .branch-locator-near-me[hidden] {
   display: none;
-}
-
-.branch-locator .branch-locator-near-me:hover:not(:disabled) {
-  background-color: var(--branch-locator-color-accent);
-  color: var(--branch-locator-color-white);
 }
 
 .branch-locator .branch-locator-near-me[aria-busy='true'] {
@@ -445,10 +460,6 @@ main > .section.branch-locator-container {
   color: var(--branch-locator-color-white);
 }
 
-.branch-locator .branch-locator-ready .branch-locator-search:hover {
-  background-color: var(--branch-locator-color-accent-hover);
-}
-
 .branch-locator .branch-locator-ready .branch-locator-search-arrow {
   color: var(--branch-locator-color-accent);
 }
@@ -488,6 +499,7 @@ main > .section.branch-locator-container {
 }
 
 .branch-locator .branch-locator-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -498,12 +510,50 @@ main > .section.branch-locator-container {
   background:
     linear-gradient(var(--branch-locator-color-card), var(--branch-locator-color-card)) padding-box,
     linear-gradient(var(--branch-locator-color-card-border), var(--branch-locator-color-card-border)) border-box;
+  transition: transform var(--branch-locator-card-motion);
 }
 
-.branch-locator .branch-locator-card:is(:hover, :focus-within) {
-  background:
-    linear-gradient(var(--branch-locator-color-card), var(--branch-locator-color-card)) padding-box,
-    var(--branch-locator-color-card-hover) border-box;
+/* the hover border fades in over the resting one, a gradient cannot transition itself */
+.branch-locator .branch-locator-card::after {
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--branch-locator-color-card-hover);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--branch-locator-card-motion);
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+.branch-locator .branch-locator-card:focus-within {
+  transform: translateY(calc(-1 * var(--branch-locator-lift)));
+}
+
+.branch-locator .branch-locator-card:focus-within::after {
+  opacity: 1;
+}
+
+/* touch screens get no hover state */
+@media (hover: hover) {
+  .branch-locator .branch-locator-card:hover {
+    transform: translateY(calc(-1 * var(--branch-locator-lift)));
+  }
+
+  .branch-locator .branch-locator-card:hover::after {
+    opacity: 1;
+  }
+
+  /* the lifted card keeps its hover area down to where it rests, so it does not flicker */
+  .branch-locator .branch-locator-card:hover::before {
+    position: absolute;
+    right: 0;
+    bottom: calc(-1 * var(--branch-locator-lift));
+    left: 0;
+    height: var(--branch-locator-lift);
+    content: '';
+  }
 }
 
 .branch-locator .branch-locator-card-content {
@@ -588,11 +638,6 @@ main > .section.branch-locator-container {
   border-radius: var(--radius-full);
   background-color: var(--branch-locator-color-accent-strong);
   color: var(--branch-locator-color-white);
-  transition: transform var(--branch-locator-motion);
-}
-
-.branch-locator .branch-locator-directions:hover .branch-locator-directions-arrow {
-  transform: translateX(2px);
 }
 
 .branch-locator .branch-locator-directions-arrow .branch-locator-icon {
@@ -614,9 +659,6 @@ main > .section.branch-locator-container {
   cursor: pointer;
 }
 
-.branch-locator .branch-locator-share:hover {
-  background-color: var(--brand-red-25);
-}
 
 /* pages */
 .branch-locator .branch-locator-pagination {
@@ -661,9 +703,6 @@ main > .section.branch-locator-container {
   line-height: var(--body-2-line-height);
 }
 
-.branch-locator .branch-locator-page:hover {
-  border-color: var(--branch-locator-color-page);
-}
 
 .branch-locator .branch-locator-page[aria-current='page'] {
   border-color: var(--branch-locator-color-page);
@@ -772,7 +811,8 @@ main > .section.branch-locator-container {
   .branch-locator .branch-locator-label,
   .branch-locator .branch-locator-near-me,
   .branch-locator .branch-locator-search,
-  .branch-locator .branch-locator-directions-arrow {
+  .branch-locator .branch-locator-card,
+  .branch-locator .branch-locator-card::after {
     transition: none;
   }
 }
