@@ -2,6 +2,7 @@
 
 | File | What it is | How to use it |
 |---|---|---|
+| `contact-us-page-1.0.0.zip` | **AEM content package (with all images)**: the page `/content/alok-aemcoder-agent/contact-us` with the Contact Hero, Contact Help (cards and the Request a Life Advisor form), Contact Form and Branch Locator blocks, plus its 2 images (the illustration and the map) in `/content/dam/alok-aemcoder-agent/contact-us`. The branch finder reads the sample data `/drafts/contact-us/branches-sample.json` from the code; set your own branch data URL in the block. Use it with the `contact-us` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `new-components-pages-1.1.0.zip` | **AEM content package (latest, all new components in one)**: the sample pages `insu-banner`, `insight-and-plan-cards` and `impact-and-advisor` with their sample assets, in the new 4-cell field layout of Insight Card, Plan Card and Impact Quote. Use it with the `max-cells-fix` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `impact-and-advisor-page-1.2.0.zip` | **AEM content package (latest, with all images)**: the page `/content/alok-aemcoder-agent/impact-and-advisor` with all 16 Figma images, in the new 4-cell layout of Impact Quote (quote, name and role, portrait, quote icon). Use it with the `max-cells-fix` code | AEM author → CRX Package Manager → Upload Package → Install |
 | `insight-and-plan-cards-page-1.3.0.zip` | **AEM content package (latest, with all images)**: the page `/content/alok-aemcoder-agent/insight-and-plan-cards` with all 39 of its DAM assets: the insight card and plan card illustrations from Figma in `/content/dam/alok-aemcoder-agent/insight-cards` and `/content/dam/alok-aemcoder-agent/plan-cards`, plus a placeholder brochure PDF. 4-cell field layout; use it with the `max-cells-fix` code | AEM author → CRX Package Manager → Upload Package → Install |
@@ -20,7 +21,7 @@
 
 ## After installing a content package
 
-1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links`, `insu-banner-sample`, `insight-and-plan-cards-sample`, `impact-and-advisor-sample`, `impact-cards`, `life-advisor`, `insight-cards` or `plan-cards` under
+1. Assets → open the package's DAM folder (`aemcoder-components`, `promo-and-testimonials`, `category-links`, `insu-banner-sample`, `insight-and-plan-cards-sample`, `impact-and-advisor-sample`, `impact-cards`, `life-advisor`, `insight-cards`, `plan-cards` or `contact-us` under
    `/content/dam/alok-aemcoder-agent/`) → select its assets → Reprocess, then Publish.
 2. The pages also use images that already exist in `/content/dam/alok-aemcoder-agent/`
    (the boilerplate images on the home page).
@@ -34,4 +35,5 @@
    - `https://insu-banner--alok-aemcoder-agent--aloksing-h.aem.page/insu-banner`
    - `https://insight-and-plan-cards-v2--alok-aemcoder-agent--aloksing-h.aem.page/insight-and-plan-cards`
    - `https://impact-and-advisor--alok-aemcoder-agent--aloksing-h.aem.page/impact-and-advisor`
+   - `https://contact-us--alok-aemcoder-agent--aloksing-h.aem.page/contact-us`
    - `https://max-cells-fix--alok-aemcoder-agent--aloksing-h.aem.page/insight-and-plan-cards` and `/impact-and-advisor` (use with the latest packages)
