@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440" role="img" aria-labelledby="title desc">
+  <title id="title">Blog Listing authoring structure</title>
+  <desc id="desc">The Blog Listing block has heading and Blog Index fields followed by Blog, Video, and Podcast image references. Cards are generated from the index and use the matching authored image.</desc>
+  <rect width="720" height="280" fill="#fff"/>
+  <rect x="20" y="20" width="680" height="400" rx="8" fill="#f5f5f5" stroke="#535862"/>
+  <text x="40" y="54" fill="#181d27" font-family="sans-serif" font-size="18" font-weight="700">Blog Listing</text>
+  <rect x="40" y="76" width="640" height="64" rx="6" fill="#fff" stroke="#d5d7da"/>
+  <text x="56" y="99" fill="#181d27" font-family="sans-serif" font-size="14" font-weight="700">Row 0 · Heading &amp; Text · Rich Text</text>
+  <text x="56" y="119" fill="#535862" font-family="sans-serif" font-size="13">Heading and short description</text>
+  <rect x="40" y="140" width="640" height="56" rx="6" fill="#fff" stroke="#d5d7da"/>
+  <text x="56" y="163" fill="#181d27" font-family="sans-serif" font-size="14" font-weight="700">Row 1 · Blog Index · Text / link</text>
+  <text x="56" y="183" fill="#535862" font-family="sans-serif" font-size="13">Query Index URL for card content</text>
+  <rect x="40" y="204" width="640" height="56" rx="6" fill="#fff" stroke="#d5d7da"/>
+  <text x="56" y="227" fill="#181d27" font-family="sans-serif" font-size="14" font-weight="700">Row 2 · Blog Image · DAM reference</text>
+  <text x="56" y="247" fill="#535862" font-family="sans-serif" font-size="13">Artwork used by Blog cards</text>
+  <rect x="40" y="268" width="640" height="56" rx="6" fill="#fff" stroke="#d5d7da"/>
+  <text x="56" y="291" fill="#181d27" font-family="sans-serif" font-size="14" font-weight="700">Row 3 · Video Thumbnail · DAM reference</text>
+  <text x="56" y="311" fill="#535862" font-family="sans-serif" font-size="13">Thumbnail used by Video cards</text>
+  <rect x="40" y="332" width="640" height="56" rx="6" fill="#fff" stroke="#d5d7da"/>
+  <text x="56" y="355" fill="#181d27" font-family="sans-serif" font-size="14" font-weight="700">Row 4 · Podcast Image · DAM reference</text>
+  <text x="56" y="375" fill="#535862" font-family="sans-serif" font-size="13">Artwork used by Podcast cards</text>
+  <text x="40" y="408" fill="#535862" font-family="sans-serif" font-size="12">Cards use the matching authored image, with local artwork as fallback</text>
+</svg>
